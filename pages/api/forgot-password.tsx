@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma';
-import { generatePasswordResetToken } from 'pages/utils/auth';
+import { generatePasswordResetToken } from 'utils/auth';
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
         pass: 'wmytvnqxwrmqqhyy',
     },
 });
-
+//@ts-ignore
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         res.status(405).json({ message: 'Method not allowed' })

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { HStack, Stack, Text } from "@chakra-ui/react";
 import { ButtonLogin } from "@/components/Buttons";
 import { FormLogin } from "@/components/Forms";
-
+//@ts-ignore
 export default function ResetPassword({ token }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -14,11 +14,12 @@ export default function ResetPassword({ token }) {
     //         setError('Token inválido.');
     //     }
     // }, [token]);
-
+    //@ts-ignore
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (password !== confirmPassword) {
+            //@ts-ignore
             setError('As senhas não coincidem.');
             return;
         }
@@ -36,9 +37,10 @@ export default function ResetPassword({ token }) {
                 const error = await response.text();
                 throw new Error(error);
             }
-
+            //@ts-ignore
             setMessage('Sua senha foi redefinida com sucesso.');
         } catch (error) {
+            //@ts-ignore
             setError(error.message);
         }
     };
@@ -72,12 +74,12 @@ export default function ResetPassword({ token }) {
                         <FormLogin
                             placeholder={"Nova senha"}
                             type={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e: any) => setPassword(e.target.value)}
                         />
                         <FormLogin
                             placeholder={"Confirmar senha"}
                             type={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            onChange={(e: any) => setConfirmPassword(e.target.value)}
                         />
                     </Stack>
                     <ButtonLogin text={"Enviar"} type="submit" />

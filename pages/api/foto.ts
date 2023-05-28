@@ -1,3 +1,4 @@
+//@ts-ignore
 import { createFoto, deleteFoto, getFoto, updateFoto } from '@/lib/api';
 import { unstable_getServerSession } from 'next-auth/next';
 

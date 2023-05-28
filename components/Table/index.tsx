@@ -66,7 +66,7 @@ export function TableMain({ title, thead1, thead2, thead3, data, onClick, select
 
                     <TitleCardsPacientes
                         //@ts-ignore
-                        children={undefined} pacientes={[]}>
+                        pacientes={[]}>
                         <TitleCards title={title} />
                     </TitleCardsPacientes>
                     <Table>

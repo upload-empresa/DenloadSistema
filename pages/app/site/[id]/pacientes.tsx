@@ -160,7 +160,7 @@ export default function Pacientes({ pacientes, paciente }) {
                             <Stack spacing={6}>
                                 <TitleCardsPacientes
                                     //@ts-ignore
-                                    children={undefined} pacientes={[]}>
+                                    pacientes={[]}>
                                     <TitleCards title="Pacientes" />
                                 </TitleCardsPacientes>
                                 <Table>

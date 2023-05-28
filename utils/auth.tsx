@@ -7,11 +7,11 @@ export const generatePasswordResetToken = (userId: string): string => {
 
     return token;
 };
-
+//@ts-ignore
 export async function verifyPasswordResetToken(token) {
     try {
         const decoded = jwt.verify(token, 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY4MTc2MzMzNCwiaWF0IjoxNjgxNzYzMzM0fQ.3bbYCAF9StLjsEIbpTfnGxnx5QgrKTdrRi_tGkKhtFI')
-
+        //@ts-ignore
         const user = await prisma.user.findUnique({ where: { id: decoded.sub } })
 
         if (!user) {

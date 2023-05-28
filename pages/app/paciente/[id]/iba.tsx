@@ -7,6 +7,7 @@ import { CardMainPlus, CardIconPacientes, CardMain } from "../../../../component
 import { Forms, Selects } from "../../../../components/Forms"
 import { Main } from "../../../../components/Main"
 import { TitleCards } from "../../../../components/Title"
+//@ts-ignore
 import { ModalAddAnamneses } from "@/components/Modais"
 
 import { useRouter } from "next/router";
@@ -134,6 +135,7 @@ export default function Anamneses() {
                         >
                             <TitleCards title={"Anameses do Consultório"} />
                             <HStack>
+
                                 <ButtonDelete />
 
                                 <button

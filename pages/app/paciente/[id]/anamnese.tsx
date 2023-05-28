@@ -30,6 +30,7 @@ import { HttpMethod } from "@/types";
 
 import type { FormEvent } from "react";
 import type { Anamnese, Paciente } from "@prisma/client";
+import React from "react";
 
 interface SiteAnamneseData {
     anamneses: Array<Anamnese>;
@@ -131,8 +132,7 @@ const AllAnamneses: NextPageWithLayout = () => {
                             {data ? (
                                 data.anamneses.length > 0 ? (
                                     data.anamneses.map((anamnese) => (
-
-                                        <HStack
+                                        <><React.Fragment key={anamnese.id}><HStack
                                             align={"start"}
                                         >
 
@@ -140,6 +140,8 @@ const AllAnamneses: NextPageWithLayout = () => {
                                                 {isVisible && <ButtonDeletePlus onClick={() => handleDeleteClick(anamnese.id)} />}
                                             </>
                                         </HStack>
+                                        </React.Fragment>
+                                        </>
 
                                     ))
                                 ) : (

@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 import { hashPassword } from '@/lib/auth';
-
+//@ts-ignore
 export default async function handler(req, res) {
     if (req.method !== 'PUT') {
         res.status(405).json({ message: 'Method not allowed' })

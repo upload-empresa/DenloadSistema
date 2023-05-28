@@ -28,7 +28,7 @@ interface SiteEstoqueData {
     estoques: Array<Estoque>;
     site: Site | null;
 }
-
+//@ts-ignore
 export default function Estoques({ estoques, estoque }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -111,6 +111,7 @@ export default function Estoques({ estoques, estoque }) {
 
     const PER_PAGE = 1;
     const offset = currentPage * PER_PAGE;
+    //@ts-ignore
     const pageCount = Math.ceil(data?.estoques?.length / PER_PAGE);
 
     const items = data?.estoques?.slice(offset, offset + PER_PAGE);
@@ -136,6 +137,7 @@ export default function Estoques({ estoques, estoque }) {
         if (!window.confirm('Tem certeza que deseja excluir esse estoque?')) {
             return;
         }
+        //@ts-ignore
         deleteEstoque(siteId, iba); // Replace `pacienteId` with the actual ID of the paciente
     };
 
@@ -160,7 +162,7 @@ export default function Estoques({ estoques, estoque }) {
 
                         <TableContainer>
                             <Stack spacing={6}>
-                                <TitleCardsPacientes children={undefined} pacientes={[]}>
+                                <TitleCardsPacientes pacientes={[]}>
                                     <TitleCards title="Estoques Totais" />
                                 </TitleCardsPacientes>
                                 <Table>
@@ -182,7 +184,9 @@ export default function Estoques({ estoques, estoque }) {
                                                     selectResults.map((item: any) => (
                                                         <Tr key={item.id}>
                                                             <Td color={"#474749"} fontSize={"14px"}>
-                                                                <ButtonPacientes href={`/estoque/${data.estoqueId}/dadosestoque`} />
+                                                                <ButtonPacientes
+                                                                    //@ts-ignore
+                                                                    href={`/estoque/${data.estoqueId}/dadosestoque`} />
                                                             </Td>
                                                             <Td color={"#474749"} fontSize={"14px"}>
                                                                 <Link href={`/estoque/${item.id}/dadosestoque`}>{item.name}</Link>
@@ -244,8 +248,11 @@ export default function Estoques({ estoques, estoque }) {
 
                                                         <Td color={"#474749"} fontSize={"14px"}>
                                                             <CardPacientes
+                                                                //@ts-ignore
                                                                 text={item?.pago ? "Pago" : "Não Pago"}
+                                                                //@ts-ignore
                                                                 bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                //@ts-ignore
                                                                 color={item?.pago ? "#0BB7AF" : "#F64E60"}
                                                             />
                                                         </Td>

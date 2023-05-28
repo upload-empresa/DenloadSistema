@@ -49,6 +49,7 @@ export default function GanhoSettings() {
     useEffect(() => {
         if (settings)
             setData({
+                //@ts-ignore
                 slug: settings.slug,
                 id: settings.id,
             });

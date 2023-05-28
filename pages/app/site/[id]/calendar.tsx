@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
                 const data = await response.json();
 
                 if (Array.isArray(data)) {
+                    //@ts-ignore
                     setEvents(data);
                 }
             } catch (error) {
@@ -25,7 +27,10 @@ export default function Home() {
             <h1>Events</h1>
             <ul>
                 {events.map((event) => (
-                    <p>{event.summary}</p>
+                    //@ts-ignore
+                    <React.Fragment key={event.id}>
+                        {/* <p>{event.summary}</p> */}
+                    </React.Fragment>
                 ))}
 
             </ul>

@@ -29,7 +29,7 @@ interface SiteDespesaData {
 }
 
 //@ts-ignore
-export default function Despesas({ despesa, despesa }) {
+export default function Despesas({ despesa }) {
     const [creatingDespesa, setCreatingDespesa] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deletingDespesa, setDeletingDespesa] = useState(false);
@@ -147,7 +147,7 @@ export default function Despesas({ despesa, despesa }) {
 
                                 <TitleCardsPacientes
                                     //@ts-ignore
-                                    children={undefined} pacientes={[]}>
+                                    pacientes={[]}>
                                     <TitleCards title="Despesas" />
                                 </TitleCardsPacientes>
                                 <Table>

@@ -78,7 +78,7 @@ const Financeiro = () => {
                         <Stack
                             spacing={5}
                         >
-                            <TitleCards title={"Financeiro"} text={"Relatórios e Dashboards Financeiros"} />
+                            <TitleCards title={"Financeiro"} />
                             <HStack
                                 spacing={8}
                                 w="100%"
@@ -134,10 +134,12 @@ const Financeiro = () => {
                                             });
 
                                             filteredGanhos.forEach((ganho) => {
+                                                //@ts-ignore
                                                 totalGanhos += +ganho.valor;
                                             });
 
                                             filteredDespesas.forEach((despesa) => {
+                                                //@ts-ignore
                                                 totalDespesas += +despesa.valor;
                                             });
 

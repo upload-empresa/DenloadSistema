@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import PrintObject from '../../components/PrintObject'
 
-import { fetchGetJSON } from '../utils/api-helpers'
+import { fetchGetJSON } from '../../utils/api-helpers'
 import useSWR from 'swr'
 
 const ResultPage: NextPage = () => {

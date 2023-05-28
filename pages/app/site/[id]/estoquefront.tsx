@@ -155,7 +155,7 @@ export default function Estoques({ estoques, estoque }) {
                             <Stack spacing={6}>
                                 <TitleCardsPacientes
                                     //@ts-ignore
-                                    children={undefined} pacientes={[]}>
+                                    pacientes={[]}>
                                     <TitleCards title="Estoque" />
                                 </TitleCardsPacientes>
                                 <Table>

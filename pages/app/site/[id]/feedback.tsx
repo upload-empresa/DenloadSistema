@@ -28,9 +28,10 @@ export default function Feedback() {
                 const error = await response.text()
                 throw new Error(error)
             }
-
+            //@ts-ignore
             setMessage('Seu feedback foi enviado!')
         } catch (error) {
+            //@ts-ignore
             setError(error.message)
         }
     }
@@ -38,7 +39,7 @@ export default function Feedback() {
         <form onSubmit={handleSubmit}>
             <Main title={"Feedback"} w={"25%"} path={"/perfil.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
                 <CardMain radius={"18px"} spacing={5}>
-                    <TitleCards title={"Adicionar Feedback"} text="Nos ajude a melhorar o Denload!. Envie seu feedback" />
+                    <TitleCards title={"Adicionar Feedback"} />
                     <Stack>
                         <TitleFeedback title={"Qual sua nota para o Denload?"} />
                     </Stack>

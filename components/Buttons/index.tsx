@@ -109,7 +109,7 @@ export function ButtonAdd({ text, onClick, href }: ButtonAddProps) {
 }
 
 interface ButtonDeleteProps {
-    onClick: any
+    onClick?: any
 }
 export function ButtonDelete({ onClick }: ButtonDeleteProps) {
     return (

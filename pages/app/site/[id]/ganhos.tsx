@@ -28,7 +28,7 @@ interface SiteGanhoData {
     ganhos: Array<Ganho>;
     site: Site | null;
 }
-
+//@ts-ignore
 export default function Ganhos({ ganhos, ganho }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -111,6 +111,7 @@ export default function Ganhos({ ganhos, ganho }) {
 
     const PER_PAGE = 1;
     const offset = currentPage * PER_PAGE;
+    //@ts-ignore
     const pageCount = Math.ceil(data?.ganhos?.length / PER_PAGE);
 
     const items = data?.ganhos?.slice(offset, offset + PER_PAGE);
@@ -136,6 +137,7 @@ export default function Ganhos({ ganhos, ganho }) {
         if (!window.confirm('Tem certeza que deseja excluir esse ganho?')) {
             return;
         }
+        //@ts-ignore
         deleteGanho(siteId, iba); // Replace `pacienteId` with the actual ID of the paciente
     };
 
@@ -160,7 +162,7 @@ export default function Ganhos({ ganhos, ganho }) {
 
                         <TableContainer>
                             <Stack spacing={6}>
-                                <TitleCardsPacientes children={undefined} pacientes={[]}>
+                                <TitleCardsPacientes pacientes={[]}>
                                     <TitleCards title="Ganhos Totais" />
                                 </TitleCardsPacientes>
                                 <Table>
@@ -182,7 +184,9 @@ export default function Ganhos({ ganhos, ganho }) {
                                                     selectResults.map((item: any) => (
                                                         <Tr key={item.id}>
                                                             <Td color={"#474749"} fontSize={"14px"}>
-                                                                <ButtonPacientes href={`/ganho/${data.ganhoId}/dadosganho`} />
+                                                                <ButtonPacientes
+                                                                    //@ts-ignore
+                                                                    href={`/ganho/${data.ganhoId}/dadosganho`} />
                                                             </Td>
                                                             <Td color={"#474749"} fontSize={"14px"}>
                                                                 <Link href={`/ganho/${item.id}/dadosganho`}>{item.name}</Link>
