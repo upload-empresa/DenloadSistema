@@ -71,13 +71,13 @@ export default function Post() {
   const [savedState, setSavedState] = useState(
     post
       ? `Last saved at ${Intl.DateTimeFormat("en", { month: "short" }).format(
-          new Date(post.updatedAt)
-        )} ${Intl.DateTimeFormat("en", { day: "2-digit" }).format(
-          new Date(post.updatedAt)
-        )} ${Intl.DateTimeFormat("en", {
-          hour: "numeric",
-          minute: "numeric",
-        }).format(new Date(post.updatedAt))}`
+        new Date(post.updatedAt)
+      )} ${Intl.DateTimeFormat("en", { day: "2-digit" }).format(
+        new Date(post.updatedAt)
+      )} ${Intl.DateTimeFormat("en", {
+        hour: "numeric",
+        minute: "numeric",
+      }).format(new Date(post.updatedAt))}`
       : "Saving changes..."
   );
 
@@ -276,11 +276,10 @@ export default function Post() {
                   : "Publish"
               }
               disabled={disabled}
-              className={`${
-                disabled
+              className={`${disabled
                   ? "cursor-not-allowed bg-gray-300 border-gray-300"
                   : "bg-black hover:bg-white hover:text-black border-black"
-              } mx-2 w-32 h-12 text-lg text-white border-2 focus:outline-none transition-all ease-in-out duration-150`}
+                } mx-2 w-32 h-12 text-lg text-white border-2 focus:outline-none transition-all ease-in-out duration-150`}
             >
               {publishing ? <LoadingDots /> : "Publish  →"}
             </button>

@@ -1,8 +1,8 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SessionProvider } from "next-auth/react";
 import type { Session } from "next-auth";
-import { cal, inter } from "@/styles/fonts";
-import cx from "classnames";
+import { ChakraProvider } from '@chakra-ui/react'
+import { theme } from '../styles/theme'
 
 import "@/styles/globals.css";
 
@@ -13,11 +13,13 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
   return (
-    <SessionProvider session={session}>
-      <main className={cx(cal.variable, inter.variable)}>
+    <ChakraProvider theme={theme}>
+      <SessionProvider session={session}>
+        {/* <main> */}
         <Component {...pageProps} />
-      </main>
-      <Analytics />
-    </SessionProvider>
+        {/* </main> */}
+        {/* <Analytics /> */}
+      </SessionProvider>
+    </ChakraProvider>
   );
 }

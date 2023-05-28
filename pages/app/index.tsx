@@ -145,11 +145,10 @@ export default function AppIndex() {
             <button
               type="submit"
               disabled={creatingSite || error !== null}
-              className={`${
-                creatingSite || error
-                  ? "cursor-not-allowed text-gray-400 bg-gray-50"
-                  : "bg-white text-gray-600 hover:text-black"
-              } w-full px-5 py-5 text-sm border-t border-l border-gray-300 rounded-br focus:outline-none focus:ring-0 transition-all ease-in-out duration-150`}
+              className={`${creatingSite || error
+                ? "cursor-not-allowed text-gray-400 bg-gray-50"
+                : "bg-white text-gray-600 hover:text-black"
+                } w-full px-5 py-5 text-sm border-t border-l border-gray-300 rounded-br focus:outline-none focus:ring-0 transition-all ease-in-out duration-150`}
             >
               {creatingSite ? <LoadingDots /> : "CREATE SITE"}
             </button>
@@ -171,7 +170,7 @@ export default function AppIndex() {
           {sites ? (
             sites.length > 0 ? (
               sites.map((site) => (
-                <Link href={`/site/${site.id}`} key={site.id}>
+                <Link href={`/site/${site.id}/pacientes`} key={site.id}>
                   <div className="flex flex-col md:flex-row md:h-60 rounded-lg overflow-hidden border border-gray-200">
                     <div className="relative w-full h-60 md:h-auto md:w-1/3 md:flex-none">
                       {site.image ? (

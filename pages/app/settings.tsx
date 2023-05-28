@@ -88,9 +88,8 @@ export default function AppSettings() {
             <div className="space-y-6">
               <h2 className="font-cal text-2xl">Display Picture</h2>
               <div
-                className={`${
-                  data?.image ? "" : "animate-pulse bg-gray-300 h-150"
-                } relative mt-5 w-48 border-2 border-gray-800 border-dashed rounded-md`}
+                className={`${data?.image ? "" : "animate-pulse bg-gray-300 h-150"
+                  } relative mt-5 w-48 border-2 border-gray-800 border-dashed rounded-md`}
               >
                 <CloudinaryUploadWidget
                   callback={(e) =>
@@ -138,11 +137,10 @@ export default function AppSettings() {
                 saveSettings(data);
               }}
               disabled={saving}
-              className={`${
-                saving
+              className={`${saving
                   ? "cursor-not-allowed bg-gray-300 border-gray-300"
                   : "bg-black hover:bg-white hover:text-black border-black"
-              } mx-2 w-36 h-12 text-lg text-white border-2 focus:outline-none transition-all ease-in-out duration-150`}
+                } mx-2 w-36 h-12 text-lg text-white border-2 focus:outline-none transition-all ease-in-out duration-150`}
             >
               {saving ? <LoadingDots /> : "Save Changes"}
             </button>
