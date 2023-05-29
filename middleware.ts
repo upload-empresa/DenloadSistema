@@ -24,9 +24,9 @@ export default async function middleware(req: NextRequest) {
   const path = url.pathname;
 
   // Only for demo purposes - remove this if you want to use your root domain as the landing page
-  if (hostname === 'vercel.app' || hostname === 'platforms.vercel.app') {
-    return NextResponse.redirect('https://denload-sistema.vercel.app');
-  }
+  // if (hostname === 'vercel.app' || hostname === 'platforms.vercel.app') {
+  //   return NextResponse.redirect('https://denload-sistema.vercel.app');
+  // }
 
   /*  You have to replace ".vercel.app" with your own domain if you deploy this example under your domain.
       You can also use wildcard subdomains on .vercel.app links that are associated with your Vercel team slug
@@ -55,7 +55,10 @@ export default async function middleware(req: NextRequest) {
   }
 
   // rewrite root application to `/home` folder
-  if (hostname === 'localhost:3000' || hostname === 'platformize.vercel.app') {
+  if (
+    hostname === 'https://denload-sistema.vercel.app/' ||
+    hostname === 'platformize.vercel.app'
+  ) {
     return NextResponse.rewrite(new URL(`/home${path}`, req.url));
   }
 
