@@ -182,3 +182,53 @@ export async function updateFoto(
     return res.status(500).end(error);
   }
 }
+
+/**
+ * Delete Foto
+ *
+ * Deletes a Foto from the database using a provided `FotoId` query
+ * parameter.
+ *
+ * @param req - Next.js API Request
+ * @param res - Next.js API Response
+ */
+export async function deleteFoto(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  session: Session
+): Promise<void | NextApiResponse> {
+  const { fotoId } = req.query;
+
+  if (!fotoId || typeof fotoId !== 'string' || !session?.user?.id) {
+    return res
+      .status(400)
+      .json({ error: 'Missing or misconfigured paciente ID or session ID' });
+  }
+
+  const paciente = await prisma.paciente.findFirst({
+    where: {
+      fotos: {
+        some: {
+          id: fotoId,
+        },
+      },
+    },
+  });
+  if (!paciente) return res.status(404).end('paciente not found');
+
+  try {
+    const response = await prisma.foto.delete({
+      where: {
+        id: fotoId,
+      },
+      include: {
+        paciente: true,
+      },
+    });
+
+    return res.status(200).end();
+  } catch (error) {
+    console.error(error);
+    return res.status(500).end(error);
+  }
+}

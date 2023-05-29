@@ -182,3 +182,53 @@ export async function updateDocumento(
         return res.status(500).end(error);
     }
 }
+
+/**
+ * Delete Documento
+ *
+ * Deletes a Documento from the database using a provided `DocumentoId` query
+ * parameter.
+ *
+ * @param req - Next.js API Request
+ * @param res - Next.js API Response
+ */
+export async function deleteDocumento(
+    req: NextApiRequest,
+    res: NextApiResponse,
+    session: Session
+): Promise<void | NextApiResponse> {
+    const { documentoId } = req.query;
+
+    if (!documentoId || typeof documentoId !== 'string' || !session?.user?.id) {
+        return res
+            .status(400)
+            .json({ error: 'Missing or misconfigured paciente ID or session ID' });
+    }
+
+    const paciente = await prisma.paciente.findFirst({
+        where: {
+            documentos: {
+                some: {
+                    id: documentoId,
+                },
+            },
+        },
+    });
+    if (!paciente) return res.status(404).end('paciente not found');
+
+    try {
+        const response = await prisma.documento.delete({
+            where: {
+                id: documentoId,
+            },
+            include: {
+                paciente: true,
+            },
+        });
+
+        return res.status(200).end();
+    } catch (error) {
+        console.error(error);
+        return res.status(500).end(error);
+    }
+}

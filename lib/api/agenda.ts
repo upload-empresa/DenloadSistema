@@ -81,6 +81,70 @@ export async function getAgenda(
   }
 }
 
+export async function getAgendasWithSearch(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  session: Session
+): Promise<void | NextApiResponse<AllAgendas | (WithPacienteAgenda | null)>> {
+  const { agendaId, pacienteId, published, siteId } = req.query;
+
+  if (
+    Array.isArray(agendaId) ||
+    Array.isArray(pacienteId) ||
+    Array.isArray(siteId) ||
+    Array.isArray(published) ||
+    !session.user.id
+  )
+    return res.status(400).end('Bad request. Query parameters are not valid.');
+
+  try {
+    if (agendaId) {
+      const agenda = await prisma.agenda.findFirst({
+        where: {
+          id: agendaId,
+        },
+        include: {
+          paciente: true,
+        },
+      });
+
+      return res.status(200).json(agenda);
+    }
+
+    const paciente = await prisma.paciente.findFirst({
+      where: {
+        id: pacienteId,
+      },
+    });
+
+    const site = await prisma.site.findFirst({
+      where: {
+        id: siteId,
+      },
+    });
+
+    const agendas = !site
+      ? []
+      : await prisma.agenda.findMany({
+          where: {
+            site: {
+              id: siteId,
+            },
+          },
+          include: {
+            site: true,
+          },
+        });
+
+    return res.status(200).json({
+      agendas,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).end(error);
+  }
+}
+
 //Group By Agenda
 // Função da api para contar os registros dos procedimentos dos pacientes
 
@@ -319,6 +383,56 @@ export async function updateAgenda(
     });
 
     return res.status(200).json(agenda);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).end(error);
+  }
+}
+
+/**
+ * Delete Agenda
+ *
+ * Deletes a agenda from the database using a provided `agendaId` query
+ * parameter.
+ *
+ * @param req - Next.js API Request
+ * @param res - Next.js API Response
+ */
+export async function deleteAgenda(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  session: Session
+): Promise<void | NextApiResponse> {
+  const { agendaId } = req.query;
+
+  if (!agendaId || typeof agendaId !== 'string' || !session?.user?.id) {
+    return res
+      .status(400)
+      .json({ error: 'Missing or misconfigured paciente ID or session ID' });
+  }
+
+  const paciente = await prisma.paciente.findFirst({
+    where: {
+      agendas: {
+        some: {
+          id: agendaId,
+        },
+      },
+    },
+  });
+  if (!paciente) return res.status(404).end('paciente not found');
+
+  try {
+    const response = await prisma.agenda.delete({
+      where: {
+        id: agendaId,
+      },
+      include: {
+        paciente: true,
+      },
+    });
+
+    return res.status(200).end();
   } catch (error) {
     console.error(error);
     return res.status(500).end(error);
