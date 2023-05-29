@@ -37,7 +37,7 @@ export default async function middleware(req: NextRequest) {
       ? hostname
           .replace(`.vercel.app`, '')
           .replace(`.platformize.vercel.app`, '')
-      : hostname.replace(`.localhost:3000`, '');
+      : hostname.replace(`.https://denload-sistema.vercel.app/`, '');
 
   // rewrites for app pages
   if (currentHost == 'app') {
