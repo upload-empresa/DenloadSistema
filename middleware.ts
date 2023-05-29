@@ -18,15 +18,16 @@ export default async function middleware(req: NextRequest) {
   const url = req.nextUrl;
 
   // Get hostname of request (e.g. demo.vercel.pub, demo.localhost:3000)
-  const hostname = req.headers.get('host') || 'demo.vercel.pub';
+  //https://denload-sistema.vercel.app
+  const hostname = req.headers.get('host') || 'denload-sistema.vercel.app';
 
   // Get the pathname of the request (e.g. /, /about, /blog/first-post)
   const path = url.pathname;
 
   // Only for demo purposes - remove this if you want to use your root domain as the landing page
-  if (hostname === 'vercel.pub' || hostname === 'platforms.vercel.app') {
-    return NextResponse.redirect('https://demo.vercel.pub');
-  }
+  // if (hostname === 'denload-sistema.vercel.app') {
+  //   return NextResponse.redirect('https://denload-sistema.vercel.app');
+  // }
 
   /*  You have to replace ".vercel.pub" with your own domain if you deploy this example under your domain.
       You can also use wildcard subdomains on .vercel.app links that are associated with your Vercel team slug
@@ -35,7 +36,7 @@ export default async function middleware(req: NextRequest) {
   const currentHost =
     process.env.NODE_ENV === 'production' && process.env.VERCEL === '1'
       ? hostname
-          .replace(`.vercel.pub`, '')
+          .replace(`.vercel.app`, '')
           .replace(`.platformize.vercel.app`, '')
       : hostname.replace(`.localhost:3000`, '');
 
@@ -55,7 +56,10 @@ export default async function middleware(req: NextRequest) {
   }
 
   // rewrite root application to `/home` folder
-  if (hostname === 'localhost:3000' || hostname === 'platformize.vercel.app') {
+  if (
+    hostname === 'localhost:3000' ||
+    hostname === 'denload-sistema.vercel.app'
+  ) {
     return NextResponse.rewrite(new URL(`/home${path}`, req.url));
   }
 
