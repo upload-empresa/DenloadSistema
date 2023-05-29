@@ -161,9 +161,9 @@ export const getStaticPaths: GetStaticPaths<PathProps> = async () => {
     where: {
       published: true,
       // you can remove this if you want to generate all sites at build time
-      site: {
-        subdomain: "demo",
-      },
+      // site: {
+      //   subdomain: "demo",
+      // },
     },
     select: {
       slug: true,
