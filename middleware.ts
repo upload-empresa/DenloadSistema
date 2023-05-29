@@ -25,7 +25,7 @@ export default async function middleware(req: NextRequest) {
   const path = url.pathname;
 
   // Only for demo purposes - remove this if you want to use your root domain as the landing page
-  if (hostname === 'vercel.app' || hostname === 'denload-sistema.vercel.app') {
+  if (hostname === 'denload-sistema.vercel.app') {
     return NextResponse.redirect('https://denload-sistema.vercel.app');
   }
 
@@ -37,7 +37,7 @@ export default async function middleware(req: NextRequest) {
     process.env.NODE_ENV === 'production' && process.env.VERCEL === '1'
       ? hostname
           .replace(`.vercel.app`, '')
-          .replace(`.denload-sistema.vercel.app`, '')
+          .replace(`.platformize.vercel.app`, '')
       : hostname.replace(`.localhost:3000`, '');
 
   // rewrites for app pages
