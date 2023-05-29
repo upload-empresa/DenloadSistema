@@ -1,6 +1,8 @@
 import {
   createEstoque,
   deleteEstoque,
+  getEstoquesWithSearch,
+  getEstoquesWithSelect,
   getEstoque,
   updateEstoque,
 } from '@/lib/api';
@@ -20,7 +22,16 @@ export default async function estoque(
 
   switch (req.method) {
     case HttpMethod.GET:
-      return getEstoque(req, res, session);
+      const {
+        query: { orderBy, search },
+      } = req;
+      if (orderBy) {
+        return getEstoquesWithSelect(req, res, session);
+      } else if (search) {
+        return getEstoquesWithSearch(req, res, session);
+      } else {
+        return getEstoque(req, res, session);
+      }
     case HttpMethod.POST:
       return createEstoque(req, res, session);
     case HttpMethod.DELETE:

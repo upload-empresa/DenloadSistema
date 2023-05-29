@@ -216,6 +216,48 @@ export async function groupByAgenda(
 }
 
 /**
+ * Gets Agendas with Select
+ *
+ * Gets a Agenda from a Select input in the frontend.
+ *
+ * @param req - Next.js API Request
+ * @param res - Next.js API Response
+ */
+export async function getAgendasWithSelect(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  session: Session
+): Promise<void | NextApiResponse<Array<Agenda>>> {
+  const { orderBy } = req.query;
+
+  if ((orderBy !== 'asc' && orderBy !== 'desc') || !session.user.id) {
+    return res
+      .status(400)
+      .end('Bad request. Search query parameter is not valid.');
+  }
+
+  try {
+    const agendas = await prisma.agenda.findMany({
+      where: {
+        site: {
+          user: {
+            id: session.user.id,
+          },
+        },
+      },
+      orderBy: {
+        dia: orderBy,
+      },
+    });
+
+    return res.status(200).json(agendas);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).end(error);
+  }
+}
+
+/**
  * Create Agenda
  *
  * Creates a new Agenda from a provided `siteId` query parameter and a `pacienteId` payload.

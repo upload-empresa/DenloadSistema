@@ -23,6 +23,7 @@ interface DespesaData {
     name: string;
     valor: string;
     vencimento: string;
+    dataDaCompra: string;
     empresa: string;
 }
 
@@ -61,7 +62,8 @@ export default function AddFinanceiroDespesa() {
         name: "",
         valor: "",
         empresa: "",
-        vencimento: ""
+        vencimento: "",
+        dataDaCompra: ""
     });
 
     useEffect(() => {
@@ -70,7 +72,8 @@ export default function AddFinanceiroDespesa() {
                 name: despesa.name ?? "",
                 empresa: despesa.empresa ?? "",
                 valor: despesa.valor ?? "",
-                vencimento: despesa.vencimento ?? ""
+                vencimento: despesa.vencimento ?? "",
+                dataDaCompra: despesa.dataDaCompra ?? ""
             });
     }, [despesa]);
 
@@ -91,6 +94,7 @@ export default function AddFinanceiroDespesa() {
                         name: data.name,
                         valor: data.valor,
                         vencimento: data.vencimento,
+                        dataDaCompra: data.dataDaCompra,
                         empresa: data.empresa
                     }),
                 });
@@ -129,6 +133,11 @@ export default function AddFinanceiroDespesa() {
 
     useEffect(() => {
         if (debouncedData.vencimento) saveChanges(debouncedData);
+    }, [debouncedData, saveChanges]);
+
+
+    useEffect(() => {
+        if (debouncedData.dataDaCompra) saveChanges(debouncedData);
     }, [debouncedData, saveChanges]);
 
     useEffect(() => {
@@ -176,6 +185,7 @@ export default function AddFinanceiroDespesa() {
                     name: data.name,
                     valor: data.valor,
                     vencimento: data.vencimento,
+                    dataDaCompra: data.dataDaCompra,
                     empresa: data.empresa,
                     published: true,
                     subdomain: despesa?.site?.subdomain,
@@ -230,12 +240,23 @@ export default function AddFinanceiroDespesa() {
                     valor: (e.target as HTMLTextAreaElement).value,
                 })
             } value3={data.valor}
+            onChange4={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                setData({
+                    ...data,
+                    dataDaCompra: (e.target as HTMLTextAreaElement).value,
+                })
+            } value4={data.dataDaCompra}
+            onChange5={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                setData({
+                    ...data,
+                    empresa: (e.target as HTMLTextAreaElement).value,
+                })
+            } value5={data.empresa}
             onClick={async () => {
                 await publish();
             }}
         >
-            <Forms label={"Empresa"} type={"text"} placeholder={"Digite o nome da empresa"}
-            />
+
         </FinanceiroAttributes>
     )
 }

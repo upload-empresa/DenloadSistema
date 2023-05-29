@@ -133,6 +133,48 @@ export async function getDespesasWithSearch(
 }
 
 /**
+ * Gets Despesas with Select
+ *
+ * Gets a Despesa from a Select input in the frontend.
+ *
+ * @param req - Next.js API Request
+ * @param res - Next.js API Response
+ */
+export async function getDespesasWithSelect(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  session: Session
+): Promise<void | NextApiResponse<Array<Despesa>>> {
+  const { orderBy } = req.query;
+
+  if ((orderBy !== 'asc' && orderBy !== 'desc') || !session.user.id) {
+    return res
+      .status(400)
+      .end('Bad request. Search query parameter is not valid.');
+  }
+
+  try {
+    const despesas = await prisma.despesa.findMany({
+      where: {
+        site: {
+          user: {
+            id: session.user.id,
+          },
+        },
+      },
+      orderBy: {
+        name: orderBy,
+      },
+    });
+
+    return res.status(200).json(despesas);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).end(error);
+  }
+}
+
+/**
  * Create Despesa
  *
  * Creates a new despesa from a provided `siteId` query parameter.
@@ -283,7 +325,17 @@ export async function updateDespesa(
   res: NextApiResponse,
   session: Session
 ): Promise<void | NextApiResponse<Despesa>> {
-  const { id, name, slug, valor, subdomain, customDomain } = req.body;
+  const {
+    id,
+    name,
+    slug,
+    valor,
+    subdomain,
+    customDomain,
+    vencimento,
+    dataDaCompra,
+    empresa,
+  } = req.body;
 
   if (!id || typeof id !== 'string' || !session?.user?.id) {
     return res
@@ -314,6 +366,9 @@ export async function updateDespesa(
         name,
         slug,
         valor,
+        vencimento,
+        dataDaCompra,
+        empresa,
       },
     });
     if (subdomain) {

@@ -201,6 +201,48 @@ export async function getPacientesWithSearch(
 }
 
 /**
+ * Gets Pacientes with Select
+ *
+ * Gets a Paciente from a Select input in the frontend.
+ *
+ * @param req - Next.js API Request
+ * @param res - Next.js API Response
+ */
+export async function getPacientesWithSelect(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  session: Session
+): Promise<void | NextApiResponse<Array<Paciente>>> {
+  const { orderBy } = req.query;
+
+  if ((orderBy !== 'asc' && orderBy !== 'desc') || !session.user.id) {
+    return res
+      .status(400)
+      .end('Bad request. Search query parameter is not valid.');
+  }
+
+  try {
+    const pacientes = await prisma.paciente.findMany({
+      where: {
+        site: {
+          user: {
+            id: session.user.id,
+          },
+        },
+      },
+      orderBy: {
+        name: orderBy,
+      },
+    });
+
+    return res.status(200).json(pacientes);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).end(error);
+  }
+}
+
+/**
  * Get Paciente
  *
  * Fetches & returns either a single or all pacientes available depending on

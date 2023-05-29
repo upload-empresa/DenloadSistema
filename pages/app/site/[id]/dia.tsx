@@ -43,24 +43,6 @@ interface DiaProps {
 //@ts-ignore
 export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, children, }: SiteAgendaData) {
 
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResults] = useState<Array<Paciente>>([]);
-
-    useEffect(() => {
-        // função que irá realizar a chamada da API
-        const searchApi = async () => {
-            const response = await fetch(`http://app.localhost:3000/api/paciente?search=${searchTerm}`);
-            const iba = await response.json();
-            setSearchResults(iba);
-        }
-
-        // chamando a função da API apenas se houver algum termo de pesquisa
-        if (searchTerm) {
-            searchApi();
-        } else {
-            setSearchResults(pacientes);
-        }
-    }, [searchTerm]);
 
     const [currentPage, setCurrentPage] = useState<number>(0);
 
@@ -68,7 +50,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
         setCurrentPage(data.selected);
     }
 
-    const PER_PAGE = 1;
+    const PER_PAGE = 10;
     const offset = currentPage * PER_PAGE;
     const pageCount = Math.ceil(data?.pacientes?.length / PER_PAGE);
 
@@ -161,7 +143,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     useEffect(() => {
         // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`http://app.localhost:0/api/agenda?orderBy=${selectedOption}`);
+            const response = await fetch(`http://app.localhost:3000/api/agenda?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -178,6 +160,27 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
         setSelectedOption(event.target.value)
     }
 
+
+    //teste pesquisa
+
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchResults, setSearchResults] = useState(items)
+
+    useEffect(() => {
+        // função que irá realizar a chamada da API
+        const searchApi = async () => {
+            const response = await fetch(`http://app.localhost:3000/api/paciente?search=${searchTerm}`);
+            const data = await response.json();
+            setSearchResults(data);
+        }
+
+        // chamando a função da API apenas se houver algum termo de pesquisa
+        if (searchTerm) {
+            searchApi();
+        } else {
+            setSearchResults(pacientes);
+        }
+    }, [searchTerm]);
 
 
 
@@ -305,19 +308,6 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
                                         <option value="age">Idade</option>
                                         <option value="gender">Gênero</option>
                                     </Select>
-                                    {searchTerm ? (
-                                        <div>
-                                            {searchResults.map((paciente) => (
-                                                <div key={paciente.id}>{paciente.name}</div>
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            {pacientesData?.pacientes.map((paciente) => (
-                                                <div key={paciente.id}>{paciente.name}</div>
-                                            ))}
-                                        </div>
-                                    )}
 
                                 </HStack>
 
@@ -336,42 +326,103 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
                                 </Thead>
                                 <Tbody>
 
-                                    {agendasData && pacientesData ? (
-                                        agendasData.agendas.length > 0 ? (
-                                            agendasData.agendas.map((agenda) => {
-                                                const paciente = pacientesData.pacientes.find(
-                                                    (paciente) => paciente.id === paciente.id
-                                                )
-
-                                                return (
-                                                    <Tr key={agenda.id}>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            <ButtonPacientes onClick={undefined} href={""} />
-                                                        </Td>
-
-                                                        <>
-
+                                    <>
+                                        {searchTerm ? (
+                                            <>
+                                                {searchResults?.map((item: any) => (
+                                                    <>
+                                                        < Tr key={item.id} >
                                                             <Td color={"#474749"} fontSize={"14px"}>
-                                                                <Link href={`/paciente/${paciente?.id}`}>{paciente?.name}</Link>
+                                                                <ButtonPacientes href={`/paciente/${item.id}/dadospaciente`} />
+                                                            </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                <Link href={`/paciente/${item.id}`}>{item.name}</Link>
+                                                            </Td><Td
+                                                                textAlign={"start"}
+                                                                isNumeric
+                                                                color={"#474749"}
+                                                                fontSize={"14px"}
+                                                            >
+                                                                {item.telefone}
+                                                            </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                {item.email}
+                                                            </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                {item.grupo}
                                                             </Td>
-                                                            <Td textAlign={"start"} isNumeric color={"#474749"} fontSize={"14px"}>{agenda.horario}</Td>
-                                                            <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
-                                                            <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
-                                                            <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
-                                                        </>
-                                                    </Tr>
-                                                )
-                                            })
+
+
+
+
+                                                        </Tr>
+                                                    </>
+                                                ))}
+                                            </>
                                         ) : (
                                             <>
-                                                <p className="text-2xl font-cal text-gray-600">
-                                                    Sem dados ainda.
-                                                </p>
+                                                {items?.map((item: any) => (
+                                                    <>
+                                                        <Tr key={item.id}>
+                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                <ButtonPacientes href={`/paciente/${item.id}//dadospaciente`} />
+                                                            </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                <Link href={`/paciente/${item.id}`}>{item.name}</Link>
+                                                            </Td><Td
+                                                                textAlign={"start"}
+                                                                isNumeric
+                                                                color={"#474749"}
+                                                                fontSize={"14px"}
+                                                            >
+                                                                {item.telefone}
+                                                            </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                {item.email}
+                                                            </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                {item.grupo}
+                                                            </Td>
+
+
+
+                                                        </Tr>
+                                                    </>
+                                                ))}
+
+                                                {agendasData && pacientesData ? (
+                                                    agendasData.agendas.length > 0 ? (
+                                                        agendasData.agendas.map((agenda) => {
+                                                            const paciente = pacientesData.pacientes.find(
+                                                                (paciente) => paciente.id === paciente.id
+                                                            )
+
+                                                            return (
+                                                                <Tr key={agenda.id}>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <ButtonPacientes onClick={undefined} href={`/paciente/${paciente?.id}/dadospaciente`} />
+                                                                    </Td>
+
+                                                                    <>
+
+                                                                        <Td color={"#474749"} fontSize={"14px"}>
+                                                                            <Link href={`/paciente/${paciente?.id}/dadospaciente`}>{paciente?.name}</Link>
+                                                                        </Td>
+                                                                        <Td textAlign={"start"} isNumeric color={"#474749"} fontSize={"14px"}>{agenda.horario}</Td>
+                                                                        <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
+                                                                        <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
+                                                                        <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
+                                                                    </>
+                                                                </Tr>
+                                                            )
+                                                        })
+                                                    ) : (
+                                                        <>
+                                                            <p className="text-2xl font-cal text-gray-600">
+                                                                Sem dados ainda.
+                                                            </p>
+                                                        </>
+                                                    )
+                                                ) : (
+                                                    <p>Carregando..</p>
+                                                )}
                                             </>
-                                        )
-                                    ) : (
-                                        <p>Carregando..</p>
-                                    )}
+                                        )}
+                                    </>
 
 
                                 </Tbody>

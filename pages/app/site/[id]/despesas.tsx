@@ -19,9 +19,10 @@ import { HttpMethod } from "@/types";
 import type { WithSiteDespesa } from "@/types";
 import type { Despesa, Site } from "@prisma/client";
 import Modal from "@/components/Modal";
-import { Select } from "@chakra-ui/react"
 import { ButtonAdd, ButtonPacientes } from "@/components/Buttons"
 import { TitleCards, TitleCardsPacientes } from "@/components/Title"
+import { Heading, Input, Button, InputGroup, InputLeftElement, Select } from "@chakra-ui/react"
+import { MdSearch } from "react-icons/md"
 
 interface SiteDespesaData {
     despesas: Array<Despesa>;
@@ -29,7 +30,7 @@ interface SiteDespesaData {
 }
 
 //@ts-ignore
-export default function Despesas({ despesa }) {
+export default function Despesas({ despesa, despesas }) {
     const [creatingDespesa, setCreatingDespesa] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deletingDespesa, setDeletingDespesa] = useState(false);
@@ -74,9 +75,30 @@ export default function Despesas({ despesa }) {
         }
     }
 
-
     const [selectedOption, setSelectedOption] = useState('')
     const [selectResults, setSelectResults] = useState<Array<Despesa>>([]);
+
+
+    useEffect(() => {
+        // função que irá realizar a chamada da API
+        const selectApi = async () => {
+            const response = await fetch(`http://app.localhost:3000/api/despesa?orderBy=${selectedOption}`);
+            const data = await response.json();
+            setSelectResults(data);
+        }
+
+        // chamando a função da API apenas se houver algum termo de pesquisa
+        if (selectedOption) {
+            selectApi();
+        } else {
+            setSelectResults(despesas);
+        }
+    }, [selectedOption]);
+
+    function handleOptionChange(event: any) {
+        setSelectedOption(event.target.value)
+    }
+
 
     const [currentPage, setCurrentPage] = useState<number>(0);
 
@@ -85,7 +107,7 @@ export default function Despesas({ despesa }) {
     }
 
 
-    const PER_PAGE = 1;
+    const PER_PAGE = 10;
     const offset = currentPage * PER_PAGE;
     //@ts-ignore
     const pageCount = Math.ceil(data?.despesas?.length / PER_PAGE);
@@ -124,12 +146,40 @@ export default function Despesas({ despesa }) {
         deleteDespesa(siteId, iba); // Replace `pacienteId` with the actual ID of the paciente
     };
 
+    //teste pesquisa
+
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchResults, setSearchResults] = useState(items)
+
+    useEffect(() => {
+        // função que irá realizar a chamada da API
+        const searchApi = async () => {
+            const response = await fetch(`http://app.localhost:3000/api/despesa?search=${searchTerm}`);
+            const data = await response.json();
+            setSearchResults(data);
+        }
+
+        // chamando a função da API apenas se houver algum termo de pesquisa
+        if (searchTerm) {
+            searchApi();
+        } else {
+            setSearchResults(despesas);
+        }
+    }, [searchTerm]);
+
     return (
+
         //@ts-ignore
         <Main title={"Financeiro"} button={<ButtonAdd text={"Nova Despesa"} onClick={() => {
             setCreatingDespesa(true);
             createDespesa(siteId as string);
         }} href={""} />}>
+
+            <select value={selectedOption} onChange={handleOptionChange}>
+                <option value="">Selecione uma opção</option>
+                <option value="asc">Opção 1</option>
+                <option value="desc">Opção 2</option>
+            </select>
             <HStack
                 spacing={0}
                 align={"stretch"}
@@ -144,12 +194,35 @@ export default function Despesas({ despesa }) {
 
                         <TableContainer>
                             <Stack spacing={6}>
-
+                                {/* 
                                 <TitleCardsPacientes
                                     //@ts-ignore
                                     pacientes={[]}>
                                     <TitleCards title="Despesas" />
-                                </TitleCardsPacientes>
+                                </TitleCardsPacientes> */}
+
+
+                                <HStack
+                                    justify={"space-between"}
+                                >
+                                    <HStack>
+                                        <InputGroup>
+                                            <InputLeftElement
+                                                // eslint-disable-next-line react/no-children-prop
+                                                children={<MdSearch size={"22px"} />}
+                                            />
+                                            <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                                        </InputGroup>
+                                        <Select variant='filled' placeholder='Ordenar por' >
+                                            <option value="name">Nome</option>
+                                            <option value="age">Idade</option>
+                                            <option value="gender">Gênero</option>
+                                        </Select>
+                                    </HStack>
+
+
+                                </HStack>
+
                                 <Table>
                                     <Thead>
                                         <Tr>
@@ -206,43 +279,85 @@ export default function Despesas({ despesa }) {
                                             </>
                                         ) : (
                                             <>
-                                                {items?.map((item) => (
-                                                    <Tr key={item.id}>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            <ButtonPacientes onClick={() => handleDeleteClick(item.id)} href={""} />
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            <Link href={`/despesa/${item.id}/dadosdespesa`}>{item.name}</Link>
-                                                        </Td>
-                                                        <Td
-                                                            textAlign={"start"}
-                                                            isNumeric
-                                                            color={"#474749"}
-                                                            fontSize={"14px"}
-                                                        >
-                                                            {item.vencimento}
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            {item.empresa}
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            {item.valor}
-                                                        </Td>
+                                                {searchTerm ? (
+                                                    <>
+                                                        {searchResults?.map((item) => (
+                                                            <>
+                                                                <Tr key={item.id}>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <ButtonPacientes onClick={() => handleDeleteClick(item.id)} href={""} />
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <Link href={`/despesa/${item.id}/dadosdespesa`}>{item.name}</Link>
+                                                                    </Td>
+                                                                    <Td
+                                                                        textAlign={"start"}
+                                                                        isNumeric
+                                                                        color={"#474749"}
+                                                                        fontSize={"14px"}
+                                                                    >
+                                                                        {item.vencimento}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.empresa}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.valor}
+                                                                    </Td>
 
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            <CardPacientes
-                                                                text={item?.pago ? "Pago" : "Não Pago"}
-                                                                bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                            />
-                                                        </Td>
-                                                    </Tr>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <CardPacientes
+                                                                            text={item?.pago ? "Pago" : "Não Pago"}
+                                                                            bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                            color={item?.pago ? "#0BB7AF" : "#F64E60"}
+                                                                        />
+                                                                    </Td>
+                                                                </Tr>
+                                                            </>
+                                                        ))}
+                                                    </>
 
+                                                ) : (
+                                                    <>
+                                                        {items?.map((item) => (
+                                                            <>
+                                                                <Tr key={item.id}>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <ButtonPacientes onClick={() => handleDeleteClick(item.id)} href={`/despesa/${item.id}`} />
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <Link href={`/despesa/${item.id}`}>{item.name}</Link>
+                                                                    </Td>
+                                                                    <Td
+                                                                        textAlign={"start"}
+                                                                        isNumeric
+                                                                        color={"#474749"}
+                                                                        fontSize={"14px"}
+                                                                    >
+                                                                        {item.vencimento}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.empresa}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.valor}
+                                                                    </Td>
 
-                                                ))}
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <CardPacientes
+                                                                            text={item?.pago ? "Pago" : "Não Pago"}
+                                                                            bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                            color={item?.pago ? "#0BB7AF" : "#F64E60"}
+                                                                        />
+                                                                    </Td>
+                                                                </Tr>
+                                                            </>
+                                                        ))}
+
+                                                    </>
+                                                )}
                                             </>
                                         )}
-
 
 
 

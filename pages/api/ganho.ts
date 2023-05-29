@@ -3,6 +3,7 @@ import {
   deleteGanho,
   getGanho,
   getGanhosWithSearch,
+  getGanhosWithSelect,
   updateGanho,
 } from '@/lib/api';
 import { unstable_getServerSession } from 'next-auth/next';
@@ -19,9 +20,11 @@ export default async function post(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case HttpMethod.GET:
       const {
-        query: { search },
+        query: { orderBy, search },
       } = req;
-      if (search) {
+      if (orderBy) {
+        return getGanhosWithSelect(req, res, session);
+      } else if (search) {
         return getGanhosWithSearch(req, res, session);
       } else {
         return getGanho(req, res, session);

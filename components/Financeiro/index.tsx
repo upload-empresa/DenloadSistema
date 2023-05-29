@@ -21,10 +21,12 @@ interface FinanceiroAttributesProps {
     value3?: any
     onChange4?: any
     value4?: any
+    onChange5?: any
+    value5?: any
     onClick?: any
 }
 
-export function FinanceiroAttributes({ title, text, titlePage, children, onChange1, value1, onChange2, value2, onChange3, value3, onChange4, value4, onClick }: FinanceiroAttributesProps) {
+export function FinanceiroAttributes({ title, text, titlePage, children, onChange1, value1, onChange2, value2, onChange3, value3, onChange4, value4, onChange5, value5, onClick }: FinanceiroAttributesProps) {
     return (
         <Main title={titlePage} w={"25%"} path={"/perfil.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
             <HStack
@@ -42,6 +44,8 @@ export function FinanceiroAttributes({ title, text, titlePage, children, onChang
                         <Forms label={"Valor"} type={"text"} placeholder={"Digite o valor obtido"} onChange={onChange3} value={value3} />
                         <Forms label={"Data da Compra"} type={"text"} placeholder={"Digite a data da compra"} onChange={onChange4} value={value4} />
                     </HStack>
+                    <Forms label={"Empresa"} type={"text"} placeholder={"Digite o nome da empresa"}
+                        onChange={onChange5} value={value5} />
                     {children}
                     <ButtonSave align="end" onClick={onClick} />
                 </CardMain>

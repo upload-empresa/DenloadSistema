@@ -87,6 +87,94 @@ export async function getEstoque(
 }
 
 /**
+ * Gets Estoques with Search
+ *
+ * Gets a Estoque from a search input in the frontend.
+ *
+ * @param req - Next.js API Request
+ * @param res - Next.js API Response
+ */
+export async function getEstoquesWithSearch(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  session: Session
+): Promise<void | NextApiResponse<Array<Estoque>>> {
+  const { search } = req.query;
+
+  if (typeof search !== 'string' || !search.trim() || !session?.user?.id) {
+    return res
+      .status(400)
+      .end('Bad request. Search query parameter is not valid.');
+  }
+
+  try {
+    const estoques = await prisma.estoque.findMany({
+      where: {
+        site: {
+          user: {
+            id: session.user.id,
+          },
+        },
+        name: {
+          contains: search,
+          mode: 'insensitive',
+        },
+      },
+      // orderBy: {
+      //   createdAt: 'desc',
+      // },
+    });
+
+    return res.status(200).json(estoques);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).end(error);
+  }
+}
+
+/**
+ * Gets Estoques with Select
+ *
+ * Gets a Estoque from a Select input in the frontend.
+ *
+ * @param req - Next.js API Request
+ * @param res - Next.js API Response
+ */
+export async function getEstoquesWithSelect(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  session: Session
+): Promise<void | NextApiResponse<Array<Estoque>>> {
+  const { orderBy } = req.query;
+
+  if ((orderBy !== 'asc' && orderBy !== 'desc') || !session.user.id) {
+    return res
+      .status(400)
+      .end('Bad request. Search query parameter is not valid.');
+  }
+
+  try {
+    const estoques = await prisma.estoque.findMany({
+      where: {
+        site: {
+          user: {
+            id: session.user.id,
+          },
+        },
+      },
+      orderBy: {
+        name: orderBy,
+      },
+    });
+
+    return res.status(200).json(estoques);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).end(error);
+  }
+}
+
+/**
  * Create Estoque
  *
  * Creates a new Estoque from a provided `siteId` query parameter.

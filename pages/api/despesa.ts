@@ -3,6 +3,7 @@ import {
   deleteDespesa,
   getDespesa,
   getDespesasWithSearch,
+  getDespesasWithSelect,
   updateDespesa,
 } from '@/lib/api';
 import { unstable_getServerSession } from 'next-auth/next';
@@ -19,9 +20,11 @@ export default async function post(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case HttpMethod.GET:
       const {
-        query: { search },
+        query: { orderBy, search },
       } = req;
-      if (search) {
+      if (orderBy) {
+        return getDespesasWithSelect(req, res, session);
+      } else if (search) {
         return getDespesasWithSearch(req, res, session);
       } else {
         return getDespesa(req, res, session);

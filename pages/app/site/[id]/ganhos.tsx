@@ -1,4 +1,4 @@
-import { HStack } from "@chakra-ui/react"
+
 import { IoPersonOutline } from "react-icons/io5"
 import { MdOutlineInsertDriveFile, MdOutlineImageSearch } from "react-icons/md"
 
@@ -17,12 +17,13 @@ import { HttpMethod } from "@/types";
 import type { WithSiteGanho } from "@/types";
 import type { Ganho, Site } from "@prisma/client";
 import Modal from "@/components/Modal";
-import { Select } from "@chakra-ui/react"
 import { ButtonAdd, ButtonPacientes } from "@/components/Buttons"
 
 import { Stack, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
 import { TitleCards, TitleCardsPacientes } from "@/components/Title"
 import { Pagination } from "@/components/Pagination"
+import { Heading, HStack, Input, Button, InputGroup, InputLeftElement, Select } from "@chakra-ui/react"
+import { MdSearch } from "react-icons/md"
 
 interface SiteGanhoData {
     ganhos: Array<Ganho>;
@@ -82,7 +83,7 @@ export default function Ganhos({ ganhos, ganho }) {
     useEffect(() => {
         // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`http://app.localhost:0/api/ganho?orderBy=${selectedOption}`);
+            const response = await fetch(`http://app.localhost:3000/api/ganho?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -109,7 +110,7 @@ export default function Ganhos({ ganhos, ganho }) {
     }
 
 
-    const PER_PAGE = 1;
+    const PER_PAGE = 10;
     const offset = currentPage * PER_PAGE;
     //@ts-ignore
     const pageCount = Math.ceil(data?.ganhos?.length / PER_PAGE);
@@ -141,6 +142,29 @@ export default function Ganhos({ ganhos, ganho }) {
         deleteGanho(siteId, iba); // Replace `pacienteId` with the actual ID of the paciente
     };
 
+
+    //teste pesquisa
+
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchResults, setSearchResults] = useState(items)
+
+    useEffect(() => {
+        // função que irá realizar a chamada da API
+        const searchApi = async () => {
+            const response = await fetch(`http://app.localhost:3000/api/ganho?search=${searchTerm}`);
+            const data = await response.json();
+            setSearchResults(data);
+        }
+
+        // chamando a função da API apenas se houver algum termo de pesquisa
+        if (searchTerm) {
+            searchApi();
+        } else {
+            setSearchResults(ganhos);
+        }
+    }, [searchTerm]);
+
+
     return (
         <>
             <select value={selectedOption} onChange={handleOptionChange}>
@@ -162,9 +186,31 @@ export default function Ganhos({ ganhos, ganho }) {
 
                         <TableContainer>
                             <Stack spacing={6}>
-                                <TitleCardsPacientes pacientes={[]}>
+                                {/* <TitleCardsPacientes pacientes={[]}>
                                     <TitleCards title="Ganhos Totais" />
-                                </TitleCardsPacientes>
+                                </TitleCardsPacientes> */}
+
+                                <HStack
+                                    justify={"space-between"}
+                                >
+                                    <HStack>
+                                        <InputGroup>
+                                            <InputLeftElement
+                                                // eslint-disable-next-line react/no-children-prop
+                                                children={<MdSearch size={"22px"} />}
+                                            />
+                                            <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                                        </InputGroup>
+                                        <Select variant='filled' placeholder='Ordenar por' >
+                                            <option value="name">Nome</option>
+                                            <option value="age">Idade</option>
+                                            <option value="gender">Gênero</option>
+                                        </Select>
+                                    </HStack>
+
+
+                                </HStack>
+
                                 <Table>
                                     <Thead>
                                         <Tr>
@@ -223,51 +269,96 @@ export default function Ganhos({ ganhos, ganho }) {
                                             </>
                                         ) : (
                                             <>
-                                                {items?.map((item) => (
-                                                    <Tr key={item.id}>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            <ButtonPacientes href={""} onClick={() => handleDeleteClick(item.id)} />
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            <Link href={`/ganho/${item.id}/dadosganho`}>{item.name}</Link>
-                                                        </Td>
-                                                        <Td
-                                                            textAlign={"start"}
-                                                            isNumeric
-                                                            color={"#474749"}
-                                                            fontSize={"14px"}
-                                                        >
-                                                            {item.recebimento}
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            {item.recebimento}
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            {item.valor}
-                                                        </Td>
+                                                {searchTerm ? (
+                                                    <>
+                                                        {searchResults?.map((item) => (
+                                                            <>
+                                                                <Tr key={item.id}>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <ButtonPacientes href={""} onClick={() => handleDeleteClick(item.id)} />
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <Link href={`/ganho/${item.id}/dadosganho`}>{item.name}</Link>
+                                                                    </Td>
+                                                                    <Td
+                                                                        textAlign={"start"}
+                                                                        isNumeric
+                                                                        color={"#474749"}
+                                                                        fontSize={"14px"}
+                                                                    >
+                                                                        {item.recebimento}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.empresa}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.valor}
+                                                                    </Td>
 
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            <CardPacientes
-                                                                text={item?.pago ? "Pago" : "Não Pago"}
-                                                                bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                            />
-                                                        </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <CardPacientes
+                                                                            text={item?.pago ? "Pago" : "Não Pago"}
+                                                                            bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                            color={item?.pago ? "#0BB7AF" : "#F64E60"}
+                                                                        />
+                                                                    </Td>
 
 
 
-                                                    </Tr>
+                                                                </Tr>
+
+                                                            </>
+                                                        ))}
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        {items?.map((item) => (
+                                                            <>
+                                                                <Tr key={item.id}>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <ButtonPacientes href={`/ganho/${item.id}`} onClick={() => handleDeleteClick(item.id)} />
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <Link href={`/ganho/${item.id}`}>{item.name}</Link>
+                                                                    </Td>
+                                                                    <Td
+                                                                        textAlign={"start"}
+                                                                        isNumeric
+                                                                        color={"#474749"}
+                                                                        fontSize={"14px"}
+                                                                    >
+                                                                        {item.recebimento}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.empresa}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.valor}
+                                                                    </Td>
+
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <CardPacientes
+                                                                            text={item?.pago ? "Pago" : "Não Pago"}
+                                                                            bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                            color={item?.pago ? "#0BB7AF" : "#F64E60"}
+                                                                        />
+                                                                    </Td>
 
 
-                                                ))}
+
+                                                                </Tr>
+
+                                                            </>
+                                                        ))}
+                                                    </>
+                                                )}
                                             </>
                                         )}
 
 
 
 
-
-                                    </Tbody>
+                                    </Tbody >
                                     <Tfoot>
                                         <Tr>
                                         </Tr>

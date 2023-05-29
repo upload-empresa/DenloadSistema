@@ -6,11 +6,12 @@ export default async function handler(req, res) {
         return
     }
 
-    const { email, password } = req.body
+    const { email, password, name } = req.body
 
     try {
         const user = await prisma.user.create({
             data: {
+                name,
                 email,
                 password,
             },

@@ -17,6 +17,8 @@ import type { Paciente, Site } from "@prisma/client";
 
 import { Stack, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
 import { TitleCards, TitleCardsPacientes } from "@/components/Title"
+import { Heading, HStack, Input, Button, InputGroup, InputLeftElement, Select } from "@chakra-ui/react"
+import { MdSearch } from "react-icons/md"
 
 interface SitePacienteData {
     pacientes: Array<Paciente>;
@@ -78,7 +80,7 @@ export default function Pacientes({ pacientes, paciente }) {
     useEffect(() => {
         // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`http://app.localhost:0/api/paciente?orderBy=${selectedOption}`);
+            const response = await fetch(`http://app.localhost:3000/api/paciente?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -105,7 +107,7 @@ export default function Pacientes({ pacientes, paciente }) {
     }
 
 
-    const PER_PAGE = 1;
+    const PER_PAGE = 10;
     const offset = currentPage * PER_PAGE;
     //@ts-ignore
     const pageCount = Math.ceil(data?.pacientes?.length / PER_PAGE);
@@ -137,6 +139,28 @@ export default function Pacientes({ pacientes, paciente }) {
         deletePaciente(siteId, iba); // Replace `pacienteId` with the actual ID of the paciente
     };
 
+    //teste pesquisa
+
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchResults, setSearchResults] = useState(items)
+
+    useEffect(() => {
+        // função que irá realizar a chamada da API
+        const searchApi = async () => {
+            const response = await fetch(`http://app.localhost:3000/api/paciente?search=${searchTerm}`);
+            const data = await response.json();
+            setSearchResults(data);
+        }
+
+        // chamando a função da API apenas se houver algum termo de pesquisa
+        if (searchTerm) {
+            searchApi();
+        } else {
+            setSearchResults(pacientes);
+        }
+    }, [searchTerm]);
+
+
     return (
         <>
             <select value={selectedOption} onChange={handleOptionChange}>
@@ -158,11 +182,33 @@ export default function Pacientes({ pacientes, paciente }) {
 
                         <TableContainer>
                             <Stack spacing={6}>
-                                <TitleCardsPacientes
+                                {/* <TitleCardsPacientes
                                     //@ts-ignore
                                     pacientes={[]}>
                                     <TitleCards title="Pacientes" />
-                                </TitleCardsPacientes>
+                                </TitleCardsPacientes> */}
+
+                                <HStack
+                                    justify={"space-between"}
+                                >
+                                    <HStack>
+                                        <InputGroup>
+                                            <InputLeftElement
+                                                // eslint-disable-next-line react/no-children-prop
+                                                children={<MdSearch size={"22px"} />}
+                                            />
+                                            <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                                        </InputGroup>
+                                        <Select variant='filled' placeholder='Ordenar por' >
+                                            <option value="name">Nome</option>
+                                            <option value="age">Idade</option>
+                                            <option value="gender">Gênero</option>
+                                        </Select>
+                                    </HStack>
+
+
+                                </HStack>
+
                                 <Table>
                                     <Thead>
                                         <Tr>
@@ -175,6 +221,7 @@ export default function Pacientes({ pacientes, paciente }) {
                                         </Tr>
                                     </Thead>
                                     <Tbody>
+
 
                                         {selectedOption ? (
                                             <>
@@ -222,43 +269,73 @@ export default function Pacientes({ pacientes, paciente }) {
                                             </>
                                         ) : (
                                             <>
-                                                {items?.map((item) => (
-                                                    <Tr key={item.id}>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            <ButtonPacientes href={""} onClick={() => handleDeleteClick(item.id)} />
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
-                                                        </Td>
-                                                        <Td
-                                                            textAlign={"start"}
-                                                            isNumeric
-                                                            color={"#474749"}
-                                                            fontSize={"14px"}
-                                                        >
-                                                            {item.telefone}
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            {item.email}
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            {item.grupo}
-                                                        </Td>
-
-                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                            <CardPacientes
-                                                                text={item?.pago ? "Pago" : "Não Pago"}
-                                                                bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                            />
-                                                        </Td>
+                                                {searchTerm ? (
+                                                    <>
+                                                        {searchResults?.map((item) => (
+                                                            <>
+                                                                < Tr key={item.id} >
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <ButtonPacientes href={""} onClick={() => handleDeleteClick(item.id)} />
+                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                        <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
+                                                                    </Td><Td
+                                                                        textAlign={"start"}
+                                                                        isNumeric
+                                                                        color={"#474749"}
+                                                                        fontSize={"14px"}
+                                                                    >
+                                                                        {item.telefone}
+                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.email}
+                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.grupo}
+                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                        <CardPacientes
+                                                                            text={item?.pago ? "Pago" : "Não Pago"}
+                                                                            bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                            color={item?.pago ? "#0BB7AF" : "#F64E60"} />
+                                                                    </Td>
 
 
 
-                                                    </Tr>
+                                                                </Tr>
+                                                            </>
+                                                        ))}
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        {items?.map((item) => (
+                                                            <>
+                                                                <Tr key={item.id}>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <ButtonPacientes href={""} onClick={() => handleDeleteClick(item.id)} />
+                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                        <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
+                                                                    </Td><Td
+                                                                        textAlign={"start"}
+                                                                        isNumeric
+                                                                        color={"#474749"}
+                                                                        fontSize={"14px"}
+                                                                    >
+                                                                        {item.telefone}
+                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.email}
+                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.grupo}
+                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                        <CardPacientes
+                                                                            text={item?.pago ? "Pago" : "Não Pago"}
+                                                                            bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                            color={item?.pago ? "#0BB7AF" : "#F64E60"} />
+                                                                    </Td>
 
 
-                                                ))}
+
+                                                                </Tr>
+                                                            </>
+                                                        ))}
+                                                    </>
+                                                )}
                                             </>
                                         )}
 

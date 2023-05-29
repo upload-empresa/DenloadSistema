@@ -1,5 +1,5 @@
 import { Button, ButtonProps, HStack, IconButton, Stack } from "@chakra-ui/react"
-import { MdAdd, MdEdit, MdRemove } from "react-icons/md"
+import { MdAdd, MdEdit, MdDelete } from "react-icons/md"
 import { Links } from "../Links"
 import Link from "next/link"
 
@@ -16,7 +16,7 @@ export function ButtonPacientes({ onClick, onClick2, href }: ButtonsProps) {
                 colorScheme='red'
                 aria-label='Call Segun'
                 size='sm'
-                icon={<MdRemove />}
+                icon={<MdDelete />}
                 onClick={onClick}
             />
             <Link href={href}>

@@ -8,6 +8,7 @@ CREATE TABLE "User" (
     "celular" TEXT,
     "endereco" TEXT,
     "password" TEXT,
+    "token" TEXT,
     "username" TEXT,
     "gh_username" TEXT,
     "email" TEXT,
@@ -84,9 +85,10 @@ CREATE TABLE "Estoque" (
     "unidade" TEXT,
     "dataDaCompra" TEXT,
     "valor" TEXT,
-    "valorTotal" TEXT NOT NULL,
+    "valorTotal" TEXT,
     "image" TEXT,
     "imageBlurhash" TEXT,
+    "pago" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "siteId" TEXT,
@@ -117,6 +119,7 @@ CREATE TABLE "Paciente" (
     "telefone" TEXT,
     "sexo" TEXT,
     "observacoes" TEXT,
+    "anotacoes" TEXT,
     "rg" TEXT,
     "cpf" TEXT,
     "endereco" TEXT,
@@ -133,6 +136,76 @@ CREATE TABLE "Paciente" (
     "siteId" TEXT,
 
     CONSTRAINT "Paciente_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Agenda" (
+    "id" TEXT NOT NULL,
+    "slug" TEXT,
+    "horario" TEXT,
+    "dia" TEXT,
+    "procedimento" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "image" TEXT,
+    "imageBlurhash" TEXT,
+    "siteId" TEXT,
+    "pacienteId" TEXT,
+
+    CONSTRAINT "Agenda_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Author" (
+    "id" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+
+    CONSTRAINT "Author_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Iba" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "body" TEXT NOT NULL,
+    "authorId" TEXT,
+
+    CONSTRAINT "Iba_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Anamnese" (
+    "id" TEXT NOT NULL,
+    "slug" TEXT,
+    "pergunta" TEXT,
+    "resposta" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "image" TEXT,
+    "imageBlurhash" TEXT,
+    "published" BOOLEAN NOT NULL DEFAULT false,
+    "pacienteId" TEXT,
+
+    CONSTRAINT "Anamnese_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Foto" (
+    "id" TEXT NOT NULL,
+    "url" TEXT,
+    "pacienteId" TEXT,
+
+    CONSTRAINT "Foto_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Documento" (
+    "id" TEXT NOT NULL,
+    "url" TEXT,
+    "pacienteId" TEXT,
+
+    CONSTRAINT "Documento_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -156,6 +229,7 @@ CREATE TABLE "Ganho" (
     "id" TEXT NOT NULL,
     "name" TEXT,
     "slug" TEXT,
+    "empresa" TEXT,
     "valor" TEXT,
     "recebimento" TEXT,
     "pago" BOOLEAN NOT NULL DEFAULT false,
@@ -243,6 +317,12 @@ CREATE INDEX "Paciente_siteId_idx" ON "Paciente"("siteId");
 CREATE UNIQUE INDEX "Paciente_id_siteId_key" ON "Paciente"("id", "siteId");
 
 -- CreateIndex
+CREATE INDEX "Agenda_siteId_idx" ON "Agenda"("siteId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Agenda_id_siteId_key" ON "Agenda"("id", "siteId");
+
+-- CreateIndex
 CREATE INDEX "Despesa_siteId_idx" ON "Despesa"("siteId");
 
 -- CreateIndex
@@ -280,6 +360,24 @@ ALTER TABLE "Feedback" ADD CONSTRAINT "Feedback_siteId_fkey" FOREIGN KEY ("siteI
 
 -- AddForeignKey
 ALTER TABLE "Paciente" ADD CONSTRAINT "Paciente_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Site"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Agenda" ADD CONSTRAINT "Agenda_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Site"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Agenda" ADD CONSTRAINT "Agenda_pacienteId_fkey" FOREIGN KEY ("pacienteId") REFERENCES "Paciente"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Iba" ADD CONSTRAINT "Iba_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "Author"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Anamnese" ADD CONSTRAINT "Anamnese_pacienteId_fkey" FOREIGN KEY ("pacienteId") REFERENCES "Paciente"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Foto" ADD CONSTRAINT "Foto_pacienteId_fkey" FOREIGN KEY ("pacienteId") REFERENCES "Paciente"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Documento" ADD CONSTRAINT "Documento_pacienteId_fkey" FOREIGN KEY ("pacienteId") REFERENCES "Paciente"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Despesa" ADD CONSTRAINT "Despesa_siteId_fkey" FOREIGN KEY ("siteId") REFERENCES "Site"("id") ON DELETE CASCADE ON UPDATE CASCADE;
