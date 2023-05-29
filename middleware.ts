@@ -25,9 +25,9 @@ export default async function middleware(req: NextRequest) {
   const path = url.pathname;
 
   // Only for demo purposes - remove this if you want to use your root domain as the landing page
-  if (hostname === 'denload-sistema.vercel.app') {
-    return NextResponse.redirect('https://denload-sistema.vercel.app');
-  }
+  // if (hostname === 'denload-sistema.vercel.app') {
+  //   return NextResponse.redirect('https://denload-sistema.vercel.app');
+  // }
 
   /*  You have to replace ".vercel.pub" with your own domain if you deploy this example under your domain.
       You can also use wildcard subdomains on .vercel.app links that are associated with your Vercel team slug
