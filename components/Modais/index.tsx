@@ -183,7 +183,7 @@ export function ModalAdmin({ isOpenModal, onCloseModal, onOpenModal, name1, ref1
                             spacing={3}
                         >
                             <ModalHeader>
-                                <TitleCards title={"Adicione um novo administrador"} text={""} />
+                                <TitleCards title={"Adicione um novo administrador"} />
                             </ModalHeader>
                             <ModalBody>
                                 <Stack

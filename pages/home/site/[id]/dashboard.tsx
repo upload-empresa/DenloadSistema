@@ -218,7 +218,7 @@ export default function Home({ agendas, data, pacientes, children, }: SiteDashbo
                                 const nome = paciente ? paciente.name : '';
 
                                 return (
-                                    <CardDashboardHorarios nome={nome} procedimento={procedimento} horario={horario} />
+                                    <CardDashboardHorarios nome={nome} procedimento={procedimento} horario={horario} key="" />
                                 );
                             });
 

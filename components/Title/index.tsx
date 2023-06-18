@@ -33,7 +33,7 @@ export function TitleCardsPacientes({ children, pacientes }: TitleCardsPacientes
     useEffect(() => {
         // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`http://app.localhost:3000/api/paciente?search=${searchTerm}`);
+            const response = await fetch(`https://denload-sistema.vercel.app/api/paciente?search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }

@@ -86,7 +86,7 @@ export default function Despesas({ despesa, despesas }) {
 
     useEffect(() => {
         const selectApi = async () => {
-            const response = await fetch(`http://app.localhost:3000/api/despesa?orderBy=${selectedOption}`);
+            const response = await fetch(`https://denload-sistema.vercel.app/api/despesa?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -151,7 +151,7 @@ export default function Despesas({ despesa, despesas }) {
 
     useEffect(() => {
         const searchApi = async () => {
-            const response = await fetch(`http://app.localhost:3000/api/despesa?search=${searchTerm}`);
+            const response = await fetch(`https://denload-sistema.vercel.app/api/despesa?search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }

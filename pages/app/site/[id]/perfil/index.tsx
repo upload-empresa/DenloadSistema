@@ -200,7 +200,7 @@ export default function Perfil() {
             >
                 <CardPerfilPlus />
                 <CardMain radius={"0 18px 18px 0"} w={"90%"} spacing={5}>
-                    <TitleCards title={"Perfil do Consultório"} text={"Dados do seu consultório"} />
+                    <TitleCards title={"Perfil do Consultório"} />
                     <HStack
                         align={"end"}
                     >

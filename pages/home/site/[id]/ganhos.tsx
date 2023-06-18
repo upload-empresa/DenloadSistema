@@ -82,7 +82,7 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
     useEffect(() => {
         // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`http://app.localhost:3000/api/ganho?orderBy=${selectedOption}`);
+            const response = await fetch(`https://denload-sistema.vercel.app/api/ganho?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -150,7 +150,7 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
     useEffect(() => {
         // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`http://app.localhost:3000/api/ganho?search=${searchTerm}`);
+            const response = await fetch(`https://denload-sistema.vercel.app/api/ganho?search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }

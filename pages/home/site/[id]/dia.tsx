@@ -154,7 +154,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     useEffect(() => {
         // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`http://app.localhost:3000/api/agenda?orderBy=${selectedOption}`);
+            const response = await fetch(`https://denload-sistema.vercel.app/api/agenda?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -180,7 +180,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     useEffect(() => {
         // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`http://app.localhost:3000/api/paciente?search=${searchTerm}`);
+            const response = await fetch(`https://denload-sistema.vercel.app/api/paciente?search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }
@@ -426,9 +426,9 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
                                                                             <Link href={`/paciente/${paciente?.id}/dadospaciente`}>{paciente?.name}</Link>
                                                                         </Td>
 
-                                                                        <Td textAlign={"start"} isNumeric color={"#474749"} fontSize={"14px"}>
+                                                                        {/* <Td textAlign={"start"} isNumeric color={"#474749"} fontSize={"14px"}>
                                                                             {agenda.horario}
-                                                                        </Td>
+                                                                        </Td> */}
                                                                         <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
                                                                         <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
                                                                         <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
