@@ -84,8 +84,10 @@ export function TitleCardsPacientes({ children, pacientes }: TitleCardsPacientes
 
 interface TitleDashboardGraficProps {
     title: string
+    value?: any
+    onChange?: any
 }
-export function TitleDashboardGrafic({ title }: TitleDashboardGraficProps) {
+export function TitleDashboardGrafic({ title, value, onChange }: TitleDashboardGraficProps) {
     return (
         <HStack
             justify="space-between"
@@ -100,6 +102,8 @@ export function TitleDashboardGrafic({ title }: TitleDashboardGraficProps) {
             <Select
                 w="40%"
                 fontSize="14px"
+                value={value}
+                onChange={onChange}
             >
                 <option>3 meses</option>
                 <option>6 meses</option>

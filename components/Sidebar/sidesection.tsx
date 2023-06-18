@@ -4,23 +4,23 @@ import { Links } from "../Links"
 
 interface SideSectionProps {
     text: string
-    href: string
+    href?: any
     icone: any
+    onClick?: any
 }
 
 
-export function SideSection({ text, href, icone }: SideSectionProps) {
+export function SideSection({ text, href, icone, onClick }: SideSectionProps) {
     return (
         <Links href={href}>
             <HStack
                 pl={4}
-                py="3"
+                py={{ lg: "3", xxs: "2" }}
                 w="100%"
-                bg="white"
                 spacing={0}
                 cursor="pointer"
                 _hover={{
-                    bg:"#efeaea"
+                    bg: "#041d30"
                 }}
             >
                 <IconButton
@@ -31,15 +31,53 @@ export function SideSection({ text, href, icone }: SideSectionProps) {
                     justifyContent={"start"}
                     variant="unstyled"
                     aria-label='Conta do usuário'
-                    color="#7C7C7C"
-                    _hover={{ color: "#1C85B1" }}
+                    color="white"
                     cursor="pointer"
                     zIndex={2}
+                    onClick={onClick}
 
                 >
                 </IconButton>
-                <Text color="#7C7C7C" w="70%" cursor="pointer" fontSize="16px" fontWeight="medium">{text}</Text>
+                <Text color="white" w="70%" cursor="pointer" fontSize="16px" fontWeight="medium">{text}</Text>
             </HStack>
         </Links>
+    )
+}
+
+interface SideSectionLogoutProps {
+    text: string
+    icone: any
+    onClick?: any
+}
+
+export function SideSectionLogout({ text, icone, onClick }: SideSectionLogoutProps) {
+    return (
+        <HStack
+            pl={4}
+            py={{ lg: "3", xxs: "2" }}
+            w="100%"
+            spacing={0}
+            cursor="pointer"
+            _hover={{
+                bg: "#041d30"
+            }}
+        >
+            <IconButton
+                icon={<Icon justify="end" as={icone} />}
+                fontSize="24px"
+                display="flex"
+                alignItems="center"
+                justifyContent={"start"}
+                variant="unstyled"
+                aria-label='Conta do usuário'
+                color="white"
+                cursor="pointer"
+                zIndex={2}
+                onClick={onClick}
+
+            >
+            </IconButton>
+            <Text onClick={onClick} color="white" w="70%" cursor="pointer" fontSize="16px" fontWeight="medium">{text}</Text>
+        </HStack>
     )
 }

@@ -3,7 +3,7 @@ import { HStack } from "@chakra-ui/react"
 import { Main } from "../Main"
 import { ButtonSave } from "../Buttons"
 import { CardMain } from "../Cards"
-import { Forms, SelectsFinanceiro } from "../Forms"
+import { Forms, FormsValue, SelectsFinanceiro } from "../Forms"
 import { TitleCards } from "../Title"
 import { CardFinanceiroPlus } from "../Cards/plus"
 import { ReactNode } from "react"
@@ -41,8 +41,8 @@ export function FinanceiroAttributes({ title, text, titlePage, children, onChang
                         <Forms label={"Data do Vencimento"} type={"date"} placeholder={"Digite a data do vencimento"} onChange={onChange2} value={value2} />
                     </HStack>
                     <HStack spacing={6}>
-                        <Forms label={"Valor"} type={"text"} placeholder={"Digite o valor obtido"} onChange={onChange3} value={value3} />
-                        <Forms label={"Data da Compra"} type={"text"} placeholder={"Digite a data da compra"} onChange={onChange4} value={value4} />
+                        <FormsValue label={"Valor"} type={"text"} placeholder={"Digite o valor total"} onChange={onChange3} value={value3} />
+                        <Forms label={"Data da Compra"} type={"date"} placeholder={"Digite a data da compra"} onChange={onChange4} value={value4} />
                     </HStack>
                     <Forms label={"Empresa"} type={"text"} placeholder={"Digite o nome da empresa"}
                         onChange={onChange5} value={value5} />
@@ -89,7 +89,7 @@ export function FinanceiroEdit({ title, text, titlePage, children, onChange1, va
                         <Forms label={"Data do Vencimento"} type={"date"} placeholder={"Digite a data do vencimento"} onChange={onChange2} value={value2} />
                     </HStack>
                     <HStack spacing={6}>
-                        <Forms label={"Valor"} type={"text"} placeholder={"Digite o valor obtido"} onChange={onChange3} value={value3} />
+                        <FormsValue label={"Valor"} type={"text"} placeholder={"Digite o valor total"} onChange={onChange3} value={value3} />
                         <SelectsFinanceiro label={"Status do Pagamento"} onInput1={onInput1} defaultValue1={defaultValue1} />
 
 

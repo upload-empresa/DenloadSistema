@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Input, Select, Textarea } from "@chakra-ui/react"
+import { FormControl, FormLabel, Input, InputGroup, InputLeftElement, InputRightElement, Select, Textarea } from "@chakra-ui/react"
 
 interface FormsProps {
     label: any
@@ -8,31 +8,42 @@ interface FormsProps {
     name?: any
     value?: any
     onChange?: any
-}
-
-interface SelectsProps {
-    label: string
     onInput?: any
-    defaultValue?: any
+    ref?: any
 }
 
-interface TextAreasProps {
-    label: string
-    name?: any
-    onInput?: any
-    value?: any
-}
-
-
-
-export function Forms({ label, placeholder, type, w, name, value, onChange }: FormsProps) {
+export function Forms({ label, placeholder, type, w, name, value, onChange, ref, onInput }: FormsProps) {
     return (
         <FormControl w={w}>
             <FormLabel color={"#828282"} fontSize={"14px"}>{label}</FormLabel>
-            <Input type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} _placeholder={{ color: "#A1A1A1", fontSize: "14px" }} />
+            <Input type={type} ref={ref} name={name} value={value} onChange={onChange} onInput={onInput} placeholder={placeholder} _placeholder={{ color: "#A1A1A1", fontSize: "14px" }} required />
         </FormControl>
     )
 }
+
+export function FormsValue({ label, placeholder, type, w, name, value, onChange, ref, onInput }: FormsProps) {
+    return (
+        <FormControl w={w}>
+            <FormLabel color={"#828282"} fontSize={"14px"}>{label}</FormLabel>
+            <InputGroup>
+                <InputLeftElement
+                    pointerEvents='none'
+                    color='gray.300'
+                    fontSize='1em'
+                    children='R$'
+                />
+                <Input type={type} ref={ref} name={name} value={value} onChange={onChange} onInput={onInput} placeholder={placeholder} _placeholder={{ color: "#A1A1A1", fontSize: "14px" }} required />
+                <InputRightElement
+                    pointerEvents='none'
+                    color='gray.300'
+                    fontSize='0.9em'
+                    children=',00'
+                />
+            </InputGroup>
+        </FormControl>
+    )
+}
+
 
 export function FormsFile() {
     return (
@@ -41,6 +52,13 @@ export function FormsFile() {
         />
     )
 }
+
+interface SelectsProps {
+    label: string
+    onInput?: any
+    defaultValue?: any
+}
+
 
 export function Selects({ label, onInput, defaultValue }: SelectsProps) {
     return (
@@ -57,6 +75,15 @@ export function Selects({ label, onInput, defaultValue }: SelectsProps) {
             </Select>
         </FormControl>
     )
+}
+
+
+interface TextAreasProps {
+    label: string
+    name?: any
+    onInput?: any
+    value?: any
+
 }
 
 export function TextAreas({ label, name, onInput, value }: TextAreasProps) {

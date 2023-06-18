@@ -3,21 +3,20 @@ import NextLink from 'next/link'
 import { ReactNode } from 'react'
 
 interface LinksProps {
-    href: string
+    href?: any
     children: ReactNode
 }
 
-export function Links({ href, children }:LinksProps) {
+export function Links({ href, children }: LinksProps) {
     return (
-        <NextLink href={href} passHref>
-            <Link
-                as="a"
-                _hover={{
-                    textDecoration: 'none'
-                }}
-            >
-                {children}
-            </Link>
-        </NextLink>
+        <Link
+            as={NextLink}
+            href={href}
+            _hover={{
+                textDecoration: 'none'
+            }}
+        >
+            {children}
+        </Link>
     )
 }

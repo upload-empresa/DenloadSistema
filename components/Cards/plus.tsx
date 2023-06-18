@@ -3,6 +3,7 @@ import { MdOutlineInsertDriveFile, MdOutlineImage, MdEditNote, MdEdit, MdOutline
 import { SlNote } from "react-icons/sl"
 
 import { CardMainPlus, CardIconPacientes } from "."
+import { useRouter } from "next/router"
 
 export function CardPacientesPlus() {
 
@@ -29,11 +30,13 @@ export function CardPerfilPlus() {
 }
 
 export function CardFinanceiroPlus() {
+    const router = useRouter();
+    const { id: siteId } = router.query;
     return (
         <CardMainPlus>
-            <CardIconPacientes icon={IoPersonOutline} text={"Geral"} href={"#"} />
-            <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Ganhos"} href={"#"} />
-            <CardIconPacientes icon={MdOutlineImageSearch} text={"Despesas"} href={"#"} />
+            <CardIconPacientes icon={IoPersonOutline} text={"Geral"} href={`/site/${siteId}/financeiro`} />
+            <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Ganhos"} href={`/site/${siteId}/ganhos`} />
+            <CardIconPacientes icon={MdOutlineImageSearch} text={"Despesas"} href={`/site/${siteId}/despesas`} />
         </CardMainPlus>
 
     )

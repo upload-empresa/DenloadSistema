@@ -1,9 +1,21 @@
-import { Heading, HStack, Icon, Stack, Text } from "@chakra-ui/react"
+import { Button, Heading, HStack, Icon, Stack, Text } from "@chakra-ui/react"
 import { ReactNode } from "react"
 import { IconType } from "react-icons/lib"
 import { FigureImage } from "../FigureImage"
 import { Links } from "../Links"
 import { TitleDashboardFinanceiro } from "../Title"
+import { MdOutlineInsertDriveFile, MdEditNote, MdOutlineImage, MdClear } from "react-icons/md"
+import cn from "clsx";
+import Image from "next/image";
+import { useState } from "react";
+
+import type { ComponentProps } from "react";
+import type { WithClassName } from "@/types";
+
+interface BlurImageProps extends WithClassName, ComponentProps<typeof Image> {
+    alt: string;
+
+}
 
 interface CardMainProps {
     children: ReactNode
@@ -215,26 +227,21 @@ export function CardIconPacientes({ icon, text, href }: CardIconPacientesProps) 
                 px={3}
                 py={2}
                 _hover={{
-                    bg: "#2FACFA",
-                    color: "white"
+                    bg: "#e1e1e1",
                 }}
             >
                 <Icon
                     as={icon}
                     fontSize={"24px"}
                     color={"#7E7E7E"}
-                    _hover={{
-                        color: "white"
-                    }}
+
 
                 />
                 <Text
                     as="p"
                     color={"#7E7E7E"}
                     size={"12px"}
-                    _hover={{
-                        color: "white"
-                    }}
+
 
                 >
                     {text}
@@ -245,9 +252,9 @@ export function CardIconPacientes({ icon, text, href }: CardIconPacientesProps) 
 }
 
 interface CardDashboardHorariosProps {
-    nome: string
-    procedimento: string
-    horario: string
+    nome: any
+    procedimento: any
+    horario: any
 }
 
 export function CardDashboardHorarios({ nome, procedimento, horario }: CardDashboardHorariosProps) {
@@ -295,9 +302,9 @@ export function CardDashboardHorarios({ nome, procedimento, horario }: CardDashb
 }
 
 interface CardDashboardFinanceiroProps {
-    nome: string
-    procedimento: string
-    horario: string
+    nome: any
+    procedimento: any
+    horario: any
     title: string
     color: string
     w?: string
@@ -340,7 +347,7 @@ export function CardDashboardFinanceiro({ nome, procedimento, horario, title, co
                         fontSize={"12px"}
                         fontWeight={500}
                     >
-                        {horario}
+                        R${horario},00
                     </Text>
                 </Stack>
             </HStack>
@@ -348,3 +355,108 @@ export function CardDashboardFinanceiro({ nome, procedimento, horario, title, co
     )
 }
 
+interface CardsDocumentosProps {
+    icon: IconType
+    text: string
+}
+
+export function CardsDocumentos(props: BlurImageProps) {
+    const [isLoading, setLoading] = useState(true);
+    return (
+        <Stack
+            position={"relative"}
+            spacing={0}
+
+        >
+            <HStack
+                bg={"#2FACFA"}
+                px={5}
+                py={4}
+                borderRadius={"8px"}
+            >
+                {/* <Icon
+                    as={icon}
+                    color={"white"}
+                    fontSize={"20px"}
+                /> */}
+                {/* <Text
+                    as={"p"}
+                    color={"white"}
+                    fontSize={"12px"}
+                    fontWeight={"normal"}
+                >
+                    {text}
+                </Text> */}
+                <Image
+                    {...props}
+                    alt={props.alt}
+                    className={cn(
+                        props.className,
+                        "duration-700 ease-in-out",
+                        isLoading
+                            ? "grayscale blur-2xl scale-110"
+                            : "grayscale-0 blur-0 scale-100"
+                    )}
+                    onLoadingComplete={() => setLoading(false)}
+                />
+            </HStack>
+            <Button
+                as={"a"}
+                borderRadius={"50%"}
+                bg={"red"}
+                py={3}
+                px={0}
+                position={"absolute"}
+                width={"10px"}
+                height={"20px"}
+                top="-5%"
+                left="70%"
+                zIndex={2}
+            >
+                <Icon
+                    as={MdClear}
+                    fontSize={"16px"}
+                    color={"white"}
+                />
+            </Button>
+        </Stack>
+    )
+}
+
+interface CardAdminProps {
+    title: any
+    text: any
+}
+
+export function CardAdmin({ title, text }: CardAdminProps) {
+    return (
+        <HStack
+            px={7}
+            py={5}
+            bg={"white"}
+            spacing={8}
+            borderRadius={"18px"}
+            w={"50%"}
+        >
+            <FigureImage w={undefined} path={"/perfilpessoa.png"} altText={""} tamH={90} tamW={90} />
+            <Stack
+                spacing={2}
+            >
+                <Heading
+                    fontSize={"20px"}
+                    fontWeight={600}
+                    color={"#474749"}
+                >
+                    {title}
+                </Heading>
+                <Text
+                    fontSize={"14px"}
+                    fontWeight={500}
+                    color={"#7C7C7C"}
+                >
+                    {text}
+                </Text>
+            </Stack>
+        </HStack>
+    )
+}

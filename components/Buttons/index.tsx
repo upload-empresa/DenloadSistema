@@ -101,6 +101,9 @@ export function ButtonAdd({ text, onClick, href }: ButtonAddProps) {
                 size={"sm"}
                 fontWeight={500}
                 onClick={onClick}
+                _hover={{
+                    bg: '#2C7A7B'
+                }}
             >
                 {text}
             </Button>

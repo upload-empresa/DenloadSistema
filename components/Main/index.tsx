@@ -22,7 +22,7 @@ export function Main({ children, title, button, w, path, altText, tamh, tamw }: 
             as="main"
             spacing={0}
         >
-            {/* <Navbar /> */}
+            <Navbar />
             <Sidebar title={title} button={button} w={w} path={path} altText={altText} tamh={tamh} tamw={tamw}>
                 {children}
             </Sidebar>

@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { feedback } = req.body;
+  const { feedback, nota } = req.body;
 
   try {
     // const resetLink = `http://app.localhost:3000/reset-password?token=${token}`;
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       from: process.env.SMTP_FROM,
       to: 'helena.lannes.salles@hotmail.com',
       subject: 'Feedback Denload',
-      text: `Denload Feedback:\n\n${feedback}`,
+      text: `Denload Feedback:\n\n${feedback} e nota: ${nota}`,
     };
 
     await transporter.sendMail(mailOptions);

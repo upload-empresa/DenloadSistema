@@ -10,6 +10,7 @@ import type {
   Agenda,
   Foto,
   Estoque,
+  Subscription,
 } from '@prisma/client';
 import type { PropsWithChildren } from 'react';
 
@@ -43,6 +44,10 @@ export interface WithSiteGanho extends Ganho {
   site: Site | null;
 }
 export interface WithSiteEstoque extends Estoque {
+  site: Site | null;
+}
+
+export interface WithSiteSubscription extends Subscription {
   site: Site | null;
 }
 

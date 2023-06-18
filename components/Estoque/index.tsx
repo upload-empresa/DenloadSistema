@@ -40,15 +40,14 @@ export function EstoqueAttributes({ title, text, name1, name2, name3, name4, nam
                 <TitleCards title={title} />
                 <HStack spacing={6}>
                     <Forms label={"Nome"} type={"text"} placeholder={"Digite o seu nome"} name={name1} onChange={onChange1} value={value1} />
-                    <Forms label={"Unidade"} type={"text"} placeholder={"Digite a unidade do produto"} name={name2} onChange={onChange2} value={value2} />
+                    <Forms label={"Unidade"} type={"text"} placeholder={"Digite a unidade do produto. Ex: un, mL"} name={name2} onChange={onChange2} value={value2} />
                 </HStack>
                 <HStack spacing={6}>
-                    <Forms label={"Validade"} type={"text"} placeholder={"Digite a sua validade"} name={name3} onChange={onChange3} value={value3} />
-                    <Forms label={"Data da Compra"} type={"text"} placeholder={"Digite a data da compra"} name={name4} onChange={onChange4} value={value4} />
+                    <Forms label={"Validade"} type={"date"} placeholder={"Digite a sua validade"} name={name3} onChange={onChange3} value={value3} />
+                    <Forms label={"Data da Compra"} type={"date"} placeholder={"Digite a data da compra"} name={name4} onChange={onChange4} value={value4} />
                 </HStack>
                 <HStack spacing={6}>
-                    <Forms label={"Mínimo do Produto"} type={"text"} placeholder={"Digite a quantidade mínima do produto"} name={name5} onChange={onChange5} value={value5} />
-                    <Forms label={"Valor Unitário do Produto"} type={"text"} placeholder={"Digite o valor unitário do produto"} name={name6} onChange={onChange6} value={value6} />
+                    <Forms label={"Valor do Produto"} type={"text"} placeholder={"Digite o valor do produto"} name={name6} onChange={onChange6} value={value6} />
 
                 </HStack>
                 <ButtonSave align="end" onClick={onClick} />

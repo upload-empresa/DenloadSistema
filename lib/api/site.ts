@@ -1,12 +1,12 @@
-import cuid from "cuid";
-import { NextApiRequest, NextApiResponse } from "next";
-import { unstable_getServerSession } from "next-auth/next";
-import { authOptions } from "pages/api/auth/[...nextauth]";
-import prisma from "@/lib/prisma";
+import cuid from 'cuid';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { unstable_getServerSession } from 'next-auth/next';
+import { authOptions } from 'pages/api/auth/[...nextauth]';
+import prisma from '@/lib/prisma';
 
-import type { Site } from ".prisma/client";
-import type { Session } from "next-auth";
-import { placeholderBlurhash } from "../utils";
+import type { Site } from '.prisma/client';
+import type { Session } from 'next-auth';
+import { placeholderBlurhash } from '../utils';
 
 /**
  * Get Site
@@ -29,10 +29,10 @@ export async function getSite(
   if (Array.isArray(siteId))
     return res
       .status(400)
-      .end("Bad request. siteId parameter cannot be an array.");
+      .end('Bad request. siteId parameter cannot be an array.');
 
   if (!session.user.id)
-    return res.status(500).end("Server failed to get session user ID");
+    return res.status(500).end('Server failed to get session user ID');
 
   try {
     if (siteId) {
@@ -84,17 +84,16 @@ export async function createSite(
 ): Promise<void | NextApiResponse<{
   siteId: string;
 }>> {
-  const { name, subdomain, description, userId } = req.body;
+  const { name, description, userId } = req.body;
 
-  const sub = subdomain.replace(/[^a-zA-Z0-9/-]+/g, "");
+  // const sub = subdomain.replace(/[^a-zA-Z0-9/-]+/g, "");
 
   try {
     const response = await prisma.site.create({
       data: {
         name: name,
         description: description,
-        subdomain: sub.length > 0 ? sub : cuid(),
-        logo: "/logo.png",
+        logo: '/logo.png',
         image: `/placeholder.png`,
         imageBlurhash: placeholderBlurhash,
         user: {
@@ -128,11 +127,11 @@ export async function deleteSite(
   res: NextApiResponse
 ): Promise<void | NextApiResponse> {
   const session = await unstable_getServerSession(req, res, authOptions);
-  if (!session?.user.id) return res.status(401).end("Unauthorized");
+  if (!session?.user.id) return res.status(401).end('Unauthorized');
   const { siteId } = req.query;
 
-  if (!siteId || typeof siteId !== "string") {
-    return res.status(400).json({ error: "Missing or misconfigured site ID" });
+  if (!siteId || typeof siteId !== 'string') {
+    return res.status(400).json({ error: 'Missing or misconfigured site ID' });
   }
 
   const site = await prisma.site.findFirst({
@@ -143,12 +142,12 @@ export async function deleteSite(
       },
     },
   });
-  if (!site) return res.status(404).end("Site not found");
+  if (!site) return res.status(404).end('Site not found');
 
   if (Array.isArray(siteId))
     return res
       .status(400)
-      .end("Bad request. siteId parameter cannot be an array.");
+      .end('Bad request. siteId parameter cannot be an array.');
 
   try {
     await prisma.$transaction([
@@ -193,20 +192,24 @@ export async function updateSite(
   res: NextApiResponse
 ): Promise<void | NextApiResponse<Site>> {
   const session = await unstable_getServerSession(req, res, authOptions);
-  if (!session?.user.id) return res.status(401).end("Unauthorized");
+  if (!session?.user.id) return res.status(401).end('Unauthorized');
 
   const {
     id,
     currentSubdomain,
     name,
+    estado,
+    cidade,
+    email,
+    celular,
     description,
     font,
     image,
     imageBlurhash,
   } = req.body;
 
-  if (!id || typeof id !== "string") {
-    return res.status(400).json({ error: "Missing or misconfigured site ID" });
+  if (!id || typeof id !== 'string') {
+    return res.status(400).json({ error: 'Missing or misconfigured site ID' });
   }
 
   const site = await prisma.site.findFirst({
@@ -217,10 +220,10 @@ export async function updateSite(
       },
     },
   });
-  if (!site) return res.status(404).end("Site not found");
+  if (!site) return res.status(404).end('Site not found');
 
-  const sub = req.body.subdomain.replace(/[^a-zA-Z0-9/-]+/g, "");
-  const subdomain = sub.length > 0 ? sub : currentSubdomain;
+  // const sub = req.body.subdomain.replace(/[^a-zA-Z0-9/-]+/g, '');
+  // const subdomain = sub.length > 0 ? sub : currentSubdomain;
 
   try {
     const response = await prisma.site.update({
@@ -230,8 +233,12 @@ export async function updateSite(
       data: {
         name,
         description,
+        estado,
+        cidade,
+        email,
+        celular,
         font,
-        subdomain,
+        // subdomain,
         image,
         imageBlurhash,
       },

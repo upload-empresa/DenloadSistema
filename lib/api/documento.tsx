@@ -91,6 +91,7 @@ export async function createDocumento(
     documentoId: string;
 }>> {
     const { pacienteId } = req.query;
+    const { url } = req.body;
 
     if (!pacienteId || typeof pacienteId !== 'string') {
         return res
@@ -113,6 +114,7 @@ export async function createDocumento(
                         id: pacienteId,
                     },
                 },
+                url,
             },
         });
 
