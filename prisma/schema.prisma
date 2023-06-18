@@ -183,6 +183,21 @@ model Agenda {
   @@index([siteId])
 }
 
+model Author {
+  id        String @id @default(cuid())
+  firstName String
+  lastName  String
+  ibas      Iba[]
+}
+
+model Iba {
+  id       String  @id @default(cuid())
+  title    String
+  body     String
+  author   Author? @relation(fields: [authorId], references: [id])
+  authorId String?
+}
+
 model Anamnese {
   id            String    @id @default(cuid())
   slug          String?   @default(cuid())
