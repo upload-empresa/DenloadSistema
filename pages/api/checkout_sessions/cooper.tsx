@@ -1,15 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-import { CURRENCY, MIN_AMOUNT, MAX_AMOUNT } from '../../../config'
-import { formatAmountForStripe } from '../../../utils/stripe-helpers'
+import { MIN_AMOUNT, MAX_AMOUNT } from '../../../config'
 import { getSession } from 'next-auth/react'
 import { Site } from '@prisma/client'
 import prisma from '@/lib/prisma'
 import Stripe from 'stripe'
-import { useRouter } from 'next/router'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    // https://github.com/stripe/stripe-node#configuration
     apiVersion: '2022-08-01',
 })
 
@@ -26,7 +23,6 @@ export default async function handler(
     res: NextApiResponse
 ) {
     const siteId = String(req.query.siteId)
-    // const siteId = 'clifyly9p0000uf2s9k78mi36'
     const session = await getSession({ req })
 
     if (session) {
@@ -76,14 +72,11 @@ export default async function handler(
                 })
                 stripeCustomerId = custumer.id
             }
-            // Validate the amount that was passed from the client.
             if (!(amount >= MIN_AMOUNT && amount <= MAX_AMOUNT)) {
                 throw new Error('Invalid amount.')
             }
 
-            // Create Checkout Sessions from body params.
             const params: Stripe.Checkout.SessionCreateParams = {
-                // submit_type: 'donate',
                 client_reference_id: siteId,
                 customer: stripeCustomerId as string,
                 payment_method_types: ['card'],

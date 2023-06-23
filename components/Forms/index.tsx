@@ -10,12 +10,13 @@ interface FormsProps {
     onChange?: any
     onInput?: any
     ref?: any
+    mb?: any
 }
 
-export function Forms({ label, placeholder, type, w, name, value, onChange, ref, onInput }: FormsProps) {
+export function Forms({ label, placeholder, type, w, name, value, onChange, ref, onInput, mb }: FormsProps) {
     return (
-        <FormControl w={w}>
-            <FormLabel color={"#828282"} fontSize={"14px"}>{label}</FormLabel>
+        <FormControl w={w} mb={mb}>
+            <FormLabel color={"#828282"} fontSize={{ '2xl': "18px", lg: "14px", md: "14px", xxs: "14px" }}>{label}</FormLabel>
             <Input type={type} ref={ref} name={name} value={value} onChange={onChange} onInput={onInput} placeholder={placeholder} _placeholder={{ color: "#A1A1A1", fontSize: "14px" }} required />
         </FormControl>
     )
@@ -57,12 +58,13 @@ interface SelectsProps {
     label: string
     onInput?: any
     defaultValue?: any
+    mb?: any
 }
 
 
-export function Selects({ label, onInput, defaultValue }: SelectsProps) {
+export function Selects({ label, onInput, defaultValue, mb }: SelectsProps) {
     return (
-        <FormControl>
+        <FormControl mb={mb}>
             <FormLabel color={"#828282"} fontSize={"14px"}>{label}</FormLabel>
             <Select name="grupo"
                 onInput={onInput}

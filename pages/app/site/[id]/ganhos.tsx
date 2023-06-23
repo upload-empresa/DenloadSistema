@@ -82,7 +82,7 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
     useEffect(() => {
         // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/ganho?orderBy=${selectedOption}`);
+            const response = await fetch(`https://app.denload.com/api/ganho?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -150,7 +150,7 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
     useEffect(() => {
         // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/ganho?search=${searchTerm}`);
+            const response = await fetch(`/api/ganho?search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }
@@ -301,44 +301,63 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
                                                         </>
                                                     ) : (
                                                         <>
-                                                            {items?.map((item) => (
-                                                                <>
-                                                                    <Tr key={item.id}>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            <ButtonPacientes href={`/ganho/${item.id}`} onClick={() => handleDeleteClick(item.id)} />
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            <Link href={`/ganho/${item.id}`}>{item.name}</Link>
-                                                                        </Td>
-                                                                        <Td
-                                                                            textAlign={"start"}
-                                                                            isNumeric
-                                                                            color={"#474749"}
-                                                                            fontSize={"14px"}
-                                                                        >
-                                                                            {item.recebimento}
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            {item.empresa}
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            {item.valor}
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            <CardPacientes
-                                                                                text={item?.pago ? "Pago" : "Não Pago"}
-                                                                                bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                                color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                                            />
-                                                                        </Td>
-                                                                    </Tr>
-                                                                </>
-                                                            ))}
+                                                            {items ? (
+                                                                items.length > 0 ? (
+                                                                    items.map((item) => (
+                                                                        <>
+                                                                            <Tr key={item.id}>
+                                                                                <Td color={"#474749"} fontSize={"14px"}>
+                                                                                    <ButtonPacientes href={`/ganho/${item.id}`} onClick={() => handleDeleteClick(item.id)} />
+                                                                                </Td>
+                                                                                <Td color={"#474749"} fontSize={"14px"}>
+                                                                                    <Link href={`/ganho/${item.id}`}>{item.name}</Link>
+                                                                                </Td>
+                                                                                <Td
+                                                                                    textAlign={"start"}
+                                                                                    isNumeric
+                                                                                    color={"#474749"}
+                                                                                    fontSize={"14px"}
+                                                                                >
+                                                                                    {item.recebimento}
+                                                                                </Td>
+                                                                                <Td color={"#474749"} fontSize={"14px"}>
+                                                                                    {item.empresa}
+                                                                                </Td>
+                                                                                <Td color={"#474749"} fontSize={"14px"}>
+                                                                                    {item.valor}
+                                                                                </Td>
+                                                                                <Td color={"#474749"} fontSize={"14px"}>
+                                                                                    <CardPacientes
+                                                                                        text={item?.pago ? "Pago" : "Não Pago"}
+                                                                                        bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                                        color={item?.pago ? "#0BB7AF" : "#F64E60"}
+                                                                                    />
+                                                                                </Td>
+                                                                            </Tr>
+                                                                        </>
+
+                                                                    ))
+                                                                ) : (
+                                                                    <>
+                                                                        <p>
+                                                                            Nenhum ganho cadastrado.
+                                                                        </p>
+                                                                        <br />
+                                                                        <p>Clique em &quot;Novo Ganho&quot; para criar um.</p>
+
+
+
+                                                                    </>
+                                                                )
+                                                            ) : (
+                                                                <p>Carregando...</p>
+                                                            )}
                                                         </>
                                                     )}
                                                 </>
                                             )}
-                                        </Tbody >
+
+                                        </Tbody>
                                         <Tfoot>
                                             <Tr>
                                             </Tr>

@@ -46,10 +46,10 @@ export function Sidebar({ children, title, button, w, path, altText, tamh, tamw 
 
     return (
         <HStack align="strech" spacing={0}>
-            <Stack w="17vw" display={{ lg: "flex", xxs: "none" }} py={12} bg="#01233C" spacing={8} pr={0}>
+            <Stack w={{ lg: "17vw", xxs: "0" }} display={{ lg: "flex", xxs: "none" }} py={12} bg="#01233C" spacing={8} pr={0}>
                 <Stack>
                     <SideSection href={`/site/${siteId}/dashboard`} text="Dashboard" icone={MdHome} />
-                    <SideSection href={`/site/${siteId}/calendar`} text="Agenda" icone={MdEvent} />
+                    <SideSection href={"https://calendar.google.com/"} text="Agenda" icone={MdEvent} />
                     <SideSection href={`/site/${siteId}/`} text="Pacientes" icone={MdGroup} />
                     <SideSection href={`/site/${siteId}/estoques`} text="Estoque" icone={MdAssignment} />
                     <SideSection href={`/site/${siteId}/financeiro`} text="Financeiro" icone={MdAccountBalanceWallet} />
@@ -62,12 +62,17 @@ export function Sidebar({ children, title, button, w, path, altText, tamh, tamw 
 
                 </Stack>
             </Stack>
-            <HStack as="section" w="81vw" bg="#EDF1F2" pb={5} pt={10} spacing={0} px={7} align="start">
-                <Stack w="100vw" spacing={6}>
-                    <HStack justify="space-between">
+            <HStack as="section" w={{ lg: "83vw", xxs: "100vw" }} bg="#EDF1F2" pb={5} pt={10} spacing={0} px={7} align="start">
+                <Stack w={{ lg: "80vw", xxs: "90vw" }} spacing={6}>
+                    <HStack
+                        justify="space-between"
+                        flexDir={{ md: "row", xxs: "column" }}
+                        align={{ md: "none", xxs: "start" }}
+                        spacing={0}
+                    >
                         <HStack>
                             <FigureImage w={w} path={path} altText={altText} tamH={tamh} tamW={tamw} />
-                            <Heading as="h1" fontSize="28px" fontWeight={400}>
+                            <Heading as="h1" fontSize={{ xl: "28px", md: "24px", xxs: "20px" }} fontWeight={400}>
                                 {title}
                             </Heading>
                         </HStack>
@@ -82,11 +87,11 @@ export function Sidebar({ children, title, button, w, path, altText, tamh, tamw 
                 aria-label={isOpen ? 'Close sidebar' : 'Open sidebar'}
                 onClick={isOpen ? handleClose : handleOpen}
                 position="fixed"
-                top="20px"
+                top={{ md: "20px", sm: "13px", xs: "10px", xxs: "7px" }}
                 left="20px"
                 zIndex={999}
                 bg="transparent"
-                color="#000"
+                color="white"
             />
             {isOpen && (
                 <Drawer placement="left" size={{ xxs: "xs" }} onClose={handleClose} isOpen={isOpen}>

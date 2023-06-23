@@ -32,22 +32,21 @@ export function Navbar({ siteId, children }: LayoutProps) {
             as="section"
             bg="#01233C"
             w="100%"
+            position={"sticky"}
+            top={0}
+            zIndex={200}
             py={2}
             px={7}
             justify={"space-between"}
         >
             <HStack
                 as="article"
+                pl={{ lg: 0, md: 10, xxs: 10 }}
             >
                 <FigureImage w={"50%"} path={"/ibar.png"} altText={"Logo do Denload"} tamH={182} tamW={391} />
             </HStack>
 
-            <button
 
-                onClick={() => signOut()}
-            >
-                Logout
-            </button>
 
 
 

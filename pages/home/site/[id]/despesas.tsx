@@ -86,7 +86,7 @@ export default function Despesas({ despesa, despesas }) {
 
     useEffect(() => {
         const selectApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/despesa?orderBy=${selectedOption}`);
+            const response = await fetch(`https://app.denload.com/api/despesa?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -151,7 +151,7 @@ export default function Despesas({ despesa, despesas }) {
 
     useEffect(() => {
         const searchApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/despesa?search=${searchTerm}`);
+            const response = await fetch(`https://app.denload.com/api/despesa??siteId=${siteId}&search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }
@@ -166,23 +166,19 @@ export default function Despesas({ despesa, despesas }) {
     return (
 
         //@ts-ignore
-        <Main title={"Financeiro"} button={<ButtonAdd text={"Nova Despesa"} onClick={() => {
+        <Main title={"Financeiro"} button={<ButtonAdd mt={{ md: "0", xxs: "10%" }} text={"Nova Despesa"} onClick={() => {
             setCreatingDespesa(true);
             createDespesa(siteId as string);
-        }} href={""} />}>
+        }} href={""} />} tamh={0} tamw={0}>
 
-            {/* <select value={selectedOption} onChange={handleOptionChange}>
-                <option value="">Selecione uma opção</option>
-                <option value="asc">Opção 1</option>
-                <option value="desc">Opção 2</option>
-            </select> */}
+
             <HStack
                 spacing={0}
                 align={"stretch"}
             >
                 <CardFinanceiroPlus />
 
-                <CardMain radius={"0 18px 18px 0"} spacing={5} w="90%" >
+                <CardMain radius={"0 18px 18px 0"} spacing={5} w={{ md: "90%", xxs: "70%" }}>
                     <>
                         <TableContainer>
                             <Stack spacing={6}>
@@ -198,10 +194,11 @@ export default function Despesas({ despesa, despesas }) {
                                             />
                                             <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                                         </InputGroup>
-                                        <Select variant='filled' placeholder='Ordenar por' >
-                                            <option value="name">Nome</option>
-                                            <option value="age">Idade</option>
-                                            <option value="gender">Gênero</option>
+
+                                        <Select variant='filled' placeholder='Ordenar por' onChange={handleOptionChange}>
+                                            <option value="asc">Ordem Ascendente</option>
+                                            <option value="desc">Ordem Descendente</option>
+
                                         </Select>
                                     </HStack>
                                 </HStack>

@@ -17,6 +17,7 @@ import { HttpMethod } from "@/types";
 import type { ChangeEvent } from "react";
 
 import type { WithSiteGanho } from "@/types";
+import { useToast } from "@chakra-ui/react";
 
 interface GanhoData {
     name: string;
@@ -26,6 +27,8 @@ interface GanhoData {
 }
 
 export default function AddFinanceiroGanho() {
+    const toast = useToast()
+    const statuses = ['success', 'error', 'warning', 'info']
     const router = useRouter();
 
     // TODO: Undefined check redirects to error
@@ -106,7 +109,7 @@ export default function AddFinanceiroGanho() {
                     );
                 } else {
                     setSavedState("Failed to save.");
-                    toast.error("Failed to save");
+
                 }
             } catch (error) {
                 console.error(error);
@@ -186,13 +189,26 @@ export default function AddFinanceiroGanho() {
             if (response.ok) {
                 setPago(true),
                     mutate(`/api/ganho?ganhoId=${ganhoId}`);
+                toast({
+                    title: `Anamnese criada com sucesso!`,
+                    status: 'success',
+                    isClosable: true,
+                })
                 router.back();
             }
+
+
         } catch (error) {
             console.error(error);
         } finally {
             setPublishing(false);
             setPago(false)
+            toast({
+                title: `Ganho criado com sucesso!`,
+                status: 'success',
+                isClosable: true,
+            })
+            router.back();
         }
     }
 

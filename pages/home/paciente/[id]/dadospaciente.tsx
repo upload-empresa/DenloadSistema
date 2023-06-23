@@ -7,8 +7,6 @@ import { CardIconPacientes, CardMain, CardMainPlus } from "../../../../component
 import { Forms, Selects, TextAreas } from "../../../../components/Forms"
 import { Main } from "../../../../components/Main"
 
-import TextareaAutosize from "react-textarea-autosize";
-import toast from "react-hot-toast";
 import useSWR, { mutate } from "swr";
 import { useDebounce } from "use-debounce";
 import { useRouter } from "next/router";
@@ -16,7 +14,6 @@ import { useState, useEffect, useCallback } from "react";
 
 import Layout from "@/components/app/Layout";
 import Loader from "@/components/app/Loader";
-import LoadingDots from "@/components/app/loading-dots";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
 
@@ -74,7 +71,6 @@ export default function DadosDoPaciente() {
     const toast = useToast()
     const statuses = ['success', 'error', 'warning', 'info']
 
-    // TODO: Undefined check redirects to error
     const { id: pacienteId } = router.query;
 
     const { data: paciente, isValidating } = useSWR<WithSitePaciente>(
@@ -328,7 +324,7 @@ export default function DadosDoPaciente() {
                     <CardIconPacientes icon={SlNote} text={"Anotações"} href={"#"} />
                 </CardMainPlus>
                 <CardMain radius={"0 18px 18px 0"} w={"90%"} spacing={5}>
-                    <HStack spacing={6}>
+                    <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
                         <Forms label={"Nome"} name={"name"} value={data.name}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 setData({
@@ -336,7 +332,7 @@ export default function DadosDoPaciente() {
                                     name: e.target.value,
                                 })
                             }
-                            type={"text"} placeholder={"Nome do paciente"} />
+                            type={"text"} placeholder={"Nome do paciente"} mb={{ md: "0", xxs: "10%" }} />
 
                         <Forms label={"RG"} name={"rg"} value={data.rg}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -347,7 +343,7 @@ export default function DadosDoPaciente() {
                             }
                             type={"text"} placeholder={"RG do paciente"} />
                     </HStack>
-                    <HStack spacing={6}>
+                    <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
                         <Forms label={"Telefone"} name={"telefone"} value={data.telefone}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 setData({
@@ -367,14 +363,14 @@ export default function DadosDoPaciente() {
                             type={"text"} placeholder={"CPF do paciente"} />
 
                     </HStack>
-                    <HStack spacing={6}>
+                    <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
                         <Forms label={"Sexo"} name={"sexo"} value={data.sexo}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 setData({
                                     ...data,
                                     sexo: e.target.value,
                                 })
-                            } type={"text"} placeholder={"Sexo do paciente"} />
+                            } type={"text"} placeholder={"Sexo do paciente"} mb={{ md: "0", xxs: "10%" }} />
 
                         <Forms label={"Endereço"} name={"endereco"} value={data.endereco}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -385,7 +381,7 @@ export default function DadosDoPaciente() {
                             } type={"text"} placeholder={"Endereço do paciente"} />
 
                     </HStack>
-                    <HStack spacing={6}>
+                    <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
 
                         <Selects
                             label={"Grupo"}
@@ -393,7 +389,7 @@ export default function DadosDoPaciente() {
                                 ...data,
                                 grupo: (e.target as HTMLTextAreaElement).value,
                             })}
-                            defaultValue={data.grupo} onInput1={undefined} defaultValue1={undefined} />
+                            defaultValue={data.grupo} onInput1={undefined} defaultValue1={undefined} mb={{ md: "0", xxs: "10%" }} />
 
                         <Forms label={"CEP"} name={"cep"} value={data.cep}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -401,17 +397,17 @@ export default function DadosDoPaciente() {
                                     ...data,
                                     cep: e.target.value,
                                 })
-                            } type={"number"} placeholder={"Digite o RG do paciente"} />
+                            } type={"number"} placeholder={"Digite o RG do paciente"} mb={{ md: "0", xxs: "10%" }} />
 
                     </HStack>
-                    <HStack spacing={6}>
+                    <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
                         <Forms label={"Email"} name={"email"} value={data.email}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
                                 setData({
                                     ...data,
                                     email: e.target.value,
                                 })
-                            } type={"text"} placeholder={"Email do paciente"} />
+                            } type={"text"} placeholder={"Email do paciente"} mb={{ md: "0", xxs: "10%" }} />
 
                         <Forms label={"Complemento"} name={"complemento"} value={data.complemento}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>

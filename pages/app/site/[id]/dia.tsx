@@ -154,7 +154,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     useEffect(() => {
         // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/agenda?orderBy=${selectedOption}`);
+            const response = await fetch(`/api/agenda?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -180,7 +180,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     useEffect(() => {
         // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/paciente?search=${searchTerm}`);
+            const response = await fetch(`/api/paciente?search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }

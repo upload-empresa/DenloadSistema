@@ -69,15 +69,6 @@ export default function ForgotPassword() {
                 </Stack>
 
             </HStack>
-            {/* <label>
-                Email:
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </label>
-
-            <button type="submit">Reset password</button>
-
-            {error && <p>{error}</p>}
-            {message && <p>{message}</p>} */}
         </form>
     )
 }

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -18,7 +15,6 @@ model User {
   endereco      String?
   password      String?
   token         String?
-  // if you are using Github OAuth, you can get rid of the username attribute (that is for Twitter OAuth)
   username      String?
   gh_username   String?
   email         String?   @unique
@@ -208,13 +204,8 @@ model Anamnese {
   image         String?   @db.Text
   imageBlurhash String?   @db.Text
   published     Boolean   @default(false)
-  // site          Site?     @relation(fields: [siteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  // siteId        String?
   paciente      Paciente? @relation(fields: [pacienteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   pacienteId    String?
-
-  // @@unique([id, siteId], name: "post_site_constraint")
-  // @@index([siteId])
 }
 
 model Foto {

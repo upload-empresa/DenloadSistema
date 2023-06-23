@@ -15,10 +15,8 @@ export default function App({
   return (
     <ChakraProvider theme={theme}>
       <SessionProvider session={session}>
-        {/* <main> */}
         <Component {...pageProps} />
-        {/* </main> */}
-        {/* <Analytics /> */}
+        <Analytics />
       </SessionProvider>
     </ChakraProvider>
   );

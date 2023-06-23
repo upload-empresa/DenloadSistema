@@ -6,8 +6,6 @@ import { TitleCards } from "@/components/Title"
 import { Main } from "../../../../components/Main"
 import { CardPacientesPlus } from "@/components/Cards/plus"
 
-import TextareaAutosize from "react-textarea-autosize";
-import toast from "react-hot-toast";
 import useSWR, { mutate } from "swr";
 import { useDebounce } from "use-debounce";
 import { useRouter } from "next/router";
@@ -15,7 +13,6 @@ import { useState, useEffect, useCallback } from "react";
 
 import Layout from "@/components/app/Layout";
 import Loader from "@/components/app/Loader";
-import LoadingDots from "@/components/app/loading-dots";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
 
@@ -32,7 +29,6 @@ export default function Anotacoes() {
     const toast = useToast()
     const statuses = ['success', 'error', 'warning', 'info']
 
-    // TODO: Undefined check redirects to error
     const { id: pacienteId } = router.query;
 
     const { data: paciente, isValidating } = useSWR<WithSitePaciente>(

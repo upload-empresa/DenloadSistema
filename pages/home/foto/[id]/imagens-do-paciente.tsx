@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { HStack, Stack } from "@chakra-ui/react"
-// import { CldUploadButton } from "next-cloudinary"
-import Image from 'next/image'
 
 import { Main } from '@/components/Main'
 import { CardMainPlus, CardIconPacientes, CardMain } from '@/components/Cards'
@@ -10,7 +8,6 @@ import { MdOutlineInsertDriveFile, MdOutlineImageSearch } from 'react-icons/md'
 import { TitleCards } from '@/components/Title'
 
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 import BlurImage from "@/components/BlurImage";
 import Layout from "@/components/app/Layout";
@@ -18,7 +15,7 @@ import LoadingDots from "@/components/app/loading-dots";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
 
-import type { Foto, Site, Paciente } from "@prisma/client";
+import type { Foto, Paciente } from "@prisma/client";
 import type { WithPacienteFoto } from "@/types";
 import { useEffect, useCallback } from "react";
 import { useDebounce } from "use-debounce";
@@ -62,9 +59,6 @@ export default function DocPacientes() {
     const { data: fotoMostrar } = useSWR<SiteFotoData>(
         pacienteId && `/api/foto?pacienteId=${pacienteId}&published=true`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.site && router.push("/"),
-        // }
     );
 
     const { data: foto, isValidating } = useSWR<WithPacienteFoto>(

@@ -1,10 +1,8 @@
-import { cache } from "react";
-import type { _SiteData } from "@/types";
-import prisma from "@/lib/prisma";
-import remarkMdx from "remark-mdx";
-import { remark } from "remark";
-import { serialize } from "next-mdx-remote/serialize";
-import { replaceExamples, replaceTweets } from "@/lib/remark-plugins";
+import { cache } from 'react';
+import type { _SiteData } from '@/types';
+import prisma from '@/lib/prisma';
+import { serialize } from 'next-mdx-remote/serialize';
+import { replaceExamples, replaceTweets } from '@/lib/remark-plugins';
 
 export const getSiteData = cache(async (site: string): Promise<_SiteData> => {
   let filter: {
@@ -14,7 +12,7 @@ export const getSiteData = cache(async (site: string): Promise<_SiteData> => {
     subdomain: site,
   };
 
-  if (site.includes(".")) {
+  if (site.includes('.')) {
     filter = {
       customDomain: site,
     };
@@ -30,7 +28,7 @@ export const getSiteData = cache(async (site: string): Promise<_SiteData> => {
         },
         orderBy: [
           {
-            createdAt: "desc",
+            createdAt: 'desc',
           },
         ],
       },
@@ -48,7 +46,7 @@ export const getPostData = cache(async (site: string, slug: string) => {
     subdomain: site,
   };
 
-  if (site.includes(".")) {
+  if (site.includes('.')) {
     filter = {
       customDomain: site,
     };
@@ -105,7 +103,6 @@ export const getPostData = cache(async (site: string, slug: string) => {
 });
 
 async function getMdxSource(postContents: string) {
-  // Serialize the content string into MDX
   const mdxSource = await serialize(postContents, {
     mdxOptions: {
       remarkPlugins: [replaceTweets, () => replaceExamples(prisma)],

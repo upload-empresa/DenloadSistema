@@ -11,7 +11,7 @@ export function CardPacientesPlus() {
         <CardMainPlus>
             <CardIconPacientes icon={IoPersonOutline} text={"Dados"} href={"/pacientes/dados-do-paciente"} />
             <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Documentos"} href={"/pacientes/documentos-do-paciente"} />
-            <CardIconPacientes icon={MdOutlineImage} text={"Imagens"} href={"/pacientes/imagnes-do-paciente"} />
+            <CardIconPacientes icon={MdOutlineImage} text={"Imagens"} href={"/pacientes/imagens-do-paciente"} />
             <CardIconPacientes icon={MdEditNote} text={"Anamneses"} href={"/pacientes/anamneses"} />
             <CardIconPacientes icon={SlNote} text={"Anotações"} href={"/pacientes/anotacoes"} />
         </CardMainPlus>

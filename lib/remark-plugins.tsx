@@ -13,9 +13,6 @@ interface NodesToChange {
 }
 
 export function replaceLinks(options: { href?: string } & WithChildren) {
-  // this is technically not a remark plugin but it
-  // replaces internal links with <Link /> component
-  // and external links with <a target="_blank" />
   return options.href?.startsWith("/") || options.href === "" ? (
     <Link href={options.href} className="cursor-pointer">
       {options.children}
@@ -48,9 +45,9 @@ export function replaceTweets<T extends Node>() {
           const data = await getTweet(node as Literal<string>);
 
           node.type = "mdxJsxFlowElement";
-          // @ts-expect-error - Node is a generic type, but we are creating a JSX node here
+          // @ts-expect-error
           node.name = "Tweet";
-          // @ts-expect-error - Node is a generic type, but we are creating a JSX node here
+          // @ts-expect-error
           node.attributes = [
             {
               type: "mdxJsxAttribute",
@@ -107,7 +104,7 @@ export function replaceExamples<T extends Node>(prisma: PrismaClient) {
       for (const { node } of nodesToChange) {
         try {
           const data = await getExamples(node, prisma);
-          // @ts-expect-error - Node is a generic type, but we are creating a JSX node here
+          // @ts-expect-error
           node.attributes = [
             {
               type: "mdxJsxAttribute",

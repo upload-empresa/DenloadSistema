@@ -81,7 +81,7 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
     useEffect(() => {
         // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/paciente?orderBy=${selectedOption}`);
+            const response = await fetch(`/api/paciente?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -149,7 +149,7 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
     useEffect(() => {
         // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/paciente?search=${searchTerm}`);
+            const response = await fetch(`/api/paciente?search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }

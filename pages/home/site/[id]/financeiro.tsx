@@ -1,36 +1,25 @@
 import { HStack } from "@chakra-ui/react"
-import { IoPersonOutline } from "react-icons/io5"
-import { MdOutlineInsertDriveFile, MdOutlineImageSearch } from "react-icons/md"
 
-import { CardMainPlus, CardIconPacientes, CardMain } from "../../../../components/Cards"
+import { CardMain } from "../../../../components/Cards"
 import { Main } from "../../../../components/Main"
-import { TableMain3 } from "../../../../components/Table/TableMain3"
 
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import useSWR from "swr";
 
-import LoadingDots from "@/components/app/loading-dots";
 import { fetcher } from "@/lib/fetcher";
-import { HttpMethod } from "@/types";
-import type { WithSiteGanho } from "@/types";
 import type { Ganho, Despesa, Site, Subscription } from "@prisma/client";
-import Modal from "@/components/Modal";
 import { Select } from "@chakra-ui/react"
-import { ButtonAdd } from "@/components/Buttons"
 
-import { Stack, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
+import { Stack } from "@chakra-ui/react"
 
-import { Line, Pie } from "react-chartjs-2"
+import { Pie } from "react-chartjs-2"
 
 import { CardFinanceiroPlus } from "@/components/Cards/plus"
-import { TitleCards, TitleDashboard, TitleDashboardGrafic } from "@/components/Title"
+import { TitleCards, TitleDashboardGrafic } from "@/components/Title"
 
-import { useTranslation } from "next-i18next";
 import React from "react";
-import { Bar } from "react-chartjs-2";
-import { format, subMonths } from "date-fns";
+import { subMonths } from "date-fns";
 
 
 interface SiteGanhoData {
@@ -74,19 +63,20 @@ const Financeiro = () => {
                 >
 
                     <CardFinanceiroPlus />
-                    <CardMain radius={"0 18px 18px 0"} spacing={0} w="90%" >
+                    <CardMain radius={"0 18px 18px 0"} spacing={0} w={{ md: "90%", xxs: "70%" }} >
                         <Stack
                             spacing={5}
                         >
                             <TitleCards title={"Financeiro"} />
                             <HStack
-                                spacing={8}
-                                w="100%"
+                                spacing={{ lg: 8, xxs: 0 }}
+                                w={"100%"}
+                                flexDir={{ lg: "row", xxs: "column" }}
                             >
                                 <Stack
-                                    w="50%"
+                                    w={{ lg: "50%", xxs: "100%" }}
                                 >
-                                    <TitleDashboardGrafic title={"Despesas e Ganhos"} />
+                                    <TitleDashboardGrafic title={"Despesas e Ganhos"} flexDir={{ lg: "row", xxs: "column" }} />
                                     <Select
                                         w="40%"
                                         fontSize="14px"
@@ -105,14 +95,6 @@ const Financeiro = () => {
 
                                             const currentDate = new Date();
                                             let startDate = currentDate;
-
-                                            // ganhosData.ganhos.forEach((ganho) => {
-                                            //     totalGanhos += +ganho.valor;
-                                            // });
-
-                                            // despesasData.despesas.forEach((despesa) => {
-                                            //     totalDespesas += +despesa.valor;
-                                            // });
 
                                             if (selectedPeriod === "3 meses") {
                                                 startDate = subMonths(currentDate, 3);
@@ -186,17 +168,14 @@ const Financeiro = () => {
                                 </Stack>
                             </HStack>
                             <Stack>
-                                <TitleDashboardGrafic title={"Total de Novos Pacientes"} />
+                                <TitleDashboardGrafic title={"Total de Novos Pacientes"} flexDir={{ lg: "row", xxs: "column" }} />
 
                             </Stack>
                         </Stack>
-
                     </CardMain >
                 </HStack >
-
             </Main >
         </>
-
     );
 };
 

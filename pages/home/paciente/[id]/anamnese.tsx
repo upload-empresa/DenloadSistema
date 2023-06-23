@@ -1,36 +1,23 @@
-import useAnamneses from "hooks/useAnamneses";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Button } from "react-daisyui";
 import type { NextPageWithLayout } from "types";
-import Anamneses from "./iba";
 import ModalAddAnamneses from "@/components/Modais";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetServerSidePropsContext, GetStaticPaths } from "next";
-import { HStack, Stack, useDisclosure } from "@chakra-ui/react"
+import { HStack, Stack } from "@chakra-ui/react"
 import { Main } from "@/components/Main";
-import { CardMainPlus, CardIconPacientes, CardMain } from "@/components/Cards"
-import { MdOutlineInsertDriveFile, MdOutlineImageSearch } from "react-icons/md"
-import { IoPersonOutline } from "react-icons/io5"
+import { CardMain } from "@/components/Cards"
 import { TitleCards } from "@/components/Title";
 import { ButtonDelete, ButtonDeletePlus, ButtonSave } from "@/components/Buttons";
-import { Forms, Selects } from "@/components/Forms";
-import { useEffect, useRef } from "react";
-import Layout from "@/components/app/Layout";
-import BlurImage from "@/components/BlurImage";
-import Modal from "@/components/Modal";
-import LoadingDots from "@/components/app/loading-dots";
-import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { Forms } from "@/components/Forms";
 import useSWR from "swr";
-import { useDebounce } from "use-debounce";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
 
-import type { FormEvent } from "react";
 import type { Anamnese, Paciente } from "@prisma/client";
 import React from "react";
+import { CardPacientesPlus } from "@/components/Cards/plus";
 
 interface SiteAnamneseData {
     anamneses: Array<Anamnese>;
@@ -44,12 +31,6 @@ interface SiteAnamneseData {
 const AllAnamneses: NextPageWithLayout = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [visible, setVisible] = useState(false);
-    // useEffect(() => {
-    //     const checkVisibility = () => {
-    //         setIsVisible(true)
-    //     }
-    //     checkVisibility()
-    // })
     const setarBotao = () => {
         if (isVisible) {
             setIsVisible(false)
@@ -64,9 +45,6 @@ const AllAnamneses: NextPageWithLayout = () => {
     const { data } = useSWR<SiteAnamneseData>(
         pacienteId && `/api/anamnese?pacienteId=${pacienteId}&published=true`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.paciente && router.push("/"),
-        // }
     );
 
 
@@ -79,9 +57,6 @@ const AllAnamneses: NextPageWithLayout = () => {
                 method: HttpMethod.DELETE,
             });
 
-            // if (response.ok) {
-            //     router.push(`/paciente/${settings?.paciente?.id}`);
-            // }
         } catch (error) {
             console.error(error);
         }
@@ -92,7 +67,7 @@ const AllAnamneses: NextPageWithLayout = () => {
             return;
         }
         //@ts-ignore
-        deleteAnamnese(pacienteId, iba); // Replace `anamneseId` with the actual ID of the anamnese
+        deleteAnamnese(pacienteId, iba);
     };
 
 
@@ -104,16 +79,11 @@ const AllAnamneses: NextPageWithLayout = () => {
                 spacing={0}
                 align={"stretch"}
             >
-                <CardMainPlus>
-                    <CardIconPacientes icon={IoPersonOutline} text={"Dados"} href={"/pacientes/dados-do-paciente"} />
-                    <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Documentos"} href={"/pacientes/documentos-do-paciente"} />
-                    <CardIconPacientes icon={MdOutlineImageSearch} text={"Imagens"} href={"/pacientes/imagens-do-paciente"} />
-                    <CardIconPacientes icon={MdOutlineImageSearch} text={"Anamneses"} href={"/pacientes/anamneses"} />
-                    <CardIconPacientes icon={MdOutlineImageSearch} text={"Anotações"} href={"#"} />
-                </CardMainPlus>
+                <CardPacientesPlus />
                 <CardMain radius={"0 18px 18px 0"} spacing={5} w={"90%"}>
                     <HStack
                         justify={"space-between"}
+                        flexDir={{ md: "row", xxs: "column" }}
                     >
                         <TitleCards title={"Anameses do Consultório"} />
                         <HStack>
@@ -179,8 +149,8 @@ const AllAnamneses: NextPageWithLayout = () => {
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 
     return {
-        paths: [], //indicates that no page needs be created at build time
-        fallback: 'blocking' //indicates the type of fallback
+        paths: [],
+        fallback: 'blocking'
     }
 }
 

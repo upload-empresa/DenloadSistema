@@ -86,7 +86,7 @@ export default function Despesas({ despesa, despesas }) {
 
     useEffect(() => {
         const selectApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/despesa?orderBy=${selectedOption}`);
+            const response = await fetch(`/api/despesa?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -151,7 +151,7 @@ export default function Despesas({ despesa, despesas }) {
 
     useEffect(() => {
         const searchApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/despesa?search=${searchTerm}`);
+            const response = await fetch(`/api/despesa?search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }
@@ -301,41 +301,59 @@ export default function Despesas({ despesa, despesas }) {
 
                                                 ) : (
                                                     <>
-                                                        {items?.map((item) => (
-                                                            <>
-                                                                <Tr key={item.id}>
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
-                                                                        <ButtonPacientes onClick={() => handleDeleteClick(item.id)} href={`/despesa/${item.id}`} />
-                                                                    </Td>
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
-                                                                        <Link href={`/despesa/${item.id}`}>{item.name}</Link>
-                                                                    </Td>
-                                                                    <Td
-                                                                        textAlign={"start"}
-                                                                        isNumeric
-                                                                        color={"#474749"}
-                                                                        fontSize={"14px"}
-                                                                    >
-                                                                        {item.vencimento}
-                                                                    </Td>
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
-                                                                        {item.empresa}
-                                                                    </Td>
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
-                                                                        {item.valor}
-                                                                    </Td>
 
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
-                                                                        <CardPacientes
-                                                                            text={item?.pago ? "Pago" : "Não Pago"}
-                                                                            bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                            color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                                        />
-                                                                    </Td>
-                                                                </Tr>
-                                                            </>
-                                                        ))}
+                                                        {items ? (
+                                                            items.length > 0 ? (
+                                                                items.map((item) => (
+                                                                    <>
+                                                                        <Tr key={item.id}>
+                                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                                <ButtonPacientes onClick={() => handleDeleteClick(item.id)} href={`/despesa/${item.id}`} />
+                                                                            </Td>
+                                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                                <Link href={`/despesa/${item.id}`}>{item.name}</Link>
+                                                                            </Td>
+                                                                            <Td
+                                                                                textAlign={"start"}
+                                                                                isNumeric
+                                                                                color={"#474749"}
+                                                                                fontSize={"14px"}
+                                                                            >
+                                                                                {item.vencimento}
+                                                                            </Td>
+                                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                                {item.empresa}
+                                                                            </Td>
+                                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                                {item.valor}
+                                                                            </Td>
 
+                                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                                <CardPacientes
+                                                                                    text={item?.pago ? "Pago" : "Não Pago"}
+                                                                                    bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                                    color={item?.pago ? "#0BB7AF" : "#F64E60"}
+                                                                                />
+                                                                            </Td>
+                                                                        </Tr>
+                                                                    </>
+
+                                                                ))
+                                                            ) : (
+                                                                <>
+                                                                    <p>
+                                                                        Nenhuma despesa cadastro.
+                                                                    </p>
+                                                                    <br />
+                                                                    <p>Clique em &quot;Nova Despesa&quot; para criar um.</p>
+
+
+
+                                                                </>
+                                                            )
+                                                        ) : (
+                                                            <p>Carregando...</p>
+                                                        )}
                                                     </>
                                                 )}
                                             </>

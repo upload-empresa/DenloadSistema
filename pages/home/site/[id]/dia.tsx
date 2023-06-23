@@ -154,7 +154,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     useEffect(() => {
         // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/agenda?orderBy=${selectedOption}`);
+            const response = await fetch(`https://app.denload.com/api/agenda?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -180,7 +180,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     useEffect(() => {
         // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/paciente?search=${searchTerm}`);
+            const response = await fetch(`https://app.denload.com/api/paciente?search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }
@@ -209,8 +209,11 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
                 spacing={4}
             >
                 <HStack
-                    justify="start"
-                    spacing={6}
+                    justify={"start"}
+                    align={{ md: "none", xxs: "start" }}
+                    spacing={{ lg: 6, xxs: 0 }}
+                    display={{ lg: "flex", xxs: "none" }}
+                    flexDir={{ lg: "row", xxs: "column" }}
                 >
                     {ganhosData &&
                         (() => {
@@ -231,7 +234,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
 
 
                             return (
-                                <CardDia w={"20%"} path={"/ganho.png"} altText={"Ícone do Denload"} tamh={48} tamw={52} title={"Ganho do dia"} text={totalGanhos} />
+                                <CardDia w={"20%"} widthCard={{ md: "none", xxs: "80%" }} path={"/ganho.png"} altText={"Ícone do Denload"} tamh={48} tamw={52} title={"Ganho do dia"} text={totalGanhos} mt={{ xxs: 20 }} />
                             )
                         })()
                     }
@@ -302,7 +305,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
 
 
                             return (
-                                <CardDia w={"20%"} path={"/lucro.png"} altText={"Ícone do Denload"} tamh={48} tamw={52} title={"Lucro do dia"} text={lucroFunction()} />
+                                <CardDia w={"20%"} path={"/lucro.png"} altText={"Ícone do Denload"} tamh={48} tamw={52} title={"Lucro do dia"} text={lucroFunction()} mt={{ xxs: 20 }} />
                             )
                         })()
                     }
@@ -326,10 +329,11 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
                                         />
                                         <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                                     </InputGroup>
-                                    <Select variant='filled' placeholder='Ordenar por' >
-                                        <option value="name">Nome</option>
-                                        <option value="age">Idade</option>
-                                        <option value="gender">Gênero</option>
+
+                                    <Select variant='filled' placeholder='Ordenar por' onChange={handleOptionChange}>
+                                        <option value="asc">Ordem Ascendente</option>
+                                        <option value="desc">Ordem Descendente</option>
+
                                     </Select>
 
                                 </HStack>
@@ -371,10 +375,6 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
                                                             </Td><Td color={"#474749"} fontSize={"14px"}>
                                                                 {item.grupo}
                                                             </Td>
-
-
-
-
                                                         </Tr>
                                                     </>
                                                 ))}
@@ -425,10 +425,6 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
                                                                         <Td color={"#474749"} fontSize={"14px"}>
                                                                             <Link href={`/paciente/${paciente?.id}/dadospaciente`}>{paciente?.name}</Link>
                                                                         </Td>
-
-                                                                        {/* <Td textAlign={"start"} isNumeric color={"#474749"} fontSize={"14px"}>
-                                                                            {agenda.horario}
-                                                                        </Td> */}
                                                                         <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
                                                                         <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
                                                                         <Td color={"#474749"} fontSize={"14px"}>{agenda.dia}</Td>
@@ -449,15 +445,12 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
                                             </>
                                         )}
                                     </>
-
-
                                 </Tbody>
                                 <Tfoot>
                                     <Tr>
                                     </Tr>
                                 </Tfoot>
                             </Table>
-
                         </Stack>
                     </TableContainer>
                 </CardMain>

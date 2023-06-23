@@ -15,7 +15,8 @@ export function ButtonPacientes({ onClick, onClick2, href }: ButtonsProps) {
             <IconButton
                 colorScheme='red'
                 aria-label='Call Segun'
-                size='sm'
+                size={{ '2xl': "md", lg: 'sm', xxs: "sm" }}
+                fontSize={{ '2xl': "24px", xl: "18px", xxs: "16px" }}
                 icon={<MdDelete />}
                 onClick={onClick}
             />
@@ -23,7 +24,8 @@ export function ButtonPacientes({ onClick, onClick2, href }: ButtonsProps) {
                 <IconButton
                     colorScheme='blue'
                     aria-label='Call Segun'
-                    size='sm'
+                    size={{ '2xl': "md", lg: 'sm', xxs: "sm" }}
+                    fontSize={{ '2xl': "24px", xl: "18px", xxs: "16px" }}
                     icon={<MdEdit />}
                     onClick={onClick2}
                 />
@@ -47,7 +49,7 @@ export function ButtonSave({ align, onClick, type }: ButtonSaveProps) {
 
             <Button
                 colorScheme={'teal'}
-                w={"15%"}
+                w={{ '2xl': "8%", xl: "15%", lg: "15%", md: "25%", sm: "40%", xxs: "65%" }}
                 size={"sm"}
                 onClick={onClick}
                 type={type}
@@ -89,16 +91,19 @@ interface ButtonAddProps {
     text: string
     onClick: any
     href: string
+    mt?: any
 }
 
-export function ButtonAdd({ text, onClick, href }: ButtonAddProps) {
+export function ButtonAdd({ text, href, onClick, mt }: ButtonAddProps) {
     return (
         <Links href={href} >
             <Button
                 leftIcon={<MdAdd />}
                 bg={"#0BB7AF"}
                 color={"white"}
-                size={"sm"}
+                mt={mt}
+                size={{ '2xl': 'lg', lg: "sm", xxs: "sm" }}
+                fontSize={{ '2xl': "20px" }}
                 fontWeight={500}
                 onClick={onClick}
                 _hover={{
@@ -129,7 +134,7 @@ export function ButtonDelete({ onClick }: ButtonDeleteProps) {
 
 interface ButtonPaginationProps {
     button: any
-    fontSize: string
+    fontSize: any
 
 }
 

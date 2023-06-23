@@ -167,7 +167,7 @@ export async function getPacientesWithSearch(
   res: NextApiResponse,
   session: Session
 ): Promise<void | NextApiResponse<Array<Paciente>>> {
-  const { search } = req.query;
+  const { search, siteId, pacienteId } = req.query;
 
   if (typeof search !== 'string' || !search.trim() || !session?.user?.id) {
     return res
@@ -175,10 +175,14 @@ export async function getPacientesWithSearch(
       .end('Bad request. Search query parameter is not valid.');
   }
 
+  if (Array.isArray(pacienteId) || Array.isArray(siteId) || !session.user.id)
+    return res.status(400).end('Bad request. Query parameters are not valid.');
+
   try {
     const pacientes = await prisma.paciente.findMany({
       where: {
         site: {
+          id: siteId,
           user: {
             id: session.user.id,
           },

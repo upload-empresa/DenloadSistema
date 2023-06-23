@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { HStack, Stack, Text } from "@chakra-ui/react";
 import { ButtonLogin } from "@/components/Buttons";
 import { FormLogin } from "@/components/Forms";
@@ -9,11 +9,6 @@ export default function ResetPassword({ token }) {
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
 
-    // useEffect(() => {
-    //     if (!token) {
-    //         setError('Token inválido.');
-    //     }
-    // }, [token]);
     //@ts-ignore
     const handleSubmit = async (event) => {
         event.preventDefault();

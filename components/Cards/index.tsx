@@ -1,4 +1,4 @@
-import { Button, Heading, HStack, Icon, Stack, Text } from "@chakra-ui/react"
+import { Button, Heading, HStack, Icon, Stack, Text, VStack } from "@chakra-ui/react"
 import { ReactNode } from "react"
 import { IconType } from "react-icons/lib"
 import { FigureImage } from "../FigureImage"
@@ -51,8 +51,8 @@ export function CardMain({ children, w, radius, spacing }: CardMainProps) {
             as="section"
             bg="white"
             borderRadius={radius}
-            px={14}
-            py={10}
+            px={{ md: 14, xxs: 7 }}
+            py={{ md: 10, xxs: 5 }}
             w={w}
             spacing={spacing}
         >
@@ -62,24 +62,27 @@ export function CardMain({ children, w, radius, spacing }: CardMainProps) {
 }
 
 interface CardDiaProps {
-    w: string
+    w: any
     path: string
     altText: string
     tamh: number
     tamw: number
     title: string
     text: any
+    widthCard?: any
+    mt?: any
 }
 
-export function CardDia({ w, path, altText, tamh, tamw, title, text }: CardDiaProps) {
+export function CardDia({ w, path, altText, tamh, tamw, title, text, widthCard = "25%", mt }: CardDiaProps) {
     return (
         <HStack
             spacing={3}
             bg="white"
             borderRadius="18px"
+            mt={mt}
             py={3}
             px={5}
-            w="25%"
+            w={widthCard}
         >
             <FigureImage w={w} path={path} altText={altText} tamH={tamh} tamW={tamw} />
             <Stack
@@ -208,7 +211,7 @@ export function CardPacientes({ text, bgOne, color }: CardPacientesProps) {
         >
             <Text
                 color={color}
-                fontSize={"12px"}
+                fontSize={{ '2xl': "16px", xl: "14px", lg: "12px" }}
             >
                 {text}
             </Text>
@@ -232,7 +235,7 @@ export function CardIconPacientes({ icon, text, href }: CardIconPacientesProps) 
             >
                 <Icon
                     as={icon}
-                    fontSize={"24px"}
+                    fontSize={{ '2xl': "32px", lg: "24px", md: "20px", xxs: "20px" }}
                     color={"#7E7E7E"}
 
 
@@ -240,7 +243,9 @@ export function CardIconPacientes({ icon, text, href }: CardIconPacientesProps) 
                 <Text
                     as="p"
                     color={"#7E7E7E"}
-                    size={"12px"}
+                    size={{ '2xl': "20px", lg: "12px", md: "12px" }}
+                    fontSize={{ xxs: "14px" }}
+                    textAlign={"center"}
 
 
                 >

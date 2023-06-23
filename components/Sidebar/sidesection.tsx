@@ -17,7 +17,7 @@ export function SideSection({ text, href, icone, onClick }: SideSectionProps) {
                 pl={4}
                 py={{ lg: "3", xxs: "2" }}
                 w="100%"
-                spacing={0}
+                spacing={{ '2xl': 4, lg: 0 }}
                 cursor="pointer"
                 _hover={{
                     bg: "#041d30"
@@ -25,7 +25,7 @@ export function SideSection({ text, href, icone, onClick }: SideSectionProps) {
             >
                 <IconButton
                     icon={<Icon justify="end" as={icone} />}
-                    fontSize="24px"
+                    fontSize={{ '2xl': "32px", xl: "28px", lg: "24px", xxs: "22px" }}
                     display="flex"
                     alignItems="center"
                     justifyContent={"start"}
@@ -38,7 +38,7 @@ export function SideSection({ text, href, icone, onClick }: SideSectionProps) {
 
                 >
                 </IconButton>
-                <Text color="white" w="70%" cursor="pointer" fontSize="16px" fontWeight="medium">{text}</Text>
+                <Text color="white" w="70%" cursor="pointer" fontSize={{ '2xl': "24px", xl: "20px", lg: "16px" }} fontWeight="medium">{text}</Text>
             </HStack>
         </Links>
     )

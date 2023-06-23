@@ -1,6 +1,4 @@
 import { EstoqueAttributes } from "@/components/Estoque"
-import TextareaAutosize from "react-textarea-autosize";
-import toast from "react-hot-toast";
 import useSWR, { mutate } from "swr";
 import { useDebounce } from "use-debounce";
 import { useRouter } from "next/router";
@@ -8,10 +6,8 @@ import { useState, useEffect, useCallback } from "react";
 
 import Layout from "@/components/app/Layout";
 import Loader from "@/components/app/Loader";
-import LoadingDots from "@/components/app/loading-dots";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
-import type { Site } from "@prisma/client";
 
 import type { ChangeEvent } from "react";
 
@@ -19,7 +15,6 @@ import type { WithSiteEstoque } from "@/types";
 import { useToast } from "@chakra-ui/react";
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { Switch } from '@chakra-ui/react'
 
 interface EstoqueData {
     name: string;
@@ -40,7 +35,6 @@ export default function AddEstoque(req: NextApiRequest,
     const statuses = ['success', 'error', 'warning', 'info']
 
 
-    // TODO: Undefined check redirects to error
     const { id: estoqueId } = router.query;
 
     const { data: estoque, isValidating } = useSWR<WithSiteEstoque>(
@@ -203,10 +197,6 @@ export default function AddEstoque(req: NextApiRequest,
 
     async function publish() {
         setPublishing(true);
-        // setPago(true)
-        // if (pago) {
-        //     setPago(false)
-        // }
 
 
 
@@ -223,7 +213,6 @@ export default function AddEstoque(req: NextApiRequest,
                     validade: data.validade,
                     pago: pago,
                     minimo: data.minimo,
-                    // valorTotal: data.valorTotal,
                     valor: data.valor,
                     unidade: data.unidade,
                     dataDaCompra: data.dataDaCompra,
@@ -237,7 +226,6 @@ export default function AddEstoque(req: NextApiRequest,
             );
 
             if (response.ok) {
-                // setPago(true),
                 mutate(`/api/estoque?estoqueId=${estoqueId}`);
 
             }
@@ -245,7 +233,6 @@ export default function AddEstoque(req: NextApiRequest,
             console.error(error);
         } finally {
             setPublishing(false);
-            // setPago(false)
             toast({
                 title: `Produto criado com sucesso!`,
                 status: 'success',

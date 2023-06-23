@@ -7,14 +7,11 @@ import type {
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import toast from "react-hot-toast";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Link from "next/link";
 
 import type { NextPageWithLayout } from "types";
 import { AuthLayout } from "@/components/layouts";
-import { InputWithLabel } from "@/components/ui";
 import { getParsedCookie } from "@/lib/cookie";
 import env from "@/lib/env";
 
@@ -98,29 +95,7 @@ const Login: NextPageWithLayout<
               spacing={6}
             >
               <FormLogin placeholder={"Email"} type="email" onChange={formik.handleChange} name="email" value={formik.values.email} />
-              {/* <InputWithLabel
-                type="email"
-                label="Email"
-                name="email"
-                placeholder="Email"
-                value={formik.values.email}
-                error={formik.touched.email ? formik.errors.email : undefined}
-                onChange={formik.handleChange}
-              /> */}
               <FormLogin placeholder={"Senha"} type="password" onChange={formik.handleChange} name="password" value={formik.values.password} />
-              {/* <InputWithLabel
-                type="password"
-                label="Password"
-                name="password"
-                placeholder="Password"
-                value={formik.values.password}
-                error={
-                  formik.touched.password ? formik.errors.password : undefined
-                }
-                onChange={formik.handleChange}
-              /> */}
-
-
               <Links
                 href={"/login/esqueci-a-senha"}
               >

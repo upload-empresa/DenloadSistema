@@ -1,5 +1,3 @@
-
-
 import { CardMain, CardPacientes } from "../../../../components/Cards"
 import { Main } from "../../../../components/Main"
 
@@ -80,14 +78,12 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
     const [deletingGanho, setDeletingGanho] = useState(false);
 
     useEffect(() => {
-        // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/ganho?orderBy=${selectedOption}`);
+            const response = await fetch(`https://app.denload.com/api/ganho?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
 
-        // chamando a função da API apenas se houver algum termo de pesquisa
         if (selectedOption) {
             selectApi();
         } else {
@@ -123,9 +119,6 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
                 method: HttpMethod.DELETE,
             });
 
-            // if (response.ok) {
-            //     router.push(`/site/${settings?.site?.id}`);
-            // }
         } catch (error) {
             console.error(error);
         } finally {
@@ -138,24 +131,19 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
             return;
         }
         //@ts-ignore
-        deleteGanho(siteId, iba); // Replace `pacienteId` with the actual ID of the paciente
+        deleteGanho(siteId, iba);
     };
-
-
-    //teste pesquisa
 
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState(items)
 
     useEffect(() => {
-        // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/ganho?search=${searchTerm}`);
+            const response = await fetch(`/api/ganho??siteId=${siteId}&search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }
 
-        // chamando a função da API apenas se houver algum termo de pesquisa
         if (searchTerm) {
             searchApi();
         } else {
@@ -165,193 +153,181 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
 
 
     return (
-        <>
 
-            {/* <select value={selectedOption} onChange={handleOptionChange}>
-                <option value="">Selecione uma opção</option>
-                <option value="asc">Opção 1</option>
-                <option value="desc">Opção 2</option>
-            </select> */}
-
-
-
-            {/* <Select variant='filled' placeholder='Filled' /> */}
-            < Main title={"Financeiro"} button={< ButtonAdd text={"Novo Ganho"} onClick={() => {
-                setCreatingGanho(true);
-                createGanho(siteId as string);
-            }
-            } href={""} />}>
-                <HStack
-                    spacing={0}
-                    align={"stretch"}
-                >
-                    <CardFinanceiroPlus />
-                    <CardMain radius={"0 18px 18px 0"} spacing={5} w="90%" >
-                        <>
-                            <TableContainer>
-                                <Stack spacing={6}>
-                                    <HStack
-                                        justify={"space-between"}
-                                    >
-                                        <TitleCards title="Ganhos Totais" />
-                                        <HStack>
-                                            <InputGroup>
-                                                <InputLeftElement
-                                                    // eslint-disable-next-line react/no-children-prop
-                                                    children={<MdSearch size={"22px"} />}
-                                                />
-                                                <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                                            </InputGroup>
-                                            <Select variant='filled' placeholder='Ordenar por' >
-                                                <option value="name">Nome</option>
-                                                <option value="age">Idade</option>
-                                                <option value="gender">Gênero</option>
-                                            </Select>
-                                        </HStack>
+        <Main title={"Financeiro"} button={< ButtonAdd mt={{ md: "0", xxs: "10%" }} text={"Novo Ganho"} onClick={() => {
+            setCreatingGanho(true);
+            createGanho(siteId as string);
+        }
+        } href={""} />} tamh={0} tamw={0}>
+            <HStack
+                spacing={0}
+                align={"stretch"}
+            >
+                <CardFinanceiroPlus />
+                <CardMain radius={"0 18px 18px 0"} w={{ lg: "85%", md: "90%", xxs: "70%" }}>
+                    <>
+                        <TableContainer>
+                            <Stack spacing={6}>
+                                <HStack
+                                    justify={"space-between"}
+                                >
+                                    <TitleCards title="Ganhos Totais" />
+                                    <HStack>
+                                        <InputGroup>
+                                            <InputLeftElement
+                                                // eslint-disable-next-line react/no-children-prop
+                                                children={<MdSearch size={"22px"} />}
+                                            />
+                                            <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                                        </InputGroup>
+                                        <Select variant='filled' placeholder='Ordenar por' >
+                                            <option value="name">Nome</option>
+                                            <option value="age">Idade</option>
+                                            <option value="gender">Gênero</option>
+                                        </Select>
                                     </HStack>
-                                    <Table>
-                                        <Thead>
-                                            <Tr>
-                                                <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Ações</Th>
-                                                <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Nome</Th>
-                                                <Th textAlign={"start"} isNumeric color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Vencimento</Th>
-                                                <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Empresa</Th>
-                                                <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Valor</Th>
-                                                <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th>
-                                            </Tr>
-                                        </Thead>
-                                        <Tbody>
-                                            {selectedOption ? (
-                                                <>
-                                                    {selectResults ? (
-                                                        selectResults.map((item: any) => (
-                                                            <Tr key={item.id}>
-                                                                <Td color={"#474749"} fontSize={"14px"}>
-                                                                    <ButtonPacientes
-                                                                        //@ts-ignore
-                                                                        href={`/ganho/${data.ganhoId}/dadosganho`} />
-                                                                </Td>
-                                                                <Td color={"#474749"} fontSize={"14px"}>
-                                                                    <Link href={`/ganho/${item.id}/dadosganho`}>{item.name}</Link>
-                                                                </Td>
-                                                                <Td
-                                                                    textAlign={"start"}
-                                                                    isNumeric
-                                                                    color={"#474749"}
-                                                                    fontSize={"14px"}
-                                                                >
-                                                                    {item.recebimento}
-                                                                </Td>
-                                                                <Td color={"#474749"} fontSize={"14px"}>
-                                                                    {item.empresa}
-                                                                </Td>
-                                                                <Td color={"#474749"} fontSize={"14px"}>
-                                                                    {item.valor}
-                                                                </Td>
-                                                                <Td color={"#474749"} fontSize={"14px"}>
-                                                                    <CardPacientes
-                                                                        text={item?.pago ? "Pago" : "Não Pago"}
-                                                                        bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                        color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                                    />
-                                                                </Td>
-                                                            </Tr>
-                                                        ))
-                                                    ) : (
-                                                        <p>Carregando...</p>
-                                                    )}
-                                                </>
-                                            ) : (
-                                                <>
-                                                    {searchTerm ? (
-                                                        <>
-                                                            {searchResults?.map((item) => (
-                                                                <>
-                                                                    <Tr key={item.id}>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            <ButtonPacientes href={""} onClick={() => handleDeleteClick(item.id)} />
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            <Link href={`/ganho/${item.id}/dadosganho`}>{item.name}</Link>
-                                                                        </Td>
-                                                                        <Td
-                                                                            textAlign={"start"}
-                                                                            isNumeric
-                                                                            color={"#474749"}
-                                                                            fontSize={"14px"}
-                                                                        >
-                                                                            {item.recebimento}
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            {item.empresa}
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            {item.valor}
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            <CardPacientes
-                                                                                text={item?.pago ? "Pago" : "Não Pago"}
-                                                                                bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                                color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                                            />
-                                                                        </Td>
-                                                                    </Tr>
-                                                                </>
-                                                            ))}
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            {items?.map((item) => (
-                                                                <>
-                                                                    <Tr key={item.id}>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            <ButtonPacientes href={`/ganho/${item.id}`} onClick={() => handleDeleteClick(item.id)} />
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            <Link href={`/ganho/${item.id}`}>{item.name}</Link>
-                                                                        </Td>
-                                                                        <Td
-                                                                            textAlign={"start"}
-                                                                            isNumeric
-                                                                            color={"#474749"}
-                                                                            fontSize={"14px"}
-                                                                        >
-                                                                            {item.recebimento}
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            {item.empresa}
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            {item.valor}
-                                                                        </Td>
-                                                                        <Td color={"#474749"} fontSize={"14px"}>
-                                                                            <CardPacientes
-                                                                                text={item?.pago ? "Pago" : "Não Pago"}
-                                                                                bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                                color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                                            />
-                                                                        </Td>
-                                                                    </Tr>
-                                                                </>
-                                                            ))}
-                                                        </>
-                                                    )}
-                                                </>
-                                            )}
-                                        </Tbody >
-                                        <Tfoot>
-                                            <Tr>
-                                            </Tr>
-                                        </Tfoot>
-                                    </Table>
-                                </Stack>
-                            </TableContainer>
+                                </HStack>
+                                <Table>
+                                    <Thead>
+                                        <Tr>
+                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Ações</Th>
+                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Nome</Th>
+                                            <Th textAlign={"start"} isNumeric color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Vencimento</Th>
+                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Empresa</Th>
+                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Valor</Th>
+                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th>
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>
+                                        {selectedOption ? (
+                                            <>
+                                                {selectResults ? (
+                                                    selectResults.map((item: any) => (
+                                                        <Tr key={item.id}>
+                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                <ButtonPacientes
+                                                                    //@ts-ignore
+                                                                    href={`/ganho/${data.ganhoId}/dadosganho`} />
+                                                            </Td>
+                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                <Link href={`/ganho/${item.id}/dadosganho`}>{item.name}</Link>
+                                                            </Td>
+                                                            <Td
+                                                                textAlign={"start"}
+                                                                isNumeric
+                                                                color={"#474749"}
+                                                                fontSize={"14px"}
+                                                            >
+                                                                {item.recebimento}
+                                                            </Td>
+                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                {item.empresa}
+                                                            </Td>
+                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                {item.valor}
+                                                            </Td>
+                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                <CardPacientes
+                                                                    text={item?.pago ? "Pago" : "Não Pago"}
+                                                                    bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                    color={item?.pago ? "#0BB7AF" : "#F64E60"}
+                                                                />
+                                                            </Td>
+                                                        </Tr>
+                                                    ))
+                                                ) : (
+                                                    <p>Carregando...</p>
+                                                )}
+                                            </>
+                                        ) : (
+                                            <>
+                                                {searchTerm ? (
+                                                    <>
+                                                        {searchResults?.map((item) => (
+                                                            <>
+                                                                <Tr key={item.id}>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <ButtonPacientes href={""} onClick={() => handleDeleteClick(item.id)} />
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <Link href={`/ganho/${item.id}/dadosganho`}>{item.name}</Link>
+                                                                    </Td>
+                                                                    <Td
+                                                                        textAlign={"start"}
+                                                                        isNumeric
+                                                                        color={"#474749"}
+                                                                        fontSize={"14px"}
+                                                                    >
+                                                                        {item.recebimento}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.empresa}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.valor}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <CardPacientes
+                                                                            text={item?.pago ? "Pago" : "Não Pago"}
+                                                                            bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                            color={item?.pago ? "#0BB7AF" : "#F64E60"}
+                                                                        />
+                                                                    </Td>
+                                                                </Tr>
+                                                            </>
+                                                        ))}
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        {items?.map((item) => (
+                                                            <>
+                                                                <Tr key={item.id}>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <ButtonPacientes href={`/ganho/${item.id}`} onClick={() => handleDeleteClick(item.id)} />
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <Link href={`/ganho/${item.id}`}>{item.name}</Link>
+                                                                    </Td>
+                                                                    <Td
+                                                                        textAlign={"start"}
+                                                                        isNumeric
+                                                                        color={"#474749"}
+                                                                        fontSize={"14px"}
+                                                                    >
+                                                                        {item.recebimento}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.empresa}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        {item.valor}
+                                                                    </Td>
+                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                        <CardPacientes
+                                                                            text={item?.pago ? "Pago" : "Não Pago"}
+                                                                            bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                            color={item?.pago ? "#0BB7AF" : "#F64E60"}
+                                                                        />
+                                                                    </Td>
+                                                                </Tr>
+                                                            </>
+                                                        ))}
+                                                    </>
+                                                )}
+                                            </>
+                                        )}
+                                    </Tbody >
+                                    <Tfoot>
+                                        <Tr>
+                                        </Tr>
+                                    </Tfoot>
+                                </Table>
+                            </Stack>
+                        </TableContainer>
 
-                            <Pagination pageCount={pageCount} handlePageClick={handlePageClick} /></>
-                    </CardMain>
-                </HStack>
-            </Main >
-        </>
-
+                        <Pagination pageCount={pageCount} handlePageClick={handlePageClick} /></>
+                </CardMain>
+            </HStack>
+        </Main >
     )
 }

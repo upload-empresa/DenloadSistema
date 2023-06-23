@@ -3,37 +3,45 @@ import { ReactNode, useState, useEffect } from "react"
 import { MdSearch } from "react-icons/md"
 import { Paciente } from "@prisma/client"
 import { MdArrowForward } from "react-icons/md"
+import { useRouter } from "next/router"
 
 interface TitleCardsProps {
     title: string
+    text?: string
+    mb?: any
 }
 
 interface TitleCardsPacientesProps {
     children: ReactNode
     pacientes: Array<Paciente>;
+    flexDir?: any
 }
 
-export function TitleCards({ title }: TitleCardsProps) {
+export function TitleCards({ title, text, mb }: TitleCardsProps) {
+
     return (
         <Heading
             as="h2"
             color={"#4F4F4F"}
             fontWeight={600}
-            fontSize={"20px"}
+            mb={mb}
+            fontSize={{ '2xl': "24px", lg: "20px", md: "18px", xxs: "16px" }}
         >
             {title}
         </Heading>
     )
 }
 
-export function TitleCardsPacientes({ children, pacientes }: TitleCardsPacientesProps) {
+export function TitleCardsPacientes({ children, pacientes, flexDir }: TitleCardsPacientesProps) {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState<Array<Paciente>>([]);
+    const router = useRouter();
+    const { id: siteId } = router.query;
 
     useEffect(() => {
         // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/paciente?search=${searchTerm}`);
+            const response = await fetch(`/api/paciente?siteId=${siteId}&search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }
@@ -49,6 +57,9 @@ export function TitleCardsPacientes({ children, pacientes }: TitleCardsPacientes
     return (
         <HStack
             justify={"space-between"}
+            align={{ lg: "none", xxs: "start" }}
+            flexDir={flexDir}
+            spacing={0}
         >
             {children}
             <HStack>
@@ -86,11 +97,13 @@ interface TitleDashboardGraficProps {
     title: string
     value?: any
     onChange?: any
+    flexDir?: any
 }
-export function TitleDashboardGrafic({ title, value, onChange }: TitleDashboardGraficProps) {
+export function TitleDashboardGrafic({ title, value, onChange, flexDir }: TitleDashboardGraficProps) {
     return (
         <HStack
             justify="space-between"
+            flexDir={flexDir}
         >
             <Heading
                 color={"#4F4F4F"}
@@ -100,7 +113,7 @@ export function TitleDashboardGrafic({ title, value, onChange }: TitleDashboardG
                 {title}
             </Heading>
             <Select
-                w="40%"
+                w={{ lg: "40%", xxs: "100%" }}
                 fontSize="14px"
                 value={value}
                 onChange={onChange}
@@ -171,7 +184,7 @@ interface TitleFeedbackProps {
 export function TitleFeedback({ title }: TitleFeedbackProps) {
     return (
         <Heading
-            fontSize={"18px"}
+            fontSize={{ lg: "18px", xxs: "16px" }}
             fontWeight={500}
             color={"#170F49"}
         >

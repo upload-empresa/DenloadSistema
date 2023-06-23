@@ -24,8 +24,7 @@ export default async function handler(req, res) {
         email: email,
         name: name,
         celular: celular,
-        id: userId
-        // id: 'clidm4a2v0000ufncla24326z',
+        id: userId,
       },
     });
 

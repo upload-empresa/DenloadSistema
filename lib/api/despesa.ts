@@ -1,12 +1,9 @@
 import prisma from '@/lib/prisma';
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import { unstable_getServerSession } from 'next-auth/next';
-import { authOptions } from 'pages/api/auth/[...nextauth]';
 import type { Despesa, Site } from '.prisma/client';
 import type { Session } from 'next-auth';
 import { revalidate } from '@/lib/revalidate';
-import { getBlurDataURL, placeholderBlurhash } from '@/lib/utils';
 
 import type { WithSiteDespesa } from '@/types';
 
@@ -15,16 +12,6 @@ interface AllDespesas {
   site: Site | null;
 }
 
-/**
- * Get Despesa
- *
- * Fetches & returns either a single or all despesas available depending on
- * whether a `despesaId` query parameter is provided. If not all despesas are
- * returned in descending order.
- *
- * @param req - Next.js API Request
- * @param res - Next.js API Response
- */
 export async function getDespesa(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -86,14 +73,6 @@ export async function getDespesa(
   }
 }
 
-/**
- * Gets Despesas with Search
- *
- * Gets a Despesa from a search input in the frontend.
- *
- * @param req - Next.js API Request
- * @param res - Next.js API Response
- */
 export async function getDespesasWithSearch(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -132,14 +111,6 @@ export async function getDespesasWithSearch(
   }
 }
 
-/**
- * Gets Despesas with Select
- *
- * Gets a Despesa from a Select input in the frontend.
- *
- * @param req - Next.js API Request
- * @param res - Next.js API Response
- */
 export async function getDespesasWithSelect(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -174,16 +145,6 @@ export async function getDespesasWithSelect(
   }
 }
 
-/**
- * Create Despesa
- *
- * Creates a new despesa from a provided `siteId` query parameter.
- *
- * Once created, the sites new `despesaId` will be returned.
- *
- * @param req - Next.js API Request
- * @param res - Next.js API Response
- */
 export async function createDespesa(
   req: NextApiRequest,
   res: NextApiResponse,

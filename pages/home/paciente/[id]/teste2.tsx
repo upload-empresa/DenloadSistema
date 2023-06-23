@@ -9,7 +9,7 @@ import LoadingDots from "@/components/app/loading-dots";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
 
-import type { Documento, Site, Paciente } from "@prisma/client";
+import type { Documento, Paciente } from "@prisma/client";
 
 interface SiteDocumentoData {
     documentos: Array<Documento>;
@@ -25,9 +25,6 @@ export default function SiteIndex() {
     const { data } = useSWR<SiteDocumentoData>(
         pacienteId && `/api/documento?pacienteId=${pacienteId}&published=true`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.site && router.push("/"),
-        // }
     );
 
     async function createDocumento(pacienteId: string) {
@@ -96,13 +93,6 @@ export default function SiteIndex() {
                                                 </div>
                                             )}
                                         </div>
-                                        {/* <div className="relative p-10">
-                                            <h2 className="font-cal text-3xl">{documento.pergunta}</h2>
-                                            <p className="text-base my-5 line-clamp-3">
-                                                {documento.resposta}
-                                            </p>
-
-                                        </div> */}
                                     </div>
                                 </Link>
                             ))

@@ -5,13 +5,9 @@ import { ButtonSave } from "@/components/Buttons"
 import { CardMain } from "@/components/Cards"
 import { TitleCards, TitleFeedback } from "@/components/Title"
 import { useState } from 'react'
-import { HStack, Text } from "@chakra-ui/react"
 import type { Site, Subscription } from "@prisma/client";
 import { useRouter } from "next/router"
-import useSWR from "swr";
 
-import LoadingDots from "@/components/app/loading-dots";
-import { fetcher } from "@/lib/fetcher";
 import RatingStar from "@/components/RatingStar"
 
 interface SiteFeedbackData {
@@ -78,7 +74,10 @@ export default function Feedback() {
                     </Stack>
                     <Stack>
                         <TitleFeedback title={"Feedback Adicional"} />
-                        <Textarea placeholder='Deixe aqui sua sugestão para melhorar o Denload' typeof="feedback" onChange={(e) => setFeedback(e.target.value)} />
+                        <Textarea _placeholder={{
+                            fontSize: "14px"
+                        }}
+                            placeholder='Deixe aqui sua sugestão para melhorar o Denload' typeof="feedback" onChange={(e) => setFeedback(e.target.value)} />
                     </Stack>
                     <Stack
                         align={"end"}
@@ -87,7 +86,6 @@ export default function Feedback() {
                         <ButtonSave align="end" type="submit" />
                     </Stack>
                 </CardMain>
-
             </Main>
         </form >
     )

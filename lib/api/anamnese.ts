@@ -1,12 +1,7 @@
 import prisma from '@/lib/prisma';
-import cuid from 'cuid';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { unstable_getServerSession } from 'next-auth/next';
-import { authOptions } from 'pages/api/auth/[...nextauth]';
 import type { Anamnese, Site, Paciente } from '.prisma/client';
 import type { Session } from 'next-auth';
-import { revalidate } from '@/lib/revalidate';
-import { getBlurDataURL, placeholderBlurhash } from '@/lib/utils';
 
 import type { WithPacienteAnamnese } from '@/types';
 
@@ -75,73 +70,6 @@ export async function getAnamnese(
   }
 }
 
-/**
- * Create Anamnese
- *
- * Creates a new Anamnese from a provided `siteId` query parameter and a `pacienteId` payload.
- *
- * Once created, the sites new `AnamneseId` will be returned.
- *
- * @param req - Next.js API Request
- * @param res - Next.js API Response
- */
-// export async function createAnamnese(
-//   req: NextApiRequest,
-//   res: NextApiResponse,
-//   session: Session
-// ): Promise<void | NextApiResponse<{
-//   anamneseId: string;
-// }>> {
-//   const { pacienteId } = req.query;
-
-//   if (!pacienteId || typeof pacienteId !== 'string') {
-//     return res
-//       .status(400)
-//       .json({ error: 'Missing or misconfigured site ID or session ID' });
-//   }
-
-//   const paciente = await prisma.paciente.findFirst({
-//     where: {
-//       id: pacienteId,
-//     },
-//   });
-//   if (!paciente) return res.status(404).end('paciente not found');
-
-//   try {
-//     const response = await prisma.anamnese.create({
-//       data: {
-//         paciente: {
-//           connect: {
-//             id: pacienteId,
-//           },
-//         },
-//       },
-//     });
-
-//     return res.status(201).json({
-//       anamneseId: response.id,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).end(error);
-//   }
-// }
-
-/**
- * Create Anamnese
- *
- * Creates a new Anamnese from a set of provided query parameters.
- * These include:
- *  - name
- *  - description
- *  - subdomain
- *  - userId
- *
- * Once created, the Anamneses new `AnamneseId` will be returned.
- *
- * @param req - Next.js API Request
- * @param res - Next.js API Response
- */
 export async function createAnamnese(
   req: NextApiRequest,
   res: NextApiResponse
@@ -187,15 +115,6 @@ export async function createAnamnese(
   }
 }
 
-/**
- * Delete Anamnese
- *
- * Deletes a anamnese from the database using a provided `anamneseId` query
- * parameter.
- *
- * @param req - Next.js API Request
- * @param res - Next.js API Response
- */
 export async function deleteAnamnese(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -237,23 +156,6 @@ export async function deleteAnamnese(
   }
 }
 
-/**
- * Update Anamnese
- *
- * Updates a Anamnese & all of its data using a collection of provided
- * query parameters. These include the following:
- *  - id
- *  - title
- *  - description
- *  - content
- *  - slug
- *  - image
- *  - imageBlurhash
- *  - published
- *
- * @param req - Next.js API Request
- * @param res - Next.js API Response
- */
 export async function updateAnamnese(
   req: NextApiRequest,
   res: NextApiResponse,

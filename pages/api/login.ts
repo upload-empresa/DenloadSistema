@@ -1,5 +1,3 @@
-// /pages/api/login.ts
-
 import passport from '../../lib/passport-google-auth';
 import nextConnect from 'next-connect';
 

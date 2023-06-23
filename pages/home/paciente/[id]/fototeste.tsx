@@ -1,4 +1,3 @@
-import TextareaAutosize from "react-textarea-autosize";
 import toast from "react-hot-toast";
 import useSWR, { mutate } from "swr";
 import { useDebounce } from "use-debounce";
@@ -10,25 +9,21 @@ import BlurImage from "@/components/BlurImage";
 import CloudinaryUploadWidget from "@/components/Cloudinary";
 import Layout from "@/components/app/Layout";
 import Loader from "@/components/app/Loader";
-import LoadingDots from "@/components/app/loading-dots";
-import Modal from "@/components/Modal";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
 import Link from "next/link";
 
-import type { ChangeEvent } from "react";
 
 import type { WithPacienteFoto } from "@/types";
-import { placeholderBlurhash } from "@/lib/utils";
 
 import { HStack, Stack } from "@chakra-ui/react"
-import { IoPersonOutline } from "react-icons/io5"
-import { MdOutlineInsertDriveFile, MdOutlineImageSearch } from "react-icons/md"
 
 import { ButtonSave } from "@/components/Buttons"
-import { CardMainPlus, CardIconPacientes, CardMain, CardsDocumentos } from "@/components/Cards"
+import { CardMain, CardsDocumentos } from "@/components/Cards"
 import { Main } from "@/components/Main"
-import type { Foto, Site, Paciente } from "@prisma/client";
+import type { Foto, Paciente } from "@prisma/client";
+import { CardPacientesPlus } from "@/components/Cards/plus";
+import { TitleCardsPacientes, TitleCards } from "@/components/Title";
 
 interface FotoData {
     url: string;
@@ -70,23 +65,19 @@ Ordered lists look like:
 > They can span multiple paragraphs,
 > if you like.
 
-            `;
+`;
 
 export default function Foto() {
     const router = useRouter();
 
     const { id: pacienteId } = router.query;
 
-    // TODO: Undefined check redirects to error
     const { id: fotoId } = router.query;
 
 
     const { data: fotodata } = useSWR<SiteFotoData>(
         pacienteId && `/api/foto?pacienteId=${pacienteId}&published=true`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.site && router.push("/"),
-        // }
     );
 
     const { data: foto, isValidating } = useSWR<WithPacienteFoto>(
@@ -290,26 +281,17 @@ export default function Foto() {
                     align={"stretch"}
                 >
 
-                    <CardMainPlus>
-                        <CardIconPacientes icon={IoPersonOutline} text={"Geral"} href={"#"} />
-                        <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Ganhos"} href={"#"} />
-                        <CardIconPacientes icon={MdOutlineImageSearch} text={"Despesas"} href={"#"} />
-                    </CardMainPlus>
-
+                    <CardPacientesPlus />
 
 
 
                     <CardMain radius={"0 18px 18px 0"} spacing={5} w={"90%"}>
-                        {/* <TitleCardsPacientes>
-                        <TitleCards title={"Adicionar as Imagens"} />
-
-                    </TitleCardsPacientes> */}
-
-
-
-
+                        <TitleCardsPacientes pacientes={[]}>
+                            <TitleCards title={"Adicionar as Imagens"} />
+                        </TitleCardsPacientes>
                         <HStack
-                            spacing={6}
+                            spacing={{ md: 6, xxs: 0 }}
+                            flexDir={{ md: "row", xxs: "column" }}
                         >
 
 
@@ -324,15 +306,6 @@ export default function Foto() {
                                             ) : (
                                                 ''
                                             )}
-
-
-                                            {/* <h2 className="font-cal text-3xl">{foto.pergunta}</h2>
-                                            <p className="text-base my-5 line-clamp-3">
-                                                {foto.resposta}
-                                            </p> */}
-
-
-
                                         </Link>
                                     ))
                                 ) : (
@@ -370,15 +343,11 @@ export default function Foto() {
                                 ))
                             )}
                         </HStack>
-
-
-
                         <Stack
                             align={"end"}
                         >
                             <ButtonSave />
                         </Stack>
-
                     </CardMain>
                 </HStack >
             </Main >

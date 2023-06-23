@@ -14,12 +14,6 @@ import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import useSWR, { mutate } from "swr";
 
-import BlurImage from "@/components/BlurImage";
-import CloudinaryUploadWidget from "@/components/Cloudinary";
-import DomainCard from "@/components/app/DomainCard";
-import Layout from "@/components/app/Layout";
-import LoadingDots from "@/components/app/loading-dots";
-import Modal from "@/components/Modal";
 
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
@@ -202,7 +196,8 @@ export default function Perfil() {
                 <CardMain radius={"0 18px 18px 0"} w={"90%"} spacing={5}>
                     <TitleCards title={"Perfil do Consultório"} />
                     <HStack
-                        align={"end"}
+                        align={{ md: "start", xxs: "start" }}
+                        flexDir={{ lg: "row", xxs: "column" }}
                     >
                         <FigureImage w={undefined} path={"/image 3 (2).png"} altText={"Imagem do Dentista"} tamH={90} tamW={90} />
                         <Stack
@@ -226,7 +221,7 @@ export default function Perfil() {
                             )}
                         </Stack>
                     </HStack>
-                    <HStack spacing={6}>
+                    <HStack spacing={{ lg: 6, xxs: 0 }} flexDir={{ lg: "row", xxs: "column" }}>
 
                         <Forms label={"Nome"} type={"text"} placeholder={"Digite o seu nome"}
                             name="name"
@@ -236,7 +231,7 @@ export default function Perfil() {
                                     name: (e.target as HTMLTextAreaElement).value,
                                 }))
                             }
-                            value={data.name || ""} />
+                            value={data.name || ""} mb={{ lg: "0", xxs: "10%" }} />
 
                         <Forms label={"Estado"} type={"text"} placeholder={"Digite o seu Estado"}
                             name="estado"
@@ -248,7 +243,7 @@ export default function Perfil() {
                             }
                             value={data.estado || ""} />
                     </HStack>
-                    <HStack spacing={6}>
+                    <HStack spacing={{ lg: 6, xxs: 0 }} flexDir={{ lg: "row", xxs: "column" }}>
                         <Forms label={"Cargo"} type={"text"} placeholder={"Digite o seu cargo"}
                             name="description"
                             onInput={(e: any) =>
@@ -268,9 +263,9 @@ export default function Perfil() {
                                 }))
                             }
                             value={data.cidade || ""}
-                        />
+                            mb={{ lg: "0", xxs: "10%" }} />
                     </HStack>
-                    <HStack spacing={6}>
+                    <HStack spacing={{ lg: 6, xxs: 0 }} flexDir={{ lg: "row", xxs: "column" }}>
                         <Forms label={"E-mail"} type={"text"} placeholder={"Digite o seu e-mail"}
                             name="email"
                             onInput={(e: any) =>
@@ -289,7 +284,7 @@ export default function Perfil() {
                                     celular: (e.target as HTMLTextAreaElement).value,
                                 }))
                             }
-                            value={data.celular || ""} />
+                            value={data.celular || ""} mb={{ lg: "0", xxs: "10%" }} />
                     </HStack>
                     <ButtonSave align="end" />
                 </CardMain>

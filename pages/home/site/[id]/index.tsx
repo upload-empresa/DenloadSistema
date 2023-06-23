@@ -41,18 +41,11 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
     const { data } = useSWR<SitePacienteData>(
         siteId && `/api/paciente?siteId=${siteId}`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.site && router.push("/"),
-        // }
     );
 
     const { data: settings, } = useSWR<WithSitePaciente>(
         `/api/paciente?pacienteId=${pacienteId}`,
         fetcher,
-        // {
-        //     onError: () => router.push("/"),
-        //     revalidateOnFocus: false,
-        // }
     );
 
 
@@ -79,14 +72,12 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
     const [selectResults, setSelectResults] = useState<Array<Paciente>>([]);
 
     useEffect(() => {
-        // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/paciente?orderBy=${selectedOption}`);
+            const response = await fetch(`/api/paciente?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
 
-        // chamando a função da API apenas se houver algum termo de pesquisa
         if (selectedOption) {
             selectApi();
         } else {
@@ -118,9 +109,6 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
                 method: HttpMethod.DELETE,
             });
 
-            // if (response.ok) {
-            //     router.push(`/site/${settings?.site?.id}`);
-            // }
         } catch (error) {
             console.error(error);
         } finally {
@@ -141,20 +129,16 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
         })
     };
 
-    //teste pesquisa
-
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState(items)
 
     useEffect(() => {
-        // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/paciente?search=${searchTerm}`);
+            const response = await fetch(`/api/paciente?siteId=${siteId}&search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }
 
-        // chamando a função da API apenas se houver algum termo de pesquisa
         if (searchTerm) {
             searchApi();
         } else {
@@ -165,207 +149,205 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
 
 
     return (
-        <>
-            < Main title={"Pacientes"} button={< ButtonAdd text={"Novo Paciente"} onClick={() => {
-                setCreatingPaciente(true);
-                createPaciente(siteId as string);
-            }
-            } href={""} />} w={"25%"} path={"/perfil.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
-                <CardMain radius={"18px"} spacing={5}>
-                    <>
+        < Main title={"Pacientes"} button={< ButtonAdd mt={{ md: "0", xxs: "10%" }} text={"Novo Paciente"} onClick={() => {
+            setCreatingPaciente(true);
+            createPaciente(siteId as string);
+        }
+        } href={""} />} w={"25%"} path={"/perfil.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
+            <CardMain radius={"18px"} spacing={5}>
+                <>
 
-                        <TableContainer>
-                            <Stack spacing={6}>
+                    <TableContainer>
+                        <Stack spacing={6}>
 
-                                <HStack
-                                    justify={"space-between"}
-                                >
-                                    <TitleCards title="Todos os Pacientes" />
-                                    <HStack>
-                                        <InputGroup>
-                                            <InputLeftElement
-                                                // eslint-disable-next-line react/no-children-prop
-                                                children={<MdSearch size={"22px"} />}
-                                            />
-                                            <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                                        </InputGroup>
+                            <HStack
+                                justify={"space-between"}
+                                align={{ lg: "none", xxs: "start" }}
+                                flexDir={{ lg: "row", xxs: "column" }}
+                                spacing={0}
+                            >
+                                <TitleCards title="Todos os Pacientes" />
+                                <HStack>
+                                    <InputGroup>
+                                        <InputLeftElement
+                                            // eslint-disable-next-line react/no-children-prop
+                                            children={<MdSearch size={"22px"} />}
+                                        />
+                                        <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                                    </InputGroup>
 
-                                        <Select value={selectedOption} onChange={handleOptionChange} variant='filled' placeholder='Ordenar por' >
-                                            <option value="asc">Ordem Ascendente</option>
-                                            <option value="desc">Ordem Decrescente</option>
-                                        </Select>
-                                    </HStack>
-
-
+                                    <Select value={selectedOption} onChange={handleOptionChange} variant='filled' placeholder='Ordenar por' >
+                                        <option value="asc">Ordem Ascendente</option>
+                                        <option value="desc">Ordem Decrescente</option>
+                                    </Select>
                                 </HStack>
 
-                                <Table>
-                                    <Thead>
-                                        <Tr>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Ações</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Nome</Th>
-                                            <Th textAlign={"start"} isNumeric color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Telefone</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Email</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Grupo</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th>
-                                        </Tr>
-                                    </Thead>
-                                    <Tbody>
+
+                            </HStack>
+
+                            <Table>
+                                <Thead>
+                                    <Tr>
+                                        <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Ações</Th>
+                                        <Th textAlign={"start"} color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Nome</Th>
+                                        <Th textAlign={"start"} color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Telefone</Th>
+                                        <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Email</Th>
+                                        <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Grupo</Th>
+                                        <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Status</Th>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
 
 
-                                        {selectedOption ? (
-                                            <>
-                                                {selectResults ? (
-                                                    selectResults.map((item: any) => (
-                                                        <Tr key={item.id}>
-                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                    {selectedOption ? (
+                                        <>
+                                            {selectResults ? (
+                                                selectResults.map((item: any) => (
+                                                    <Tr key={item.id}>
+                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
 
-                                                                <ButtonPacientes
-                                                                    //@ts-ignore
-                                                                    href={`/paciente/${data.pacienteId}/dadospaciente`} />
-                                                            </Td>
-                                                            <Td color={"#474749"} fontSize={"14px"}>
-                                                                <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
-                                                            </Td>
-                                                            <Td
-                                                                textAlign={"start"}
-                                                                isNumeric
-                                                                color={"#474749"}
-                                                                fontSize={"14px"}
-                                                            >
-                                                                {item.telefone}
-                                                            </Td>
-                                                            <Td color={"#474749"} fontSize={"14px"}>
-                                                                {item.email}
-                                                            </Td>
-                                                            <Td color={"#474749"} fontSize={"14px"}>
-                                                                {item.grupo}
-                                                            </Td>
+                                                            <ButtonPacientes
+                                                                //@ts-ignore
+                                                                href={`/paciente/${data.pacienteId}/dadospaciente`} />
+                                                        </Td>
+                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                            <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
+                                                        </Td>
+                                                        <Td
+                                                            textAlign={"start"}
+                                                            isNumeric
+                                                            color={"#474749"}
+                                                            fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}
+                                                        >
+                                                            {item.telefone}
+                                                        </Td>
+                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                            {item.email}
+                                                        </Td>
+                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                            {item.grupo}
+                                                        </Td>
 
-                                                            <Td color={"#474749"} fontSize={"14px"}>
-                                                                <CardPacientes
-                                                                    text={item?.pago ? "Pago" : "Não Pago"}
-                                                                    bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                    color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                                />
-                                                            </Td>
-                                                        </Tr>
-                                                    ))
-
-
-                                                ) : (
-                                                    <p>Carregando...</p>
-                                                )}
-                                            </>
-                                        ) : (
-                                            <>
-                                                {searchTerm ? (
-                                                    <>
-                                                        {searchResults?.map((item) => (
-                                                            <>
-                                                                < Tr key={item.id} >
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
-                                                                        <ButtonPacientes href={`/paciente/${item.id}/dadospaciente`} onClick={() => handleDeleteClick(item.id)} />
-                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
-                                                                        <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
-                                                                    </Td><Td
-                                                                        textAlign={"start"}
-                                                                        isNumeric
-                                                                        color={"#474749"}
-                                                                        fontSize={"14px"}
-                                                                    >
-                                                                        {item.telefone}
-                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
-                                                                        {item.email}
-                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
-                                                                        {item.grupo}
-                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
-                                                                        <CardPacientes
-                                                                            text={item?.pago ? "Pago" : "Não Pago"}
-                                                                            bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                            color={item?.pago ? "#0BB7AF" : "#F64E60"} />
-                                                                    </Td>
+                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                            <CardPacientes
+                                                                text={item?.pago ? "Pago" : "Não Pago"}
+                                                                bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                color={item?.pago ? "#0BB7AF" : "#F64E60"}
+                                                            />
+                                                        </Td>
+                                                    </Tr>
+                                                ))
 
 
-
-                                                                </Tr>
-                                                            </>
-                                                        ))}
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        {items ? (
-                                                            items.length > 0 ? (
-                                                                items.map((item) => (
-                                                                    <>
-                                                                        <Tr key={item.id}>
-                                                                            <Td color={"#474749"} fontSize={"14px"}>
-                                                                                <ButtonPacientes href={`/paciente/${item.id}/dadospaciente`} onClick={() => handleDeleteClick(item.id)} />
-                                                                            </Td><Td color={"#474749"} fontSize={"14px"}>
-                                                                                <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
-                                                                            </Td><Td
-                                                                                textAlign={"start"}
-                                                                                isNumeric
-                                                                                color={"#474749"}
-                                                                                fontSize={"14px"}
-                                                                            >
-                                                                                {item.telefone}
-                                                                            </Td><Td color={"#474749"} fontSize={"14px"}>
-                                                                                {item.email}
-                                                                            </Td><Td color={"#474749"} fontSize={"14px"}>
-                                                                                {item.grupo}
-                                                                            </Td><Td color={"#474749"} fontSize={"14px"}>
-                                                                                <CardPacientes
-                                                                                    text={item?.pago ? "Pago" : "Não Pago"}
-                                                                                    bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                                    color={item?.pago ? "#0BB7AF" : "#F64E60"} />
-                                                                            </Td>
+                                            ) : (
+                                                <p>Carregando...</p>
+                                            )}
+                                        </>
+                                    ) : (
+                                        <>
+                                            {searchTerm ? (
+                                                <>
+                                                    {searchResults?.map((item) => (
+                                                        <>
+                                                            < Tr key={item.id} >
+                                                                <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                    <ButtonPacientes href={`/paciente/${item.id}/dadospaciente`} onClick={() => handleDeleteClick(item.id)} />
+                                                                </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                    <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
+                                                                </Td><Td
+                                                                    textAlign={"start"}
+                                                                    isNumeric
+                                                                    color={"#474749"}
+                                                                    fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}
+                                                                >
+                                                                    {item.telefone}
+                                                                </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                    {item.email}
+                                                                </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                    {item.grupo}
+                                                                </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                    <CardPacientes
+                                                                        text={item?.pago ? "Pago" : "Não Pago"}
+                                                                        bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                        color={item?.pago ? "#0BB7AF" : "#F64E60"} />
+                                                                </Td>
 
 
 
-                                                                        </Tr>
-                                                                    </>
-
-                                                                ))
-                                                            ) : (
+                                                            </Tr>
+                                                        </>
+                                                    ))}
+                                                </>
+                                            ) : (
+                                                <>
+                                                    {items ? (
+                                                        items.length > 0 ? (
+                                                            items.map((item) => (
                                                                 <>
-                                                                    <p>
-                                                                        Nenhum paciente cadastro.
-                                                                    </p>
-                                                                    <br />
-                                                                    <p>Clique em &quot;Novo Paciente&quot; para criar um.</p>
+                                                                    <Tr key={item.id}>
+                                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                            <ButtonPacientes href={`/paciente/${item.id}/dadospaciente`} onClick={() => handleDeleteClick(item.id)} />
+                                                                        </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                            <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
+                                                                        </Td><Td
+                                                                            textAlign={"start"}
+                                                                            isNumeric
+                                                                            color={"#474749"}
+                                                                            fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}
+                                                                        >
+                                                                            {item.telefone}
+                                                                        </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                            {item.email}
+                                                                        </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                            {item.grupo}
+                                                                        </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                            <CardPacientes
+                                                                                text={item?.pago ? "Pago" : "Não Pago"}
+                                                                                bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
+                                                                                color={item?.pago ? "#0BB7AF" : "#F64E60"} />
+                                                                        </Td>
 
 
 
+                                                                    </Tr>
                                                                 </>
-                                                            )
+
+                                                            ))
                                                         ) : (
-                                                            <p>Carregando...</p>
-                                                        )}
-                                                    </>
-                                                )}
-                                            </>
-                                        )}
+                                                            <>
+                                                                <p>
+                                                                    Nenhum paciente cadastro.
+                                                                </p>
+                                                                <br />
+                                                                <p>Clique em &quot;Novo Paciente&quot; para criar um.</p>
+
+
+
+                                                            </>
+                                                        )
+                                                    ) : (
+                                                        <p>Carregando...</p>
+                                                    )}
+                                                </>
+                                            )}
+                                        </>
+                                    )}
 
 
 
 
 
-                                    </Tbody>
-                                    <Tfoot>
-                                        <Tr>
-                                        </Tr>
-                                    </Tfoot>
-                                </Table>
-                            </Stack>
-                        </TableContainer>
-
-
-
-                        <Pagination pageCount={pageCount} handlePageClick={handlePageClick} /></>
-                </CardMain>
-            </Main >
-        </>
+                                </Tbody>
+                                <Tfoot>
+                                    <Tr>
+                                    </Tr>
+                                </Tfoot>
+                            </Table>
+                        </Stack>
+                    </TableContainer>
+                    <Pagination pageCount={pageCount} handlePageClick={handlePageClick} /></>
+            </CardMain>
+        </Main >
 
     )
 }

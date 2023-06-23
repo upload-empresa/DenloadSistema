@@ -10,8 +10,6 @@ import useSWR from 'swr'
 const ResultPage: NextPage = () => {
     const router = useRouter()
 
-    // Fetch CheckoutSession from static page via
-    // https://nextjs.org/docs/basic-features/data-fetching#static-generation
     const { data, error } = useSWR(
         router.query.session_id
             ? `/api/checkout_sessions/${router.query.session_id}`

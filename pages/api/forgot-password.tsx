@@ -30,9 +30,8 @@ export default async function handler(req, res) {
 
         const token = generatePasswordResetToken(user.id)
 
-        const resetLink = `https://denload-sistema.vercel.app/reset-password?token=${token}`;
+        const resetLink = `https://app.denload.com/reset-password?token=${token}`;
 
-        // Envie o email com o link de redefinição de senha para o usuário
         const mailOptions = {
             from: process.env.SMTP_FROM,
             to: email,

@@ -3,7 +3,6 @@ import Stripe from 'stripe';
 import prisma from "@/lib/prisma";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    // https://github.com/stripe/stripe-node#configuration
     apiVersion: '2022-08-01',
 })
 
@@ -72,26 +71,6 @@ export default async function handler(
                             stripeCustomer: stripeCustomerId
                         }
                     })
-
-                    // const subscription = await prisma.subscription.findFirst({
-                    //     where: {
-                    //         siteId: site?.id,
-                    //         stripeId: stripeSubscriptionId
-                    //     }
-                    // })
-
-                    // if (subscription) {
-                    //     await prisma.subscription.update({
-                    //         where: {
-                    //             id: subscription.id
-                    //         },
-                    //         data: {
-                    //             subscriptionStatus: status === 'active',
-                    //             currentPeriodStart,
-                    //             currentPeriodEnd
-                    //         }
-                    //     })
-                    // } else {
                     await prisma.subscription.create({
                         data: {
                             siteId: site?.id as string,
@@ -101,25 +80,6 @@ export default async function handler(
                             currentPeriodEnd
                         }
                     })
-                    // }
-                    // const subscription = await prisma.subscription.upsert({
-                    //     update:{
-                    //         subscriptionStatus: true
-                    //     },
-                    //     create:{
-                    //         stripeId: 'aaaa',
-                    //         subscriptionStatus:true,
-                    //         tenantId: 'tenantId'
-                    //     },
-                    //     where:{
-
-                    //     }
-                    // })
-                    //       await manageSubscriptionStatusChange(
-                    //         event.data.object.id,
-                    //       event.data.object.custumer,
-                    //       event.type === 'customer.subscription.created'
-                    //   )
                     break
                 case 'checkout.session.completed':
                     const checkoutSession = event.data.object as Stripe.Checkout.Session
@@ -127,11 +87,6 @@ export default async function handler(
                     const subscriptionId = checkoutSession.subscription as string
 
                     const customer = await stripe.customers.retrieve(customerId)
-                    // const site = await prisma.site.findFirst({
-                    //     where: {
-                    //         stripeCustomer: customer.id
-                    //     }
-                    // })
 
                     await prisma.subscription.create({
                         data: {

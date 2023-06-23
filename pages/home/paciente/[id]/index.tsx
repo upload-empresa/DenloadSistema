@@ -51,12 +51,11 @@ Ordered lists look like:
 > They can span multiple paragraphs,
 > if you like.
 
-            `;
+`;
 
 export default function Paciente() {
     const router = useRouter();
 
-    // TODO: Undefined check redirects to error
     const { id: pacienteId } = router.query;
 
     const { data: paciente, isValidating } = useSWR<WithSitePaciente>(

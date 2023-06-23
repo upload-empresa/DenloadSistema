@@ -1,6 +1,5 @@
 import NextAuth, { type NextAuthOptions, Account, User } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
-import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from '@/lib/prisma';
@@ -74,19 +73,6 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
   secret: 'rZTFtfNuSMajLnfFrWT2PZ3lX8WZv7W/Xs2H8hkEY6g=',
-  // adapter: PrismaAdapter(prisma),
-  // cookies: {
-  //   sessionToken: {
-  //     name: `${VERCEL_DEPLOYMENT ? '__Secure-' : ''}next-auth.session-token`,
-  //     options: {
-  //       httpOnly: true,
-  //       sameSite: 'lax',
-  //       path: '/',
-  //       domain: VERCEL_DEPLOYMENT ? '.vercel.pub' : undefined,
-  //       secure: VERCEL_DEPLOYMENT,
-  //     },
-  //   },
-  // },
   callbacks: {
     async signIn({ user, account, profile }) {
       if (!user.email) {

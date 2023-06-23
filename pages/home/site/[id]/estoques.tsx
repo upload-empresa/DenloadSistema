@@ -1,28 +1,21 @@
-
-import { IoPersonOutline } from "react-icons/io5"
-import { MdOutlineInsertDriveFile, MdOutlineImageSearch } from "react-icons/md"
-
-import { CardMainPlus, CardIconPacientes, CardMain, CardPacientes } from "../../../../components/Cards"
+import { CardMain, CardPacientes } from "../../../../components/Cards"
 import { Main } from "../../../../components/Main"
-import { TableMain3 } from "../../../../components/Table/TableMain3"
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import useSWR from "swr";
 
-import LoadingDots from "@/components/app/loading-dots";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
 import type { WithSiteEstoque } from "@/types";
 import type { Estoque, Site, Subscription } from "@prisma/client";
-import Modal from "@/components/Modal";
 import { ButtonAdd, ButtonPacientes } from "@/components/Buttons"
 
 import { Stack, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, useToast } from "@chakra-ui/react"
 import { TitleCards } from "@/components/Title"
 import { Pagination } from "@/components/Pagination"
-import { Heading, HStack, Input, Button, InputGroup, InputLeftElement, Select } from "@chakra-ui/react"
+import { HStack, Input, InputGroup, InputLeftElement, Select } from "@chakra-ui/react"
 import { MdSearch } from "react-icons/md"
 
 interface SiteEstoqueData {
@@ -44,9 +37,6 @@ export default function Estoques({ estoques, estoque }) {
     const { data } = useSWR<SiteEstoqueData>(
         siteId && `/api/estoque?siteId=${siteId}`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.site && router.push("/"),
-        // }
     );
 
     const { data: settings, } = useSWR<WithSiteEstoque>(
@@ -61,9 +51,6 @@ export default function Estoques({ estoques, estoque }) {
     const { data: stripe } = useSWR<SiteEstoqueData>(
         `/api/subscription?siteId=${siteId}`,
         fetcher,
-        // {
-        //     onError: (data) => !data?.site && router.push('/erro'),
-        // }
     );
 
     const stripes = stripe?.subscriptions
@@ -94,14 +81,12 @@ export default function Estoques({ estoques, estoque }) {
     const [deletingEstoque, setDeletingEstoque] = useState(false);
 
     useEffect(() => {
-        // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/estoque?orderBy=${selectedOption}`);
+            const response = await fetch(`https://app.denload.com/api/estoque?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
 
-        // chamando a função da API apenas se houver algum termo de pesquisa
         if (selectedOption) {
             selectApi();
         } else {
@@ -137,9 +122,6 @@ export default function Estoques({ estoques, estoque }) {
                 method: HttpMethod.DELETE,
             });
 
-            // if (response.ok) {
-            //     router.push(`/site/${settings?.site?.id}`);
-            // }
         } catch (error) {
             console.error(error);
         } finally {
@@ -160,20 +142,16 @@ export default function Estoques({ estoques, estoque }) {
         })
     };
 
-    //teste pesquisa
-
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState(items)
 
     useEffect(() => {
-        // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/estoque?search=${searchTerm}`);
+            const response = await fetch(`https://app.denload.com/api/estoque??siteId=${siteId}&search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }
 
-        // chamando a função da API apenas se houver algum termo de pesquisa
         if (searchTerm) {
             searchApi();
         } else {
@@ -185,13 +163,13 @@ export default function Estoques({ estoques, estoque }) {
 
     return (
         <>
-            < Main title={"Estoque"} button={< ButtonAdd text={"Novo Produto"} onClick={() => {
+            < Main title={"Estoque"} button={< ButtonAdd mt={{ md: "0", xxs: "10%" }} text={"Novo Produto"} onClick={() => {
                 setCreatingEstoque(true);
                 createEstoque(siteId as string);
             }
-            } href={""} />}>
+            } href={""} />} w={{ lg: "30%", md: "26%", xxs: "25%" }} altText={"Ícone do Denload"} tamh={51} tamw={56}>
 
-                <CardMain radius={"18px"} spacing={5} w="100%" >
+                <CardMain radius={"18px"} spacing={5} >
                     <>
 
                         <TableContainer>
@@ -305,9 +283,6 @@ export default function Estoques({ estoques, estoque }) {
                                                                             bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                                             color={item?.pago ? "#0BB7AF" : "#F64E60"} />
                                                                     </Td>
-
-
-
                                                                 </Tr>
                                                             </>
                                                         ))}
@@ -352,13 +327,8 @@ export default function Estoques({ estoques, estoque }) {
                                                                                     color={item?.pago ? "#0BB7AF" : "#F64E60"}
                                                                                 />
                                                                             </Td>
-
-
-
                                                                         </Tr>
-
                                                                     </>
-
                                                                 ))
                                                             ) : (
                                                                 <>
@@ -367,9 +337,6 @@ export default function Estoques({ estoques, estoque }) {
                                                                     </p>
                                                                     <br />
                                                                     <p>Clique em &quot;Novo Produto&quot; para criar um.</p>
-
-
-
                                                                 </>
                                                             )
                                                         ) : (
@@ -379,12 +346,6 @@ export default function Estoques({ estoques, estoque }) {
                                                 )}
                                             </>
                                         )}
-
-
-
-
-
-
                                     </Tbody>
                                     <Tfoot>
                                         <Tr>

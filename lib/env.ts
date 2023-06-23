@@ -12,7 +12,6 @@ const env = {
     acs: `${process.env.APP_URL}/api/auth/sso/acs`,
   },
 
-  // SMTP configuration for NextAuth
   smtp: {
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT),
@@ -21,24 +20,20 @@ const env = {
     from: process.env.SMTP_FROM,
   },
 
-  // NextAuth configuration
   nextAuth: {
     secret: process.env.NEXTAUTH_SECRET,
   },
 
-  // Svix
   svix: {
     url: `${process.env.SVIX_URL}`,
     apiKey: `${process.env.SVIX_API_KEY}`,
   },
 
-  //Social login: Github
   github: {
     clientId: `${process.env.GITHUB_CLIENT_ID}`,
     clientSecret: `${process.env.GITHUB_CLIENT_SECRET}`,
   },
 
-  //Social login: Google
   google: {
     clientId: `${process.env.GOOGLE_CLIENT_ID}`,
     clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`,

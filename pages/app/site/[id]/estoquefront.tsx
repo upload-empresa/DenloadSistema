@@ -95,7 +95,7 @@ export default function Estoques({ estoques, estoque }) {
     useEffect(() => {
         // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`https://denload-sistema.vercel.app/api/estoque?orderBy=${selectedOption}`);
+            const response = await fetch(`/api/estoque?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }

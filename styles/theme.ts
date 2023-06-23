@@ -12,6 +12,15 @@ export const theme = extendTheme({
       '700': '#82735C',
     },
   },
+  breakpoints: {
+    '2xl': '2560px',
+    xl: '1440px',
+    lg: '1024px',
+    md: '768px',
+    sm: '425px',
+    xs: '375px',
+    xxs: '320px',
+  },
   fonts: {
     heading: 'Poppins',
     body: 'Poppins',

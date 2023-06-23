@@ -7,8 +7,6 @@ function useRequireAuth() {
 
   const router = useRouter();
 
-  // If auth.user is false that means we're not
-  // logged in and should redirect.
   useEffect(() => {
     if (!session && typeof session != 'undefined') {
       router.push(`/login`);

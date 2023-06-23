@@ -1,5 +1,3 @@
-import prisma from '@/lib/prisma';
-import { generatePasswordResetToken } from 'utils/auth';
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
@@ -21,9 +19,6 @@ export default async function handler(req, res) {
   const { feedback, nota } = req.body;
 
   try {
-    // const resetLink = `http://app.localhost:3000/reset-password?token=${token}`;
-
-    // Envie o email com o link de redefinição de senha para o usuário
     const mailOptions = {
       from: process.env.SMTP_FROM,
       to: 'helena.lannes.salles@hotmail.com',

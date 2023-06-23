@@ -3,13 +3,11 @@ import { useState } from "react";
 import Link from "next/link";
 import useSWR from "swr";
 
-import BlurImage from "@/components/BlurImage";
-import Layout from "@/components/app/Layout";
 import LoadingDots from "@/components/app/loading-dots";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
 
-import type { Foto, Site, Paciente } from "@prisma/client";
+import type { Foto, Paciente } from "@prisma/client";
 
 import { HStack, Stack } from "@chakra-ui/react"
 import { IoPersonOutline } from "react-icons/io5"
@@ -18,7 +16,7 @@ import { MdOutlineInsertDriveFile, MdOutlineImageSearch } from "react-icons/md"
 import { ButtonSave } from "@/components/Buttons"
 import { CardMainPlus, CardIconPacientes, CardMain, CardsDocumentos } from "@/components/Cards"
 import { Main } from "@/components/Main"
-import { TitleCardsPacientes, TitleCards } from "@/components/Title"
+import { TitleCardsPacientes, TitleCards } from "@/components/Title";
 
 interface SiteFotoData {
     fotos: Array<Foto>;
@@ -34,9 +32,7 @@ export default function ImgPacientes() {
     const { data } = useSWR<SiteFotoData>(
         pacienteId && `/api/foto?pacienteId=${pacienteId}&published=true`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.site && router.push("/"),
-        // }
+
     );
 
     async function createFoto(pacienteId: string) {
@@ -69,19 +65,10 @@ export default function ImgPacientes() {
                     <CardIconPacientes icon={MdOutlineImageSearch} text={"Despesas"} href={"#"} />
                 </CardMainPlus>
 
-                <CardMain radius={"0 18px 18px 0"} spacing={5} w={"90%"}>
-                    {/* <TitleCardsPacientes>
+                <CardMain radius={"0 18px 18px 0"} spacing={5} w={"90%"} >
+                    <TitleCardsPacientes pacientes={[]}>
                         <TitleCards title={"Adicionar as Imagens"} />
-
-                    </TitleCardsPacientes> */}
-
-
-                    {/* <CardsDocumentos alt={""} src={""} />
-                        <CardsDocumentos alt={""} src={""} />
-                        <CardsDocumentos alt={""} src={""} /> */}
-
-
-
+                    </TitleCardsPacientes>
                     <button
                         onClick={() => {
                             setCreatingFoto(true);
@@ -116,15 +103,6 @@ export default function ImgPacientes() {
                                         ) : (
                                             ''
                                         )}
-
-
-                                        {/* <h2 className="font-cal text-3xl">{foto.pergunta}</h2>
-                                            <p className="text-base my-5 line-clamp-3">
-                                                {foto.resposta}
-                                            </p> */}
-
-
-
                                     </Link>
                                 ))
                             ) : (
@@ -162,15 +140,11 @@ export default function ImgPacientes() {
                             ))
                         )}
                     </HStack>
-
-
-
                     <Stack
                         align={"end"}
                     >
                         <ButtonSave />
                     </Stack>
-
                 </CardMain>
             </HStack >
         </Main >
