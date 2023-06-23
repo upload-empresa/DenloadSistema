@@ -63,7 +63,6 @@ export default function Paciente() {
         fetcher,
         {
             dedupingInterval: 1000,
-            onError: () => router.push("/"),
             revalidateOnFocus: false,
         }
     );
@@ -212,9 +211,7 @@ export default function Paciente() {
             if (response.ok) {
                 setPago(true),
                     mutate(`/api/paciente?pacienteId=${pacienteId}`);
-                router.push(
-                    `https://${paciente?.site?.subdomain}.vercel.pub/${paciente?.slug}`
-                );
+
             }
         } catch (error) {
             console.error(error);

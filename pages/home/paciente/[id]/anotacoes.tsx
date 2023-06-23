@@ -36,7 +36,6 @@ export default function Anotacoes() {
         fetcher,
         {
             dedupingInterval: 1000,
-            onError: () => router.push("/"),
             revalidateOnFocus: false,
         }
     );

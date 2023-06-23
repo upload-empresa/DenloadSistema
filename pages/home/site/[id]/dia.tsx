@@ -67,50 +67,37 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     const { data: agendasData } = useSWR<SiteAgendaData>(
         pacienteId && `/api/agenda?siteId=${siteId}`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.paciente && router.push("/"),
-        // }
+
     );
 
     const { data: pacientesData } = useSWR<SiteAgendaData>(
         siteId && `/api/paciente?siteId=${siteId}`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.paciente && router.push("/"),
-        // }
+
     );
 
     const { data: ganhosData } = useSWR<SiteAgendaData>(
         siteId && `/api/ganho?siteId=${siteId}`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.site && router.push("/"),
-        // }
+
     );
 
     const { data: despesasData } = useSWR<SiteAgendaData>(
         siteId && `/api/despesa?siteId=${siteId}`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.site && router.push("/"),
-        // }
+
     );
 
     const { data: settings, } = useSWR<WithPacienteAgenda>(
         `/api/agenda?agendaId=${agendaId}`,
         fetcher,
-        // {
-        //     onError: () => router.push("/"),
-        //     revalidateOnFocus: false,
-        // }
+
     );
 
     const { data: stripe } = useSWR<SiteAgendaData>(
         `/api/subscription?siteId=${siteId}`,
         fetcher,
-        // {
-        //     onError: (data) => !data?.site && router.push('/erro'),
-        // }
+
     );
 
     const stripes = stripe?.subscriptions

@@ -40,18 +40,13 @@ export default function Despesas({ despesa, despesas }) {
     const { data } = useSWR<SiteDespesaData>(
         siteId && `/api/despesa?siteId=${siteId}`,
         fetcher,
-        {
-            onSuccess: (data) => !data?.site && router.push("/"),
-        }
+
     );
 
     const { data: settings, } = useSWR<WithSiteDespesa>(
         `/api/despesa?despesaId=${despesaId}`,
         fetcher,
-        {
-            onError: () => router.push("/"),
-            revalidateOnFocus: false,
-        }
+
     );
 
 
@@ -120,7 +115,7 @@ export default function Despesas({ despesa, despesas }) {
 
     async function redirectEdit() {
         router.push(
-            `/despesa/cli31zkt50002ufikti2nd4uj/dadosdespesa`
+            `/despesa/${siteId}/dadosdespesa`
         );
     }
 

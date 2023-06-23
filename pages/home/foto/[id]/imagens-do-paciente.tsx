@@ -66,7 +66,6 @@ export default function DocPacientes() {
         fetcher,
         {
             dedupingInterval: 1000,
-            onError: () => router.push("/"),
             revalidateOnFocus: false,
         }
     );

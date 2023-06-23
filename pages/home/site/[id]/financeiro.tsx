@@ -40,17 +40,13 @@ const Financeiro = () => {
     const { data: ganhosData } = useSWR<SiteGanhoData>(
         siteId && `/api/ganho?siteId=${siteId}`,
         fetcher,
-        {
-            onSuccess: (data) => !data?.site && router.push("/"),
-        }
+
     );
 
     const { data: despesasData } = useSWR<SiteGanhoData>(
         siteId && `/api/despesa?siteId=${siteId}`,
         fetcher,
-        {
-            onSuccess: (data) => !data?.site && router.push("/"),
-        }
+
     );
 
 

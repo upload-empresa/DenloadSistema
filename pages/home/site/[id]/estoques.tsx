@@ -42,10 +42,7 @@ export default function Estoques({ estoques, estoque }) {
     const { data: settings, } = useSWR<WithSiteEstoque>(
         `/api/estoque?estoqueId=${estoqueId}`,
         fetcher,
-        {
-            onError: () => router.push("/"),
-            revalidateOnFocus: false,
-        }
+
     );
 
     const { data: stripe } = useSWR<SiteEstoqueData>(

@@ -42,7 +42,6 @@ export default function AddEstoque(req: NextApiRequest,
         fetcher,
         {
             dedupingInterval: 1000,
-            onError: () => router.push("/"),
             revalidateOnFocus: false,
         }
     );

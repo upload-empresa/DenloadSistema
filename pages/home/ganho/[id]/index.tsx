@@ -33,7 +33,6 @@ export default function AddFinanceiroGanho() {
         fetcher,
         {
             dedupingInterval: 1000,
-            onError: () => router.push("/"),
             revalidateOnFocus: false,
         }
     );

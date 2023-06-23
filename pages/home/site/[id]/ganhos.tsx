@@ -36,18 +36,13 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
     const { data } = useSWR<SiteGanhoData>(
         siteId && `/api/ganho?siteId=${siteId}`,
         fetcher,
-        {
-            onSuccess: (data) => !data?.site && router.push("/"),
-        }
+
     );
 
     const { data: settings, } = useSWR<WithSiteGanho>(
         `/api/ganho?ganhoId=${ganhoId}`,
         fetcher,
-        {
-            onError: () => router.push("/"),
-            revalidateOnFocus: false,
-        }
+
     );
 
 
