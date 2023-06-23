@@ -106,7 +106,7 @@ export function Sidebar({ children, title, button, w, path, altText, tamh, tamw 
                         />
                         <Stack spacing={0}>
                             <SideSection href="/" text="Dashboard" icone={MdHome} />
-                            <SideSection href="/agenda" text="Agenda" icone={MdEvent} />
+                            <SideSection href="https://calendar.google.com/calendar/u/0/r" text="Agenda" icone={MdEvent} />
                             <SideSection href="/pacientes" text="Pacientes" icone={MdGroup} />
                             <SideSection href="/estoque" text="Estoque" icone={MdAssignment} />
                             <SideSection href="/financeiro" text="Financeiro" icone={MdAccountBalanceWallet} />
