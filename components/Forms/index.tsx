@@ -27,19 +27,19 @@ export function FormsValue({ label, placeholder, type, w, name, value, onChange,
         <FormControl w={w}>
             <FormLabel color={"#828282"} fontSize={"14px"}>{label}</FormLabel>
             <InputGroup>
-                <InputLeftElement
+                {/* <InputLeftElement
                     pointerEvents='none'
                     color='gray.300'
                     fontSize='1em'
                     children='R$'
-                />
+                /> */}
                 <Input type={type} ref={ref} name={name} value={value} onChange={onChange} onInput={onInput} placeholder={placeholder} _placeholder={{ color: "#A1A1A1", fontSize: "14px" }} required />
-                <InputRightElement
+                {/* <InputRightElement
                     pointerEvents='none'
                     color='gray.300'
                     fontSize='0.9em'
                     children=',00'
-                />
+                /> */}
             </InputGroup>
         </FormControl>
     )
