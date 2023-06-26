@@ -59,9 +59,7 @@ export default function DocPacientes() {
     const { data: documentoMostrar } = useSWR<SiteDocumentoData>(
         pacienteId && `/api/documento?pacienteId=${pacienteId}&published=true`,
         fetcher,
-        // {
-        //     onSuccess: (data) => !data?.site && router.push("/"),
-        // }
+
     );
 
     const { data: documento, isValidating } = useSWR<WithPacienteDocumento>(
@@ -69,7 +67,6 @@ export default function DocPacientes() {
         fetcher,
         {
             dedupingInterval: 1000,
-            onError: () => router.push("/"),
             revalidateOnFocus: false,
         }
     );

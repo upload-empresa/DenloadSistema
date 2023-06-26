@@ -85,11 +85,11 @@ export function FinanceiroEdit({ title, text, titlePage, children, onChange1, va
                 <CardMain radius={"0 18px 18px 0"} spacing={5} w={"90%"} >
                     <TitleCards title={title} />
                     <HStack spacing={{ lg: 6, xxs: 0 }} flexDir={{ lg: "row", xxs: "column" }}>
-                        <Forms label={"Nome"} type={"text"} placeholder={"Digite o seu nome"} name="name" onChange={onChange1} value={value1} />
-                        <Forms label={"Data do Vencimento"} type={"date"} placeholder={"Digite a data do vencimento"} onChange={onChange2} value={value2} />
+                        <Forms label={"Nome do Paciente"} type={"text"} placeholder={"Digite o nome do paciente"} name="name" onChange={onChange1} value={value1} />
+                        <Forms label={"Data da Consulta"} type={"date"} placeholder={"Digite a data da consulta"} onChange={onChange2} value={value2} />
                     </HStack>
                     <HStack spacing={{ lg: 6, xxs: 0 }} flexDir={{ lg: "row", xxs: "column" }}>
-                        <FormsValue label={"Valor"} type={"text"} placeholder={"Digite o valor total"} onChange={onChange3} value={value3} />
+                        <FormsValue label={"Valor"} type={"text"} placeholder={"Digite o valor da consulta"} onChange={onChange3} value={value3} />
                         <SelectsFinanceiro label={"Status do Pagamento"} onInput1={onInput1} defaultValue1={defaultValue1} />
 
 

@@ -189,6 +189,7 @@ export default function AddFinanceiroGanho() {
         } finally {
             setPublishing(false);
             setPago(false)
+            router.back();
         }
     }
 
@@ -221,8 +222,7 @@ export default function AddFinanceiroGanho() {
                 })
             } defaultValue1={data.pago}        >
 
-            <Forms label={"Empresa"} type={"text"} placeholder={"Digite o nome da empresa"}
-            />
+
         </FinanceiroEdit>
     )
 }

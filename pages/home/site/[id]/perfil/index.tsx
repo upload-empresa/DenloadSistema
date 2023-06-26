@@ -49,7 +49,6 @@ export default function Perfil() {
         siteId && `/api/site?siteId=${siteId}`,
         fetcher,
         {
-            onError: () => router.push("/"),
             revalidateOnFocus: false,
         }
     );
@@ -116,7 +115,7 @@ export default function Perfil() {
                 method: HttpMethod.DELETE,
             });
 
-            if (response.ok) router.push("/");
+
         } catch (error) {
             console.error(error);
         } finally {
@@ -199,7 +198,7 @@ export default function Perfil() {
                         align={{ md: "start", xxs: "start" }}
                         flexDir={{ lg: "row", xxs: "column" }}
                     >
-                        <FigureImage w={undefined} path={"/image 3 (2).png"} altText={"Imagem do Dentista"} tamH={90} tamW={90} />
+                        <FigureImage w={undefined} path={"/dentista.png"} altText={"Imagem do Dentista"} tamH={90} tamW={90} />
                         <Stack
                             spacing={1}
                         >

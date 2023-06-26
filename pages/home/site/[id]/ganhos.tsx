@@ -186,9 +186,8 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
                                     <Thead>
                                         <Tr>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Ações</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Nome</Th>
-                                            <Th textAlign={"start"} isNumeric color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Vencimento</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Empresa</Th>
+                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Nome do Paciente</Th>
+                                            <Th textAlign={"start"} isNumeric color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Data da Consulta</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Valor</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th>
                                         </Tr>
@@ -215,9 +214,7 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
                                                             >
                                                                 {item.recebimento}
                                                             </Td>
-                                                            <Td color={"#474749"} fontSize={"14px"}>
-                                                                {item.empresa}
-                                                            </Td>
+
                                                             <Td color={"#474749"} fontSize={"14px"}>
                                                                 {item.valor}
                                                             </Td>
@@ -255,9 +252,7 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
                                                                     >
                                                                         {item.recebimento}
                                                                     </Td>
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
-                                                                        {item.empresa}
-                                                                    </Td>
+
                                                                     <Td color={"#474749"} fontSize={"14px"}>
                                                                         {item.valor}
                                                                     </Td>
@@ -291,9 +286,7 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
                                                                     >
                                                                         {item.recebimento}
                                                                     </Td>
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
-                                                                        {item.empresa}
-                                                                    </Td>
+
                                                                     <Td color={"#474749"} fontSize={"14px"}>
                                                                         {item.valor}
                                                                     </Td>

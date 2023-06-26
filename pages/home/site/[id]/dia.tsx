@@ -141,7 +141,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     useEffect(() => {
         // função que irá realizar a chamada da API
         const selectApi = async () => {
-            const response = await fetch(`https://app.denload.com/api/agenda?orderBy=${selectedOption}`);
+            const response = await fetch(`/api/agenda?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -167,7 +167,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     useEffect(() => {
         // função que irá realizar a chamada da API
         const searchApi = async () => {
-            const response = await fetch(`https://app.denload.com/api/paciente?search=${searchTerm}`);
+            const response = await fetch(`/api/paciente?search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }
@@ -184,14 +184,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
 
     return (
         <Main title={"Dia"} w={"45%"} path={"/dia.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
-            {/* {stripes ? (
-                stripes?.map((stripe) => (
-                    <p>{stripe.subscriptionStatus == true ? 'sim' : 'Atualize seu pagamento para ter acesso ao Denload!'}</p>
-                ))
-            ) : (
-                <p>Carregando...</p>
-            )
-            } */}
+
             <Stack
                 spacing={4}
             >
@@ -221,7 +214,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
 
 
                             return (
-                                <CardDia w={"20%"} widthCard={{ md: "none", xxs: "80%" }} path={"/ganho.png"} altText={"Ícone do Denload"} tamh={48} tamw={52} title={"Ganho do dia"} text={totalGanhos} mt={{ xxs: 20 }} />
+                                <CardDia w={"20%"} widthCard={{ md: "none", xxs: "80%" }} path={"/ganho.png"} altText={"Ícone do Denload"} tamh={48} tamw={52} title={"Ganho do dia"} text={totalGanhos} />
                             )
                         })()
                     }
@@ -245,7 +238,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
 
 
                             return (
-                                <CardDia w={"20%"} path={"/despesa.png"} altText={"Ícone do Denload"} tamh={48} tamw={52} title={"Despesa do dia"} text={totalDespesas} />
+                                <CardDia w={"20%"} widthCard={{ md: "none", xxs: "80%" }} path={"/despesa.png"} altText={"Ícone do Denload"} tamh={48} tamw={52} title={"Despesa do dia"} text={totalDespesas} mt={{ md: 0, xxs: 20 }} />
                             )
                         })()
                     }
@@ -292,7 +285,9 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
 
 
                             return (
-                                <CardDia w={"20%"} path={"/lucro.png"} altText={"Ícone do Denload"} tamh={48} tamw={52} title={"Lucro do dia"} text={lucroFunction()} mt={{ xxs: 20 }} />
+                                <CardDia w={"20%"} widthCard={{ md: "none", xxs: "80%" }} path={"/lucro.png"} altText={"Ícone do Denload"} tamh={48} tamw={52} title={"Lucro do dia"} text={lucroFunction()} mt={{ md: 0, xxs: 20 }} />
+
+
                             )
                         })()
                     }
@@ -427,7 +422,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
                                                         </>
                                                     )
                                                 ) : (
-                                                    <p>Carregando..</p>
+                                                    <p>Sem dados ainda</p>
                                                 )}
                                             </>
                                         )}

@@ -2,16 +2,12 @@ import { Stack, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@
 import { ButtonPacientes } from "../Buttons"
 import { CardPacientes } from "../Cards"
 
-import { TitleCards, TitleCardsPacientes } from "../Title"
 
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Link from "next/link";
 import useSWR from "swr";
 
-import BlurImage from "@/components/BlurImage";
-import Layout from "@/components/app/Layout";
-import LoadingDots from "@/components/app/loading-dots";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
 
@@ -42,9 +38,7 @@ export function TableMain3({ title, name, phone, email, group, thead1, thead2, t
     const { data } = useSWR<SiteGanhoData>(
         siteId && `/api/ganho?siteId=${siteId}`,
         fetcher,
-        {
-            onSuccess: (data) => !data?.site && router.push("/"),
-        }
+
     );
 
     async function createGanho(siteId: string) {

@@ -302,9 +302,9 @@ export default function DadosDoPaciente() {
 
     if (isValidating)
         return (
-            <Layout>
-                <Loader />
-            </Layout>
+
+            <Loader />
+
         );
 
     return (
@@ -317,7 +317,7 @@ export default function DadosDoPaciente() {
             >
                 <CardMainPlus>
                     <CardIconPacientes icon={IoPersonOutline} text={"Dados"} href={"#"} />
-                    <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Documentos"} href={"#"} />
+                    <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Documentos"} href={`/paciente/${pacienteId}/documentos-do-paciente`} />
                     <CardIconPacientes icon={MdOutlineImageSearch} text={"Imagens"} href={"#"} />
                     <CardIconPacientes icon={MdEditNote} text={"Anamneses"} href={"#"} />
                     <CardIconPacientes icon={SlNote} text={"Anotações"} href={"#"} />

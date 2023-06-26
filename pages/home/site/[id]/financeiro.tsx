@@ -72,17 +72,8 @@ const Financeiro = () => {
                                 <Stack
                                     w={{ lg: "50%", xxs: "100%" }}
                                 >
-                                    <TitleDashboardGrafic title={"Despesas e Ganhos"} flexDir={{ lg: "row", xxs: "column" }} />
-                                    <Select
-                                        w="40%"
-                                        fontSize="14px"
-                                        value={selectedPeriod}
-                                        onChange={(e) => setSelectedPeriod(e.target.value)}
-                                    >
-                                        <option value="3 meses">3 meses</option>
-                                        <option value="6 meses">6 meses</option>
-                                        <option value="12 meses">12 meses</option>
-                                    </Select>
+                                    <TitleDashboardGrafic title={"Despesas e Ganhos"} flexDir={{ lg: "row", xxs: "column" }} value={selectedPeriod} onChange={(e: any) => setSelectedPeriod(e.target.value)} />
+
 
                                     {ganhosData && despesasData &&
                                         (() => {
