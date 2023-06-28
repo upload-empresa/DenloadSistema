@@ -1,4 +1,4 @@
-import { HStack } from "@chakra-ui/react"
+import { HStack, useToast } from "@chakra-ui/react"
 import { Stack, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
 
 import { CardMain, CardPacientes } from "../../../../components/Cards"
@@ -31,6 +31,8 @@ export default function Despesas({ despesa, despesas }) {
     const [creatingDespesa, setCreatingDespesa] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deletingDespesa, setDeletingDespesa] = useState(false);
+    const toast = useToast()
+    const statuses = ['success', 'error', 'warning', 'info']
 
     const router = useRouter();
     const { id: siteId } = router.query;
@@ -139,6 +141,12 @@ export default function Despesas({ despesa, despesas }) {
         }
         //@ts-ignore
         deleteDespesa(siteId, iba);
+        toast({
+            title: `Despesa deletado com sucesso!`,
+            status: 'success',
+            isClosable: true,
+        })
+        window.location.reload()
     };
 
     const [searchTerm, setSearchTerm] = useState("");

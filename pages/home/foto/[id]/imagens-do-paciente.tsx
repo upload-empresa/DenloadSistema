@@ -219,16 +219,16 @@ export default function DocPacientes() {
                 align={"stretch"}
             >
                 <CardMainPlus>
-                    <CardIconPacientes icon={IoPersonOutline} text={"Dados"} href={"/pacientes/dados-do-paciente"} />
-                    <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Documentos"} href={"/pacientes/documentos-do-paciente"} />
+                    <CardIconPacientes icon={IoPersonOutline} text={"Dados"} href={`/paciente/${pacienteId}/dadospaciente`} />
+                    <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Documentos"} href={`/paciente/${pacienteId}/documentos-do-paciente`} />
                     <button onClick={() => {
                         setCreatingFoto(true);
                         createFoto(pacienteId as string);
                     }}>
-                        <CardIconPacientes icon={MdOutlineImageSearch} text={"Imagens"} href={"/pacientes/imagens-do-paciente"} />
+                        <CardIconPacientes icon={MdOutlineImageSearch} text={"Imagens"} href={`/paciente/${pacienteId}/fotos-do-paciente`} />
                     </button>
-                    <CardIconPacientes icon={MdOutlineImageSearch} text={"Anamneses"} href={"/pacientes/anamneses"} />
-                    <CardIconPacientes icon={MdOutlineImageSearch} text={"Anotações"} href={"#"} />
+                    <CardIconPacientes icon={MdOutlineImageSearch} text={"Anamneses"} href={`/paciente/${pacienteId}/anamnese`} />
+                    <CardIconPacientes icon={MdOutlineImageSearch} text={"Anotações"} href={`/paciente/${pacienteId}/anotacoes`} />
                 </CardMainPlus>
 
                 <CardMain radius={'0 18px 18px 0'} spacing={5} w={"90%"}>

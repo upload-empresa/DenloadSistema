@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
-
-import CustomDonationInput from '../components/CustomDonationInput'
-
 import getStripe from '../utils/get-stripe'
 import { fetchPostJSON } from '../utils/api-helpers'
-import { formatAmountForDisplay } from '../utils/stripe-helpers'
 import * as config from '../config'
 
 interface CheckoutProps {

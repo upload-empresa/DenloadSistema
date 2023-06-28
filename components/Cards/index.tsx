@@ -363,9 +363,10 @@ export function CardDashboardFinanceiro({ nome, procedimento, horario, title, co
 interface CardsDocumentosProps {
     icon: IconType
     text: string
+    onClick?: any
 }
 
-export function CardsDocumentos(props: BlurImageProps) {
+export function CardsDocumentos(props: BlurImageProps, { onClick }: CardsDocumentosProps) {
     const [isLoading, setLoading] = useState(true);
     return (
         <Stack
@@ -405,25 +406,30 @@ export function CardsDocumentos(props: BlurImageProps) {
                     onLoadingComplete={() => setLoading(false)}
                 />
             </HStack>
-            <Button
-                as={"a"}
-                borderRadius={"50%"}
-                bg={"red"}
-                py={3}
-                px={0}
-                position={"absolute"}
-                width={"10px"}
-                height={"20px"}
-                top="-5%"
-                left="70%"
-                zIndex={2}
-            >
-                <Icon
-                    as={MdClear}
-                    fontSize={"16px"}
-                    color={"white"}
-                />
-            </Button>
+            <button onClick={onClick}>
+                <Button
+                    as={"a"}
+                    borderRadius={"50%"}
+                    bg={"red"}
+                    py={3}
+                    px={0}
+                    position={"absolute"}
+                    width={"10px"}
+                    height={"20px"}
+                    top="-5%"
+                    left="70%"
+                    zIndex={2}
+
+                >
+
+                    <Icon
+                        as={MdClear}
+                        fontSize={"16px"}
+                        color={"white"}
+                    />
+
+                </Button>
+            </button>
         </Stack>
     )
 }

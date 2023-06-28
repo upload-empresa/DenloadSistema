@@ -10,7 +10,7 @@ import { Main } from "@/components/Main";
 import { CardMain } from "@/components/Cards"
 import { TitleCards } from "@/components/Title";
 import { ButtonDelete, ButtonDeletePlus, ButtonSave } from "@/components/Buttons";
-import { Forms } from "@/components/Forms";
+import { Forms, FormsAnamnese } from "@/components/Forms";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
@@ -68,6 +68,7 @@ const AllAnamneses: NextPageWithLayout = () => {
         }
         //@ts-ignore
         deleteAnamnese(pacienteId, iba);
+        window.location.reload()
     };
 
 
@@ -106,7 +107,7 @@ const AllAnamneses: NextPageWithLayout = () => {
                                             align={"start"}
                                         >
 
-                                            <><Forms label={anamnese.pergunta} w={"99%"} type={"text"} placeholder={anamnese.pergunta} />
+                                            <><FormsAnamnese label={anamnese.pergunta} label2={anamnese.resposta} w={"99%"} type={"text"} placeholder={anamnese.pergunta} />
                                                 {isVisible && <ButtonDeletePlus onClick={() => handleDeleteClick(anamnese.id)} />}
                                             </>
                                         </HStack>

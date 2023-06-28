@@ -2,6 +2,7 @@ import { FormControl, FormLabel, Input, InputGroup, InputLeftElement, InputRight
 
 interface FormsProps {
     label: any
+    label2?: any
     type?: string
     placeholder: any
     w?: string
@@ -18,6 +19,15 @@ export function Forms({ label, placeholder, type, w, name, value, onChange, ref,
         <FormControl w={w} mb={mb}>
             <FormLabel color={"#828282"} fontSize={{ '2xl': "18px", lg: "14px", md: "14px", xxs: "14px" }}>{label}</FormLabel>
             <Input type={type} ref={ref} name={name} value={value} onChange={onChange} onInput={onInput} placeholder={placeholder} _placeholder={{ color: "#A1A1A1", fontSize: "14px" }} required />
+        </FormControl>
+    )
+}
+
+export function FormsAnamnese({ label, w, mb, label2 }: FormsProps) {
+    return (
+        <FormControl w={w} mb={mb}>
+            <FormLabel color={"#828282"} fontSize={{ '2xl': "18px", lg: "14px", md: "14px", xxs: "14px" }}>{label}</FormLabel>
+            <FormLabel color={"#828282"} fontSize={{ '2xl': "18px", lg: "14px", md: "14px", xxs: "14px" }}>{label2}</FormLabel>
         </FormControl>
     )
 }
@@ -70,6 +80,7 @@ export function Selects({ label, onInput, defaultValue, mb }: SelectsProps) {
                 onInput={onInput}
                 defaultValue={defaultValue}
                 color="#A1A1A1" fontSize={"14px"}>
+                <option value="Infantil" color="#A1A1A1">Selecione a opção</option>
                 <option value="Infantil" color="#A1A1A1">Infantil</option>
                 <option value="Jovem" color="#A1A1A1">Jovem</option>
                 <option value="Adulto" color="#A1A1A1">Adulto</option>

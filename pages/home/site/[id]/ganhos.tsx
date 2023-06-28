@@ -12,7 +12,7 @@ import type { WithSiteGanho } from "@/types";
 import type { Ganho, Site, Subscription } from "@prisma/client";
 import { ButtonAdd, ButtonPacientes } from "@/components/Buttons"
 
-import { Stack, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
+import { Stack, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, useToast } from "@chakra-ui/react"
 import { TitleCards } from "@/components/Title"
 import { Pagination } from "@/components/Pagination"
 import { HStack, Input, InputGroup, InputLeftElement, Select } from "@chakra-ui/react"
@@ -27,6 +27,8 @@ interface SiteGanhoData {
 //@ts-ignore
 export default function Ganhos({ ganhos, ganho, subscriptions }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const toast = useToast()
+    const statuses = ['success', 'error', 'warning', 'info']
 
     const router = useRouter();
     const { id: siteId } = router.query;
@@ -127,6 +129,12 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
         }
         //@ts-ignore
         deleteGanho(siteId, iba);
+        toast({
+            title: `Ganho deletado com sucesso!`,
+            status: 'success',
+            isClosable: true,
+        })
+        window.location.reload()
     };
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -153,7 +161,7 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
             setCreatingGanho(true);
             createGanho(siteId as string);
         }
-        } href={""} />} tamh={0} tamw={0}>
+        } />} tamh={0} tamw={0}>
             <HStack
                 spacing={0}
                 align={"stretch"}

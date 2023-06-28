@@ -8,9 +8,12 @@ import { SideSection, SideSectionLogout } from './sidesection'
 import { useRouter } from 'next/router'
 import useRequireAuth from "../../lib/useRequireAuth";
 import Loader from '../app/Loader';
+import type { Meta, WithChildren } from "@/types"
+import Cookies from 'js-cookie';
 
 
-interface SidebarProps {
+interface SidebarProps extends WithChildren {
+    meta?: Meta
     children: React.ReactNode
     title: string
     button?: React.ReactNode
@@ -23,6 +26,8 @@ interface SidebarProps {
 
 
 export function Sidebar({ children, title, button, w, path, altText, tamh, tamw }: SidebarProps) {
+    const siteId = Cookies.get('siteId');
+
     const [isOpen, setIsOpen] = useState(false)
     const router = useRouter();
     const sitePage = router.pathname.startsWith("/app/site/[id]");
@@ -31,7 +36,7 @@ export function Sidebar({ children, title, button, w, path, altText, tamh, tamw 
     const tab = rootPage
         ? router.asPath.split("/")[1]
         : router.asPath.split("/")[3];
-    const { id: siteId } = router.query;
+
 
     const handleOpen = () => {
         setIsOpen(true)

@@ -4,7 +4,6 @@ import { useDebounce } from "use-debounce";
 import { useRouter } from "next/router";
 import { useState, useEffect, useCallback } from "react";
 
-import Layout from "@/components/app/Layout";
 import Loader from "@/components/app/Loader";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
@@ -243,9 +242,9 @@ export default function AddEstoque(req: NextApiRequest,
 
     if (isValidating)
         return (
-            <Layout>
-                <Loader />
-            </Layout>
+
+            <Loader />
+
         );
 
 

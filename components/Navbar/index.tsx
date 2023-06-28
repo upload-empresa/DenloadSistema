@@ -43,7 +43,7 @@ export function Navbar({ siteId, children }: LayoutProps) {
                 as="article"
                 pl={{ lg: 0, md: 10, xxs: 10 }}
             >
-                <FigureImage w={"50%"} path={"/ibar.png"} altText={"Logo do Denload"} tamH={182} tamW={391} />
+                <FigureImage w={"50%"} path={"/logodenload.png"} altText={"Logo do Denload"} tamH={1488} tamW={451} />
             </HStack>
 
 

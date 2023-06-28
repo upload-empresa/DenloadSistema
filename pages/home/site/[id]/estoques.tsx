@@ -15,7 +15,7 @@ import { ButtonAdd, ButtonPacientes } from "@/components/Buttons"
 import { Stack, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, useToast } from "@chakra-ui/react"
 import { TitleCards } from "@/components/Title"
 import { Pagination } from "@/components/Pagination"
-import { HStack, Input, InputGroup, InputLeftElement, Select } from "@chakra-ui/react"
+import { HStack, Input, InputGroup, InputLeftElement, Select, Text } from "@chakra-ui/react"
 import { MdSearch } from "react-icons/md"
 
 interface SiteEstoqueData {
@@ -50,7 +50,7 @@ export default function Estoques({ estoques, estoque }) {
         fetcher,
     );
 
-    const stripes = stripe?.subscriptions
+
 
     async function createEstoque(siteId: string) {
         try {
@@ -79,7 +79,7 @@ export default function Estoques({ estoques, estoque }) {
 
     useEffect(() => {
         const selectApi = async () => {
-            const response = await fetch(`https://app.denload.com/api/estoque?orderBy=${selectedOption}`);
+            const response = await fetch(`/api/estoque?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -137,6 +137,7 @@ export default function Estoques({ estoques, estoque }) {
             status: 'success',
             isClosable: true,
         })
+        window.location.reload()
     };
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -144,7 +145,7 @@ export default function Estoques({ estoques, estoque }) {
 
     useEffect(() => {
         const searchApi = async () => {
-            const response = await fetch(`https://app.denload.com/api/estoque??siteId=${siteId}&search=${searchTerm}`);
+            const response = await fetch(`/api/estoque??siteId=${siteId}&search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }
@@ -164,7 +165,7 @@ export default function Estoques({ estoques, estoque }) {
                 setCreatingEstoque(true);
                 createEstoque(siteId as string);
             }
-            } href={""} />} w={{ lg: "30%", md: "26%", xxs: "25%" }} altText={"Ícone do Denload"} tamh={51} tamw={56}>
+            } />} w={{ lg: "30%", md: "26%", xxs: "25%" }} altText={"Ícone do Denload"} tamh={51} tamw={56}>
 
                 <CardMain radius={"18px"} spacing={5} >
                     <>
@@ -329,11 +330,12 @@ export default function Estoques({ estoques, estoque }) {
                                                                 ))
                                                             ) : (
                                                                 <>
-                                                                    <p>
-                                                                        Nenhum produto cadastro.
-                                                                    </p>
-                                                                    <br />
-                                                                    <p>Clique em &quot;Novo Produto&quot; para criar um.</p>
+                                                                    <Text
+                                                                        as="p"
+                                                                        mt={"10%"}
+                                                                    >
+                                                                        Clique em "Novo Paciente" para criar um
+                                                                    </Text>
                                                                 </>
                                                             )
                                                         ) : (

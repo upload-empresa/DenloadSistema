@@ -316,11 +316,11 @@ export default function DadosDoPaciente() {
                 align={"stretch"}
             >
                 <CardMainPlus>
-                    <CardIconPacientes icon={IoPersonOutline} text={"Dados"} href={"#"} />
+                    <CardIconPacientes icon={IoPersonOutline} text={"Dados"} href={`/paciente/${pacienteId}/dadospaciente`} />
                     <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Documentos"} href={`/paciente/${pacienteId}/documentos-do-paciente`} />
-                    <CardIconPacientes icon={MdOutlineImageSearch} text={"Imagens"} href={"#"} />
-                    <CardIconPacientes icon={MdEditNote} text={"Anamneses"} href={"#"} />
-                    <CardIconPacientes icon={SlNote} text={"Anotações"} href={"#"} />
+                    <CardIconPacientes icon={MdOutlineImageSearch} text={"Imagens"} href={`/paciente/${pacienteId}/fototeste`} />
+                    <CardIconPacientes icon={MdEditNote} text={"Anamneses"} href={`/paciente/${pacienteId}/anamnese`} />
+                    <CardIconPacientes icon={SlNote} text={"Anotações"} href={`/paciente/${pacienteId}/anotacoes`} />
                 </CardMainPlus>
                 <CardMain radius={"0 18px 18px 0"} w={"90%"} spacing={5}>
                     <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>

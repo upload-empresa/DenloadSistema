@@ -90,29 +90,29 @@ export function ButtonLogin({ text, type }: ButtonLoginProps) {
 interface ButtonAddProps {
     text: string
     onClick: any
-    href: string
+    href?: string
     mt?: any
 }
 
 export function ButtonAdd({ text, href, onClick, mt }: ButtonAddProps) {
     return (
-        <Links href={href} >
-            <Button
-                leftIcon={<MdAdd />}
-                bg={"#0BB7AF"}
-                color={"white"}
-                mt={mt}
-                size={{ '2xl': 'lg', lg: "sm", xxs: "sm" }}
-                fontSize={{ '2xl': "20px" }}
-                fontWeight={500}
-                onClick={onClick}
-                _hover={{
-                    bg: '#2C7A7B'
-                }}
-            >
-                {text}
-            </Button>
-        </Links>
+        // <Links href={href} >
+        <Button
+            leftIcon={<MdAdd />}
+            bg={"#0BB7AF"}
+            color={"white"}
+            mt={mt}
+            size={{ '2xl': 'lg', lg: "sm", xxs: "sm" }}
+            fontSize={{ '2xl': "20px" }}
+            fontWeight={500}
+            onClick={onClick}
+            _hover={{
+                bg: '#2C7A7B'
+            }}
+        >
+            {text}
+        </Button>
+        // </Links>
     )
 }
 

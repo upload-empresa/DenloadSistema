@@ -67,13 +67,12 @@ const ModalAddAnamneses = ({
 
         }),
         onSubmit: async (values) => {
-            const { pergunta } = values;
-            const { resposta } = values;
+            const { pergunta, resposta } = values;
 
 
             const response = await axios.post<ApiResponse<Despesa>>(`/api/anamnese?pacienteId=${pacienteId}`, {
                 pergunta,
-                resposta,
+                resposta
 
             });
 
@@ -85,6 +84,7 @@ const ModalAddAnamneses = ({
                         status: 'success',
                         isClosable: true,
                     })
+                    window.location.reload()
 
                 }
                 return;
@@ -129,13 +129,11 @@ const ModalAddAnamneses = ({
                                         onChange={formik.handleChange}
                                         value={formik.values.pergunta}
                                         w="80%" label={"Nova pergunta"} type={"text"} placeholder={"Digite aqui a sua nova pergunta"} />
-
                                     <Forms
                                         name="resposta"
                                         onChange={formik.handleChange}
                                         value={formik.values.resposta}
                                         w="80%" label={"Nova resposta"} type={"text"} placeholder={"Digite aqui a sua nova resposta"} />
-
 
                                 </ModalBody>
                                 <ModalFooter>

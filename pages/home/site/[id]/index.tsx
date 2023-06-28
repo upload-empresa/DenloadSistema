@@ -14,9 +14,11 @@ import type { WithSitePaciente } from "@/types";
 import type { Paciente, Site, Subscription } from "@prisma/client";
 
 import { Stack, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, useToast } from "@chakra-ui/react"
-import { HStack, Input, InputGroup, InputLeftElement, Select } from "@chakra-ui/react"
+import { HStack, Input, InputGroup, InputLeftElement, Select, Text } from "@chakra-ui/react"
 import { MdSearch } from "react-icons/md"
 import { TitleCards } from "@/components/Title";
+import Cookies from 'js-cookie';
+
 
 interface SitePacienteData {
     pacientes: Array<Paciente>;
@@ -37,11 +39,13 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
     const { id: siteId } = router.query;
     const { id: pacienteId } = router.query;
 
+    //@ts-ignore
+    Cookies.set('siteId', siteId);
 
     const { data } = useSWR<SitePacienteData>(
         siteId && `/api/paciente?siteId=${siteId}`,
         fetcher,
-    );
+    )
 
     const { data: settings, } = useSWR<WithSitePaciente>(
         `/api/paciente?pacienteId=${pacienteId}`,
@@ -127,6 +131,7 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
             status: 'success',
             isClosable: true,
         })
+        window.location.reload()
     };
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -152,8 +157,7 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
         < Main title={"Pacientes"} button={< ButtonAdd mt={{ md: "0", xxs: "10%" }} text={"Novo Paciente"} onClick={() => {
             setCreatingPaciente(true);
             createPaciente(siteId as string);
-        }
-        } href={""} />} w={"25%"} path={"/perfil.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
+        }} />} w={"25%"} path={"/perfil.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
             <CardMain radius={"18px"} spacing={5}>
                 <>
 
@@ -315,14 +319,12 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
                                                             ))
                                                         ) : (
                                                             <>
-                                                                <p>
-                                                                    Nenhum paciente cadastro.
-                                                                </p>
-                                                                <br />
-                                                                <p>Clique em &quot;Novo Paciente&quot; para criar um.</p>
-
-
-
+                                                                <Text
+                                                                    as="p"
+                                                                    mt={"10%"}
+                                                                >
+                                                                    Clique em "Novo Paciente" para criar um
+                                                                </Text>
                                                             </>
                                                         )
                                                     ) : (

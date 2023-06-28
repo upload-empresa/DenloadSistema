@@ -6,14 +6,16 @@ import { CardMainPlus, CardIconPacientes } from "."
 import { useRouter } from "next/router"
 
 export function CardPacientesPlus() {
+    const router = useRouter();
+    const { id: pacienteId } = router.query;
 
     return (
         <CardMainPlus>
-            <CardIconPacientes icon={IoPersonOutline} text={"Dados"} href={"/pacientes/dados-do-paciente"} />
-            <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Documentos"} href={"/pacientes/documentos-do-paciente"} />
-            <CardIconPacientes icon={MdOutlineImage} text={"Imagens"} href={"/pacientes/imagens-do-paciente"} />
-            <CardIconPacientes icon={MdEditNote} text={"Anamneses"} href={"/pacientes/anamneses"} />
-            <CardIconPacientes icon={SlNote} text={"Anotações"} href={"/pacientes/anotacoes"} />
+            <CardIconPacientes icon={IoPersonOutline} text={"Dados"} href={`/paciente/${pacienteId}/dadospaciente`} />
+            <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Documentos"} href={`/paciente/${pacienteId}/documentos-do-paciente`} />
+            <CardIconPacientes icon={MdOutlineImage} text={"Imagens"} href={`/paciente/${pacienteId}/fotos-do-paciente`} />
+            <CardIconPacientes icon={MdEditNote} text={"Anamneses"} href={`/paciente/${pacienteId}/anamnese`} />
+            <CardIconPacientes icon={SlNote} text={"Anotações"} href={`/paciente/${pacienteId}/anotacoes`} />
         </CardMainPlus>
 
     )

@@ -16,7 +16,7 @@ import Link from "next/link";
 
 import type { WithPacienteDocumento } from "@/types";
 
-import { HStack, Stack } from "@chakra-ui/react"
+import { HStack, Stack, Text, useToast } from "@chakra-ui/react"
 
 import { ButtonSave } from "@/components/Buttons"
 import { CardMain, CardsDocumentos } from "@/components/Cards"
@@ -69,6 +69,8 @@ Ordered lists look like:
 
 export default function Documento() {
     const router = useRouter();
+    const toast = useToast()
+    const statuses = ['success', 'error', 'warning', 'info']
 
     const { id: pacienteId } = router.query;
 
@@ -131,6 +133,7 @@ export default function Documento() {
                         url: data.url,
                     }),
                 });
+                window.location.reload()
 
                 if (response.ok) {
                     const responseData = await response.json();
@@ -144,9 +147,11 @@ export default function Documento() {
                             minute: "numeric",
                         }).format(new Date(responseData.updatedAt))}`
                     );
+                    window.location.reload()
+
                 } else {
                     setSavedState("Failed to save.");
-                    toast.error("Failed to save");
+
                 }
             } catch (error) {
                 console.error(error);
@@ -175,7 +180,9 @@ export default function Documento() {
 
         window.addEventListener("keydown", clickedSave);
 
+
         return () => window.removeEventListener("keydown", clickedSave);
+
     }, [data, saveChanges]);
 
     async function publish() {
@@ -195,20 +202,45 @@ export default function Documento() {
 
             if (response.ok) {
                 mutate(`/api/documento?documentoId=${documentoId}`);
+                window.location.reload()
 
             }
         } catch (error) {
             console.error(error);
         } finally {
             setPublishing(false);
+            window.location.reload()
         }
     }
 
+    async function deleteDocumento(pacienteId: string, documentoId: string) {
+        try {
+            const response = await fetch(`/api/documento?pacienteId=${pacienteId}&documentoId=${documentoId}`, {
+                method: HttpMethod.DELETE,
+            });
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleDeleteClick = (iba: string) => {
+        if (!window.confirm('Tem certeza que deseja excluir esse documento?')) {
+            return;
+        }
+        //@ts-ignore
+        deleteDocumento(pacienteId, iba);
+        toast({
+            title: `Documento deletado com sucesso!`,
+            status: 'success',
+            isClosable: true,
+        })
+        window.location.reload()
+    };
+
     if (isValidating)
         return (
-            <Layout>
-                <Loader />
-            </Layout>
+            <Loader />
         );
 
     return (
@@ -216,73 +248,68 @@ export default function Documento() {
 
 
             <Main title={"Detalhes do Paciente"} w={""} path={""} altText={""} tamh={0} tamw={0}>
-                <Layout
-                    //@ts-ignore 
-                    pacienteId={documento?.paciente?.id}>
-                    <div className="max-w-screen-xl mx-auto px-10 sm:px-20 mt-10 mb-16">
 
-
-                        <div className="space-y-6">
-                            <div
-                                className={`${data.url ? "" : "animate-pulse bg-gray-300 h-150"
-                                    } relative mt-5 w-full border-2 border-gray-800 border-dashed rounded-md`}
-                            >
-                                <CloudinaryUploadWidget
-                                    callback={(e) =>
-                                        setData({
-                                            ...data,
-                                            url: e.secure_url,
-                                        })
-                                    }
-                                >
-                                    {({ open }) => (
-                                        <button
-                                            onClick={open}
-                                            className="absolute w-full h-full rounded-md bg-gray-200 z-10 flex flex-col justify-center items-center opacity-0 hover:opacity-100 transition-all ease-linear duration-200"
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="100"
-                                                height="100"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path d="M16 16h-3v5h-2v-5h-3l4-4 4 4zm3.479-5.908c-.212-3.951-3.473-7.092-7.479-7.092s-7.267 3.141-7.479 7.092c-2.57.463-4.521 2.706-4.521 5.408 0 3.037 2.463 5.5 5.5 5.5h3.5v-2h-3.5c-1.93 0-3.5-1.57-3.5-3.5 0-2.797 2.479-3.833 4.433-3.72-.167-4.218 2.208-6.78 5.567-6.78 3.453 0 5.891 2.797 5.567 6.78 1.745-.046 4.433.751 4.433 3.72 0 1.93-1.57 3.5-3.5 3.5h-3.5v2h3.5c3.037 0 5.5-2.463 5.5-5.5 0-2.702-1.951-4.945-4.521-5.408z" />
-                                            </svg>
-                                            <p>Upload another url</p>
-                                        </button>
-                                    )}
-                                </CloudinaryUploadWidget>
-
-                                {data?.url && (
-                                    <BlurImage
-                                        src={data.url}
-                                        alt="Cover Photo"
-                                        width={800}
-                                        height={500}
-                                        placeholder="blur"
-                                        className="rounded-md w-full h-full object-cover"
-                                        blurDataURL={data.url}
-                                    />
-                                )}
-                            </div>
-
-                        </div>
-                    </div >
-                </Layout >
                 <HStack
                     spacing={0}
                     align={"stretch"}
                 >
-
                     <CardPacientesPlus />
 
+                    <CardMain radius={'0 18px 18px 0'} spacing={5} w={"90%"}>
+                        <TitleCards title={"Adicionar Documentos"} />
+                        <Layout
+                            //@ts-ignore 
+                            pacienteId={documento?.paciente?.id}>
+                            <div className="max-w-screen-xl mx-auto px-10 sm:px-20 mt-10 mb-16">
 
 
+                                <div className="space-y-6">
+                                    <div
+                                        className={`${data.url ? "" : "animate-pulse bg-gray-300 h-150"
+                                            } relative mt-5 w-full border-2 border-gray-800 border-dashed rounded-md`}
+                                    >
+                                        <CloudinaryUploadWidget
+                                            callback={(e) =>
+                                                setData({
+                                                    ...data,
+                                                    url: e.secure_url,
+                                                })
+                                            }
+                                        >
+                                            {({ open }) => (
+                                                <button
+                                                    onClick={open}
+                                                    className="absolute w-full h-full rounded-md bg-gray-200 z-10 flex flex-col justify-center items-center opacity-0 hover:opacity-100 transition-all ease-linear duration-200"
+                                                >
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="100"
+                                                        height="100"
+                                                        viewBox="0 0 24 24"
+                                                    >
+                                                        <path d="M16 16h-3v5h-2v-5h-3l4-4 4 4zm3.479-5.908c-.212-3.951-3.473-7.092-7.479-7.092s-7.267 3.141-7.479 7.092c-2.57.463-4.521 2.706-4.521 5.408 0 3.037 2.463 5.5 5.5 5.5h3.5v-2h-3.5c-1.93 0-3.5-1.57-3.5-3.5 0-2.797 2.479-3.833 4.433-3.72-.167-4.218 2.208-6.78 5.567-6.78 3.453 0 5.891 2.797 5.567 6.78 1.745-.046 4.433.751 4.433 3.72 0 1.93-1.57 3.5-3.5 3.5h-3.5v2h3.5c3.037 0 5.5-2.463 5.5-5.5 0-2.702-1.951-4.945-4.521-5.408z" />
+                                                    </svg>
+                                                    <p>Upload another url</p>
+                                                </button>
+                                            )}
+                                        </CloudinaryUploadWidget>
 
-                    <CardMain radius={"0 18px 18px 0"} spacing={5} w={"90%"}>
-                        <TitleCardsPacientes pacientes={[]}>
-                            <TitleCards title={"Adicionar as Imagens"} />
-                        </TitleCardsPacientes>
+                                        {data?.url && (
+                                            <BlurImage
+                                                src={data.url}
+                                                alt="Cover Photo"
+                                                width={800}
+                                                height={500}
+                                                placeholder="blur"
+                                                className="rounded-md w-full h-full object-cover"
+                                                blurDataURL={data.url}
+                                            />
+                                        )}
+                                    </div>
+
+                                </div>
+                            </div >
+                        </Layout >
                         <HStack
                             spacing={{ md: 6, xxs: 0 }}
                             flexDir={{ md: "row", xxs: "column" }}
@@ -290,49 +317,30 @@ export default function Documento() {
                             {documentodata ? (
                                 documentodata.documentos.length > 0 ? (
                                     documentodata.documentos.map((documento) => (
-                                        <Link href={`/documento/${documento.id}`} key={documento.id}>
+                                        <>
 
 
                                             {documento.url ? (
-                                                <CardsDocumentos alt={documento.url ?? "Unknown Thumbnail"} src={documento.url} width={30} height={22} />
+
+                                                <CardsDocumentos onClick={() => handleDeleteClick(documento.id)} alt={documento.url ?? "Unknown Thumbnail"} src={documento.url} width={30} height={22} />
+
                                             ) : (
                                                 ''
                                             )}
-                                        </Link>
+                                        </>
                                     ))
                                 ) : (
                                     <>
-                                        <div className="flex flex-col md:flex-row md:h-60 rounded-lg overflow-hidden border border-gray-200">
-                                            <div className="relative w-full h-60 md:h-auto md:w-1/3 md:flex-none bg-gray-300" />
-                                            <div className="relative p-10 grid gap-5">
-                                                <div className="w-28 h-10 rounded-md bg-gray-300" />
-                                                <div className="w-48 h-6 rounded-md bg-gray-300" />
-                                                <div className="w-48 h-6 rounded-md bg-gray-300" />
-                                                <div className="w-48 h-6 rounded-md bg-gray-300" />
-                                            </div>
-                                        </div>
-                                        <div className="text-center">
-                                            <p className="text-2xl font-cal text-gray-600">
-                                                No documentos yet. Click &quot;New foto&quot; to create one.
-                                            </p>
-                                        </div>
+                                        <Text
+                                            as="p"
+                                            mt={"10%"}
+                                        >
+                                            Clique acima para adicionar um novo documento
+                                        </Text>
                                     </>
                                 )
                             ) : (
-                                [0, 1].map((i) => (
-                                    <div
-                                        key={i}
-                                        className="flex flex-col md:flex-row md:h-60 rounded-lg overflow-hidden border border-gray-200"
-                                    >
-                                        <div className="relative w-full h-60 md:h-auto md:w-1/3 md:flex-none bg-gray-300 animate-pulse" />
-                                        <div className="relative p-10 grid gap-5">
-                                            <div className="w-28 h-10 rounded-md bg-gray-300 animate-pulse" />
-                                            <div className="w-48 h-6 rounded-md bg-gray-300 animate-pulse" />
-                                            <div className="w-48 h-6 rounded-md bg-gray-300 animate-pulse" />
-                                            <div className="w-48 h-6 rounded-md bg-gray-300 animate-pulse" />
-                                        </div>
-                                    </div>
-                                ))
+                                <p>Carregando...</p>
                             )}
                         </HStack>
                         <Stack
