@@ -15,6 +15,7 @@ export default async function handler(req, res) {
                 email,
                 celular,
                 password,
+                gh_username: 'cooper'
             },
         })
 

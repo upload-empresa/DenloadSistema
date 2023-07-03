@@ -12,6 +12,8 @@ declare module 'next-auth' {
       name?: string | null;
 
       username?: string | null;
+
+      gh_username?: string | null;
     };
   }
 
@@ -23,6 +25,8 @@ declare module 'next-auth' {
     image?: string | null;
 
     name?: string | null;
+
+    gh_username?: string | null;
 
     username?: string | null;
   }

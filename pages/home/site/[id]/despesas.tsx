@@ -57,7 +57,6 @@ export default function Despesas({ despesa, despesas }) {
         fetcher,
     );
 
-    const stripes = stripe?.subscriptions
 
     async function createDespesa(siteId: string) {
         try {

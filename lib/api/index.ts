@@ -10,3 +10,4 @@ export * from './anamnese';
 export * from './foto';
 export * from './documento';
 export * from './subscription';
+export * from './user';

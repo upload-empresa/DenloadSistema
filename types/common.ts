@@ -11,6 +11,7 @@ import type {
   Foto,
   Estoque,
   Subscription,
+  User,
 } from '@prisma/client';
 import type { PropsWithChildren } from 'react';
 
@@ -48,6 +49,10 @@ export interface WithSiteEstoque extends Estoque {
 }
 
 export interface WithSiteSubscription extends Subscription {
+  site: Site | null;
+}
+
+export interface WithSiteUser extends User {
   site: Site | null;
 }
 
