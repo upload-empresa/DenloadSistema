@@ -335,10 +335,6 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
                                         </>
                                     )}
 
-
-
-
-
                                 </Tbody>
                                 <Tfoot>
                                     <Tr>

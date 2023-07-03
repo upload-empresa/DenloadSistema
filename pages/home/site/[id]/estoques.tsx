@@ -334,7 +334,7 @@ export default function Estoques({ estoques, estoque }) {
                                                                         as="p"
                                                                         mt={"10%"}
                                                                     >
-                                                                        Clique em "Novo Paciente" para criar um
+                                                                        Clique em Novo Paciente para criar um
                                                                     </Text>
                                                                 </>
                                                             )
