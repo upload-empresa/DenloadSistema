@@ -63,10 +63,10 @@ export default function AppIndex() {
 
     try {
       const users = await fetchUsers();
-      const hasCooper = users.some((user: any) => user.gh_username === "cooper");
-      const hasSilver = users.some((user: any) => user.gh_username === "silver");
-      const hasGold = users.some((user: any) => user.gh_username === "gold");
-      const hasDiamond = users.some((user: any) => user.gh_username === "diamond");
+      const hasCooper = users.some((user: any) => user.gh_username === `cooper`);
+      const hasSilver = users.some((user: any) => user.gh_username === `silver`);
+      const hasGold = users.some((user: any) => user.gh_username === `gold`);
+      const hasDiamond = users.some((user: any) => user.gh_username === `diamond`);
 
       if (hasCooper) {
         if (contador > 1) {
@@ -188,7 +188,7 @@ export default function AppIndex() {
         ) : (
           <>
             <p className="text-2xl font-cal text-gray-600">
-              Nenhum administrador cadastro. Clique em &quot;Novo Administrador&quot; para criar um.
+              Nenhum administrador cadastro. Clique em Novo Administrador para criar um.
             </p>
 
           </>
