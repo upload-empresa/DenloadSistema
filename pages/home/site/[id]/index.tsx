@@ -127,7 +127,7 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
         //@ts-ignore
         deletePaciente(siteId, iba);
         toast({
-            title: `Paciente deletado com sucesso!`,
+            title: 'Paciente deletado com sucesso!',
             status: 'success',
             isClosable: true,
         })
@@ -323,7 +323,7 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
                                                                     as="p"
                                                                     mt={"10%"}
                                                                 >
-                                                                    Clique em "Novo Paciente" para criar um
+                                                                    Clique em Novo Paciente para criar um
                                                                 </Text>
                                                             </>
                                                         )
