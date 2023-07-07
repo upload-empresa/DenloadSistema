@@ -295,7 +295,6 @@ export async function updateDespesa(
     customDomain,
     vencimento,
     dataDaCompra,
-    empresa,
   } = req.body;
 
   if (!id || typeof id !== 'string' || !session?.user?.id) {
@@ -329,7 +328,6 @@ export async function updateDespesa(
         valor,
         vencimento,
         dataDaCompra,
-        empresa,
       },
     });
     if (subdomain) {

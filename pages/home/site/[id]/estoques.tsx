@@ -165,7 +165,7 @@ export default function Estoques({ estoques, estoque }) {
                 setCreatingEstoque(true);
                 createEstoque(siteId as string);
             }
-            } />} w={{ lg: "30%", md: "26%", xxs: "25%" }} altText={"Ícone do Denload"} tamh={51} tamw={56}>
+            } creatingPaciente={creatingEstoque} />} w={{ lg: "30%", md: "26%", xxs: "25%" }} altText={"Ícone do Denload"} tamh={51} tamw={56}>
 
                 <CardMain radius={"18px"} spacing={5} >
                     <>
@@ -186,8 +186,8 @@ export default function Estoques({ estoques, estoque }) {
                                         </InputGroup>
 
                                         <Select value={selectedOption} onChange={handleOptionChange} variant='filled' placeholder='Ordenar por' >
-                                            <option value="asc">Ordem Ascendente</option>
-                                            <option value="desc">Ordem Decrescente</option>
+                                            <option value="asc">Ordem alfabética (A-Z)</option>
+                                            <option value="desc">Ordem alfabética (Z-A)</option>
                                         </Select>
                                     </HStack>
 

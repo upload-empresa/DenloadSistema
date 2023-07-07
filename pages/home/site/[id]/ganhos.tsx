@@ -161,7 +161,7 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
             setCreatingGanho(true);
             createGanho(siteId as string);
         }
-        } />} tamh={0} tamw={0}>
+        } creatingPaciente={creatingGanho} />} tamh={0} tamw={0}>
             <HStack
                 spacing={0}
                 align={"stretch"}
@@ -183,10 +183,10 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
                                             />
                                             <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                                         </InputGroup>
-                                        <Select variant='filled' placeholder='Ordenar por' >
-                                            <option value="name">Nome</option>
-                                            <option value="age">Idade</option>
-                                            <option value="gender">Gênero</option>
+                                        <Select variant='filled' placeholder='Ordenar por' onChange={handleOptionChange}>
+                                            <option value="asc">Ordem alfabética (A-Z)</option>
+                                            <option value="desc">Ordem alfabética (Z-A)</option>
+
                                         </Select>
                                     </HStack>
                                 </HStack>

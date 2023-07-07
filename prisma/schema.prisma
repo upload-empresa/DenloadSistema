@@ -141,7 +141,7 @@ model Paciente {
   cep           String?
   complemento   String?
   email         String?
-  grupo         GrupoType?
+  grupo         GrupoType?  @default(Infantil)
   image         String?     @db.Text
   imageBlurhash String?     @db.Text
   pago          Boolean     @default(false)

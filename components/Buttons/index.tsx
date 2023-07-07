@@ -92,11 +92,11 @@ interface ButtonAddProps {
     onClick: any
     href?: string
     mt?: any
+    creatingPaciente?: any
 }
 
-export function ButtonAdd({ text, href, onClick, mt }: ButtonAddProps) {
+export function ButtonAdd({ text, href, onClick, mt, creatingPaciente }: ButtonAddProps) {
     return (
-        // <Links href={href} >
         <Button
             leftIcon={<MdAdd />}
             bg={"#0BB7AF"}
@@ -109,12 +109,14 @@ export function ButtonAdd({ text, href, onClick, mt }: ButtonAddProps) {
             _hover={{
                 bg: '#2C7A7B'
             }}
+            isLoading={creatingPaciente}
         >
             {text}
         </Button>
-        // </Links>
     )
 }
+
+
 
 interface ButtonDeleteProps {
     onClick?: any

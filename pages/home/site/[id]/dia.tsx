@@ -313,8 +313,8 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
                                     </InputGroup>
 
                                     <Select variant='filled' placeholder='Ordenar por' onChange={handleOptionChange}>
-                                        <option value="asc">Ordem Ascendente</option>
-                                        <option value="desc">Ordem Descendente</option>
+                                        <option value="asc">Ordem alfabética (A-Z)</option>
+                                        <option value="desc">Ordem alfabética (Z-A)</option>
 
                                     </Select>
 

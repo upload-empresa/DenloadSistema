@@ -75,7 +75,7 @@ export default function Home({ agendas, data, pacientes, children, }: SiteDashbo
                         <option value="6 meses">6 meses</option>
                         <option value="12 meses">12 meses</option>
                     </Select>
-                    {pacientesData && agendasData &&
+                    {pacientesData &&
                         (() => {
 
                             const currentDate = new Date();

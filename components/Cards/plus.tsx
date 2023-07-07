@@ -22,10 +22,12 @@ export function CardPacientesPlus() {
 }
 
 export function CardPerfilPlus() {
+    const router = useRouter();
+    const { id: siteId } = router.query;
     return (
         <CardMainPlus>
-            <CardIconPacientes icon={IoPersonOutline} text={"Perfil"} href={"/pefil"} />
-            <CardIconPacientes icon={MdEdit} text={"Editar Perfil"} href={"/perfil/editar-perfil"} />
+            <CardIconPacientes icon={IoPersonOutline} text={"Perfil"} href={"/"} />
+            <CardIconPacientes icon={MdEdit} text={"Editar Perfil"} href={`/site/${siteId}/perfil`} />
         </CardMainPlus>
 
     )

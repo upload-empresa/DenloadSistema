@@ -288,6 +288,7 @@ export default function DadosDoPaciente() {
             }
         } catch (error) {
             console.error(error);
+
         } finally {
             setPublishing(false);
             setPago(false)

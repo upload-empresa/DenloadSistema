@@ -157,7 +157,8 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
         < Main title={"Pacientes"} button={< ButtonAdd mt={{ md: "0", xxs: "10%" }} text={"Novo Paciente"} onClick={() => {
             setCreatingPaciente(true);
             createPaciente(siteId as string);
-        }} />} w={"25%"} path={"/perfil.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
+        }}
+            creatingPaciente={creatingPaciente} />} w={"25%"} path={"/perfil.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
             <CardMain radius={"18px"} spacing={5}>
                 <>
 
@@ -181,8 +182,8 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
                                     </InputGroup>
 
                                     <Select value={selectedOption} onChange={handleOptionChange} variant='filled' placeholder='Ordenar por' >
-                                        <option value="asc">Ordem Ascendente</option>
-                                        <option value="desc">Ordem Decrescente</option>
+                                        <option value="asc">Ordem alfabética (A-Z)</option>
+                                        <option value="desc">Ordem alfabética (Z-A)</option>
                                     </Select>
                                 </HStack>
 

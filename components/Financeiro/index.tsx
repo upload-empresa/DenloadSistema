@@ -41,11 +41,11 @@ export function FinanceiroAttributes({ title, text, titlePage, children, onChang
                         <Forms label={"Data do Vencimento"} type={"date"} placeholder={"Digite a data do vencimento"} onChange={onChange2} value={value2} />
                     </HStack>
                     <HStack spacing={{ lg: 6, xxs: 0 }} flexDir={{ lg: "row", xxs: "column" }}>
-                        <FormsValue label={"Valor"} type={"text"} placeholder={"Digite o valor total"} onChange={onChange3} value={value3} mb={{ lg: "0", xxs: "10%" }} />
+                        <FormsValue label={"Valor"} type={"number"} placeholder={"Digite o valor total"} onChange={onChange3} value={value3} mb={{ lg: "0", xxs: "10%" }} />
                         <Forms label={"Data da Compra"} type={"date"} placeholder={"Digite a data da compra"} onChange={onChange4} value={value4} />
                     </HStack>
-                    <Forms label={"Empresa"} type={"text"} placeholder={"Digite o nome da empresa"}
-                        onChange={onChange5} value={value5} />
+                    {/* <Forms label={"Empresa"} type={"text"} placeholder={"Digite o nome da empresa"}
+                        onChange={onChange5} value={value5} /> */}
                     {children}
                     <ButtonSave align="end" onClick={onClick} />
                 </CardMain>
@@ -89,7 +89,7 @@ export function FinanceiroEdit({ title, text, titlePage, children, onChange1, va
                         <Forms label={"Data da Consulta"} type={"date"} placeholder={"Digite a data da consulta"} onChange={onChange2} value={value2} />
                     </HStack>
                     <HStack spacing={{ lg: 6, xxs: 0 }} flexDir={{ lg: "row", xxs: "column" }}>
-                        <FormsValue label={"Valor"} type={"text"} placeholder={"Digite o valor da consulta"} onChange={onChange3} value={value3} />
+                        <FormsValue label={"Valor"} type={"number"} placeholder={"Digite o valor da consulta"} onChange={onChange3} value={value3} />
                         <SelectsFinanceiro label={"Status do Pagamento"} onInput1={onInput1} defaultValue1={defaultValue1} />
 
 

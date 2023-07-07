@@ -34,6 +34,7 @@ export function TitleCards({ title, text, mb }: TitleCardsProps) {
 
 export function TitleCardsPacientes({ children, pacientes, flexDir }: TitleCardsPacientesProps) {
     const [searchTerm, setSearchTerm] = useState("");
+    const [selectedOption, setSelectedOption] = useState('')
     const [searchResults, setSearchResults] = useState<Array<Paciente>>([]);
     const router = useRouter();
     const { id: siteId } = router.query;
@@ -54,6 +55,9 @@ export function TitleCardsPacientes({ children, pacientes, flexDir }: TitleCards
         }
     }, [searchTerm]);
 
+    function handleOptionChange(event: any) {
+        setSelectedOption(event.target.value)
+    }
     return (
         <HStack
             justify={"space-between"}
@@ -70,10 +74,10 @@ export function TitleCardsPacientes({ children, pacientes, flexDir }: TitleCards
                     />
                     <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                 </InputGroup>
-                <Select variant='filled' placeholder='Ordenar por' >
-                    <option value="name">Nome</option>
-                    <option value="age">Idade</option>
-                    <option value="gender">Gênero</option>
+                <Select variant='filled' placeholder='Ordenar por' onChange={handleOptionChange}>
+                    <option value="asc">Ordem alfabética (A-Z)</option>
+                    <option value="desc">Ordem alfabética (Z-A)</option>
+
                 </Select>
             </HStack>
             {searchTerm ? (

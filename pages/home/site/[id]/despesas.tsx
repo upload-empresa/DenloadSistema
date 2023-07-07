@@ -171,7 +171,7 @@ export default function Despesas({ despesa, despesas }) {
         <Main title={"Financeiro"} button={<ButtonAdd mt={{ md: "0", xxs: "10%" }} text={"Nova Despesa"} onClick={() => {
             setCreatingDespesa(true);
             createDespesa(siteId as string);
-        }} href={""} />} tamh={0} tamw={0}>
+        }} href={""} creatingPaciente={creatingDespesa} />} tamh={0} tamw={0}>
 
 
             <HStack
@@ -198,8 +198,8 @@ export default function Despesas({ despesa, despesas }) {
                                         </InputGroup>
 
                                         <Select variant='filled' placeholder='Ordenar por' onChange={handleOptionChange}>
-                                            <option value="asc">Ordem Ascendente</option>
-                                            <option value="desc">Ordem Descendente</option>
+                                            <option value="asc">Ordem alfabética (A-Z)</option>
+                                            <option value="desc">Ordem alfabética (Z-A)</option>
 
                                         </Select>
                                     </HStack>
@@ -208,9 +208,8 @@ export default function Despesas({ despesa, despesas }) {
                                     <Thead>
                                         <Tr>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Ações</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Nome</Th>
+                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Nome da Despesa</Th>
                                             <Th textAlign={"start"} isNumeric color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Vencimento</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Empresa</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Valor</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th>
                                         </Tr>
@@ -236,9 +235,7 @@ export default function Despesas({ despesa, despesas }) {
                                                             >
                                                                 {item.vencimento}
                                                             </Td>
-                                                            <Td color={"#474749"} fontSize={"14px"}>
-                                                                {item.empresa}
-                                                            </Td>
+
                                                             <Td color={"#474749"} fontSize={"14px"}>
                                                                 {item.valor}
                                                             </Td>
@@ -279,9 +276,7 @@ export default function Despesas({ despesa, despesas }) {
                                                                     >
                                                                         {item.vencimento}
                                                                     </Td>
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
-                                                                        {item.empresa}
-                                                                    </Td>
+
                                                                     <Td color={"#474749"} fontSize={"14px"}>
                                                                         {item.valor}
                                                                     </Td>
@@ -317,9 +312,7 @@ export default function Despesas({ despesa, despesas }) {
                                                                     >
                                                                         {item.vencimento}
                                                                     </Td>
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
-                                                                        {item.empresa}
-                                                                    </Td>
+
                                                                     <Td color={"#474749"} fontSize={"14px"}>
                                                                         {item.valor}
                                                                     </Td>

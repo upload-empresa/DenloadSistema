@@ -323,17 +323,8 @@ export async function updateGanho(
   res: NextApiResponse,
   session: Session
 ): Promise<void | NextApiResponse<Ganho>> {
-  const {
-    id,
-    name,
-    recebimento,
-    empresa,
-    pago,
-    slug,
-    valor,
-    subdomain,
-    customDomain,
-  } = req.body;
+  const { id, name, recebimento, pago, slug, valor, subdomain, customDomain } =
+    req.body;
 
   if (!id || typeof id !== 'string' || !session?.user?.id) {
     return res
@@ -365,7 +356,6 @@ export async function updateGanho(
         slug,
         valor,
         recebimento,
-        empresa,
         pago,
       },
     });

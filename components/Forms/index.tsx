@@ -1,4 +1,5 @@
 import { FormControl, FormLabel, Input, InputGroup, InputLeftElement, InputRightElement, Select, Textarea } from "@chakra-ui/react"
+import { useState } from "react"
 
 interface FormsProps {
     label: any
@@ -15,8 +16,9 @@ interface FormsProps {
 }
 
 export function Forms({ label, placeholder, type, w, name, value, onChange, ref, onInput, mb }: FormsProps) {
+
     return (
-        <FormControl w={w} mb={mb}>
+        <FormControl isRequired w={w} mb={mb}>
             <FormLabel color={"#828282"} fontSize={{ '2xl': "18px", lg: "14px", md: "14px", xxs: "14px" }}>{label}</FormLabel>
             <Input type={type} ref={ref} name={name} value={value} onChange={onChange} onInput={onInput} placeholder={placeholder} _placeholder={{ color: "#A1A1A1", fontSize: "14px" }} required />
         </FormControl>
@@ -37,19 +39,23 @@ export function FormsValue({ label, placeholder, type, w, name, value, onChange,
         <FormControl w={w}>
             <FormLabel color={"#828282"} fontSize={"14px"}>{label}</FormLabel>
             <InputGroup>
-                {/* <InputLeftElement
+                <InputLeftElement
                     pointerEvents='none'
                     color='gray.300'
                     fontSize='1em'
-                    children='R$'
-                /> */}
+                >
+                    R$
+                </InputLeftElement>
+
                 <Input type={type} ref={ref} name={name} value={value} onChange={onChange} onInput={onInput} placeholder={placeholder} _placeholder={{ color: "#A1A1A1", fontSize: "14px" }} required />
-                {/* <InputRightElement
+                <InputRightElement
                     pointerEvents='none'
                     color='gray.300'
                     fontSize='0.9em'
-                    children=',00'
-                /> */}
+                >
+                    ,00
+                </InputRightElement>
+
             </InputGroup>
         </FormControl>
     )
@@ -73,21 +79,28 @@ interface SelectsProps {
 
 
 export function Selects({ label, onInput, defaultValue, mb }: SelectsProps) {
+    const handleInput = (event: any) => {
+        const selectedValue = event.target.value;
+
+        if (selectedValue === defaultValue) {
+            alert("Por favor, selecione uma opção válida.");
+        } else {
+            onInput(event);
+        }
+    };
+
     return (
-        <FormControl mb={mb}>
+        <FormControl isRequired mb={mb}>
             <FormLabel color={"#828282"} fontSize={"14px"}>{label}</FormLabel>
-            <Select name="grupo"
-                onInput={onInput}
-                defaultValue={defaultValue}
-                color="#A1A1A1" fontSize={"14px"}>
-                <option value="Infantil" color="#A1A1A1">Selecione a opção</option>
-                <option value="Infantil" color="#A1A1A1">Infantil</option>
-                <option value="Jovem" color="#A1A1A1">Jovem</option>
-                <option value="Adulto" color="#A1A1A1">Adulto</option>
-                <option value="Idoso" color="#A1A1A1">Idoso</option>
+            <Select name="grupo" onChange={handleInput} defaultValue={defaultValue} color="#A1A1A1" fontSize={"14px"}>
+                <option value="" disabled>Selecione a opção</option>
+                <option value="Infantil">Infantil</option>
+                <option value="Jovem">Jovem</option>
+                <option value="Adulto">Adulto</option>
+                <option value="Idoso">Idoso</option>
             </Select>
         </FormControl>
-    )
+    );
 }
 
 
