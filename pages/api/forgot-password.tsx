@@ -30,7 +30,8 @@ export default async function handler(req, res) {
 
         const token = generatePasswordResetToken(user.id)
 
-        const resetLink = `https://app.denload.com/reset-password?token=${token}`;
+        // const resetLink = `https://app.denload.com/reset-password?token=${token}`;
+        const resetLink = `http://localhost:3000/reset-password?token=${token}`;
 
         const mailOptions = {
             from: process.env.SMTP_FROM,
@@ -40,6 +41,13 @@ export default async function handler(req, res) {
         };
 
         await transporter.sendMail(mailOptions);
+
+        await prisma.user.update({
+            where: { email: email },
+            data: {
+                token: token,
+            }
+        })
 
         res.status(200).json({ message: 'Email para resetar a senha enviado!' })
     } catch (error) {

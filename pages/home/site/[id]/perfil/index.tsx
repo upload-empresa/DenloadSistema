@@ -65,7 +65,7 @@ export default function Perfil() {
         description: null,
         estado: null,
         cidade: null,
-        email: null,
+        email: "",
         celular: null,
         font: "font-cal",
         subdomain: null,
@@ -285,7 +285,7 @@ export default function Perfil() {
                             }
                             value={data.celular || ""} mb={{ lg: "0", xxs: "10%" }} />
                     </HStack>
-                    <ButtonSave align="end" />
+                    <ButtonSave type="submit" align="end" onClick={saveSiteSettings} />
                 </CardMain>
             </HStack>
 

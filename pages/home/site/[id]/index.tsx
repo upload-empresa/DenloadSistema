@@ -77,7 +77,7 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
 
     useEffect(() => {
         const selectApi = async () => {
-            const response = await fetch(`/api/paciente?orderBy=${selectedOption}`);
+            const response = await fetch(`/api/paciente?siteId=${siteId}&orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }

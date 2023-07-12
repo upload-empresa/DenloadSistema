@@ -79,7 +79,7 @@ export default function Estoques({ estoques, estoque }) {
 
     useEffect(() => {
         const selectApi = async () => {
-            const response = await fetch(`/api/estoque?orderBy=${selectedOption}`);
+            const response = await fetch(`/api/estoque?siteId=${siteId}&orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
@@ -165,7 +165,7 @@ export default function Estoques({ estoques, estoque }) {
                 setCreatingEstoque(true);
                 createEstoque(siteId as string);
             }
-            } creatingPaciente={creatingEstoque} />} w={{ lg: "30%", md: "26%", xxs: "25%" }} altText={"Ícone do Denload"} tamh={51} tamw={56}>
+            } creatingPaciente={creatingEstoque} />} w={{ lg: "30%", md: "26%", xxs: "25%" }} altText={"Ícone do Denload"} tamh={51} tamw={56} path={"/perfil.png"}>
 
                 <CardMain radius={"18px"} spacing={5} >
                     <>
@@ -334,7 +334,7 @@ export default function Estoques({ estoques, estoque }) {
                                                                         as="p"
                                                                         mt={"10%"}
                                                                     >
-                                                                        Clique em Novo Paciente para criar um
+                                                                        Clique em Novo Estoque para criar um
                                                                     </Text>
                                                                 </>
                                                             )

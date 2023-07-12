@@ -7,11 +7,12 @@ import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
 
 import { Site, User } from "@prisma/client";
-import { Button, Heading, Stack, useDisclosure, useToast } from "@chakra-ui/react";
-import { CardAdmin } from "@/components/Cards";
+import { Button, HStack, Stack, useDisclosure, useToast } from "@chakra-ui/react";
+import { CardAdmin, CardAdminAdd } from "@/components/Cards";
 import { ModalAdmin } from "@/components/Modais"
 import { Main } from "@/components/Main";
 import { MdAdd } from "react-icons/md";
+import { TitleAdmin } from "@/components/Title"
 
 export default function AppIndex() {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -128,76 +129,79 @@ export default function AppIndex() {
 
 
   return (
+    <>
+      <Stack
+        as="main"
+        align={"center"}
+        py={40}
+        px={{ md: 0, xxs: 10 }}
+        spacing={10}
+      >
+        <TitleAdmin />
+        <HStack
+          spacing={8}
+          display={{ md: "flex", xxs: "none" }}
+        >
+          {
+            sites ? (
+              sites.length > 0 ? (
+                sites.map((site) => (
+                  <Link href={`/site/${site.id}`} key={site.id}>
+                    <CardAdmin text={site.name} />
+                  </Link>
+                ))
+              ) : (
+                <>
+                  <p className="text-2xl font-cal text-gray-600">
+                    Nenhum administrador cadastro. Clique em &quot;Novo Administrador&quot; para criar um.
+                  </p>
 
-    <Main
-      title={"Administrativo da Clínica"}
-      w={""}
-      path={""}
-      button={
-        showBotao ? (
-          <Button
-            leftIcon={<MdAdd />}
-            bg={"#0BB7AF"}
-            color={"white"}
-            size={"sm"}
-            fontWeight={500}
-            onClick={handleButtonClick}
-            _hover={{
-              bg: '#2C7A7B'
-            }}
-          >
-            Novo Administrador
-          </Button>
-        ) : null
-      }
-      altText={""}
-      tamh={0}
-      tamw={0}
-    >
-
-      {isModalOpen && (
-
-        <ModalAdmin
-          isOpenModal={isModalOpen}
-          onCloseModal={handleCloseModal}
-          onOpenModal={handleButtonClick}
-          name1="name"
-          ref1={siteNameRef}
-          type1="text"
-          name2="description"
-          ref2={siteDescriptionRef}
-          type2="text"
-          onSubmit={(event: any) => {
-            event.preventDefault();
-            setCreatingSite(true);
-            createSite();
-          }} />
+                </>
+              )
+            ) : (
+              <p>Carregando...</p>
+            )
+          }
+          {showBotao ? (
+            <CardAdminAdd
+              onClick={handleButtonClick} />
+          ) : null}
+        </HStack>
+        <Stack
+          spacing={8}
+          display={{ md: "none", xxs: "flex" }}
+        >
 
 
-      )}
 
-      {sites ? (
-        sites.length > 0 ? (
-          sites.map((site) => (
-            <Link href={`/site/${site.id}`} key={site.id}>
-              <Stack spacing={7}>
-                <CardAdmin title={site.name} text={site.description} />
-              </Stack>
-            </Link>
-          ))
-        ) : (
-          <>
-            <p className="text-2xl font-cal text-gray-600">
-              Nenhum administrador cadastro. Clique em &quot;Novo Administrador&quot; para criar um.
-            </p>
 
-          </>
-        )
-      ) : (
-        <p>Carregando...</p>
-      )}
 
-    </Main>
+
+        </Stack>
+
+        {isModalOpen && (
+
+          <ModalAdmin
+            isOpenModal={isModalOpen}
+            onCloseModal={handleCloseModal}
+            onOpenModal={handleButtonClick}
+            name1="name"
+            ref1={siteNameRef}
+            type1="text"
+            name2="description"
+            ref2={siteDescriptionRef}
+            type2="text"
+            onSubmit={(event: any) => {
+              event.preventDefault();
+              setCreatingSite(true);
+              createSite();
+            }} />
+
+
+        )}
+
+      </Stack></>
+
 
   );
 }

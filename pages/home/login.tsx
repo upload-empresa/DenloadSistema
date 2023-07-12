@@ -97,7 +97,7 @@ const Login: NextPageWithLayout<
               <FormLogin placeholder={"Email"} type="email" onChange={formik.handleChange} name="email" value={formik.values.email} />
               <FormLogin placeholder={"Senha"} type="password" onChange={formik.handleChange} name="password" value={formik.values.password} />
               <Links
-                href={"/login/esqueci-a-senha"}
+                href={"/esqueci-a-senha"}
               >
                 <Text
                   as="p"

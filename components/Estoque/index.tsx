@@ -3,7 +3,7 @@ import { HStack } from "@chakra-ui/react"
 import { Main } from "../Main"
 import { ButtonSave } from "../Buttons"
 import { CardMain } from "../Cards"
-import { Forms } from "../Forms"
+import { Forms, FormsValue } from "../Forms"
 import { TitleCards } from "../Title"
 
 interface EstoqueAttributesProps {
@@ -39,7 +39,7 @@ export function EstoqueAttributes({ title, text, name1, name2, name3, name4, nam
             <CardMain radius={"18px"} spacing={5}>
                 <TitleCards title={title} />
                 <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
-                    <Forms label={"Nome"} type={"text"} placeholder={"Digite o seu nome"} name={name1} onChange={onChange1} value={value1} mb={{ md: "0", xxs: "10%" }} />
+                    <Forms label={"Nome"} type={"text"} placeholder={"Digite o nome do produto"} name={name1} onChange={onChange1} value={value1} mb={{ md: "0", xxs: "10%" }} />
                     <Forms label={"Unidade"} type={"text"} placeholder={"Digite a unidade do produto. Ex: un, mL"} name={name2} onChange={onChange2} value={value2} mb={{ md: "0", xxs: "10%" }} />
                 </HStack>
                 <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
@@ -47,7 +47,7 @@ export function EstoqueAttributes({ title, text, name1, name2, name3, name4, nam
                     <Forms label={"Data da Compra"} type={"date"} placeholder={"Digite a data da compra"} name={name4} onChange={onChange4} value={value4} mb={{ md: "0", xxs: "10%" }} />
                 </HStack>
                 <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
-                    <Forms label={"Valor do Produto"} type={"text"} placeholder={"Digite o valor do produto"} name={name6} onChange={onChange6} value={value6} mb={{ md: "0", xxs: "10%" }} />
+                    <FormsValue label={"Valor do Produto"} type={"number"} placeholder={"Digite o valor do produto"} name={name6} onChange={onChange6} value={value6} mb={{ md: "0", xxs: "10%" }} />
 
                 </HStack>
                 <ButtonSave align="end" onClick={onClick} />

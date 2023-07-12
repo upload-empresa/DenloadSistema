@@ -14,7 +14,7 @@ model User {
   celular       String?
   endereco      String?
   password      String?
-  token         String?
+  token         String?   @unique
   username      String?
   gh_username   String?
   email         String?   @unique

@@ -435,39 +435,70 @@ export function CardsDocumentos(props: BlurImageProps, { onClick }: CardsDocumen
 }
 
 interface CardAdminProps {
-    title: any
+    title?: any
     text: any
+
 }
 
-export function CardAdmin({ title, text }: CardAdminProps) {
+export function CardAdmin({ text, }: CardAdminProps) {
     return (
-        <HStack
-            px={7}
-            py={5}
-            bg={"white"}
-            spacing={8}
-            borderRadius={"18px"}
-            w={"50%"}
+        <Stack
+            spacing={2}
+            align={"center"}
         >
-            <FigureImage w={undefined} path={"/perfilpessoa.png"} altText={""} tamH={90} tamW={90} />
+
+            <Button
+                py={{ lg: 16, md: 12, xxs: 10 }}
+                px={{ lg: 10, md: 6, xxs: 4 }}
+                bg={"#2FACFA"}
+                borderRadius={"18px"}
+
+            >
+                <FigureImage w={{ lg: "100%", md: "80%", xxs: "55%" }} path={"/dente.png"} altText={""} tamH={82} tamW={82} />
+            </Button>
+            <Text
+                as="p"
+                color={"#6D6D6E"}
+                fontSize={{ lg: "24px", md: "20px", xxs: "18px" }}
+            >
+                {text}
+            </Text>
+        </Stack>
+
+
+    )
+}
+
+interface CardAddProps {
+    onClick?: any
+
+}
+
+export function CardAdminAdd({ onClick }: CardAddProps) {
+    return (
+        <Button
+            fontWeight={"normal"}
+            _hover={{
+                bg: 'transparent'
+            }}
+            onClick={onClick}>
             <Stack
                 spacing={2}
+                align={"center"}
+                justify={"center"}
             >
-                <Heading
-                    fontSize={"20px"}
-                    fontWeight={600}
-                    color={"#474749"}
-                >
-                    {title}
-                </Heading>
+
+                <FigureImage align={"center"} w={{ lg: "100%", md: "65%", xxs: "55%" }} path={"/Add.png"} altText={""} tamH={120} tamW={120} />
                 <Text
-                    fontSize={"14px"}
-                    fontWeight={500}
-                    color={"#7C7C7C"}
+                    as="p"
+                    color={"#6D6D6E"}
+                    fontSize={{ lg: "24px", md: "20px", xxs: "18px" }}
                 >
-                    {text}
+                    Adicionar Perfil
                 </Text>
             </Stack>
-        </HStack>
+        </Button>
+
+
     )
 }

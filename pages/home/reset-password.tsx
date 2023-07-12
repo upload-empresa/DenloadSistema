@@ -2,12 +2,18 @@ import { useState } from 'react';
 import { HStack, Stack, Text } from "@chakra-ui/react";
 import { ButtonLogin } from "@/components/Buttons";
 import { FormLogin } from "@/components/Forms";
+import { useRouter } from 'next/router';
 //@ts-ignore
 export default function ResetPassword({ token }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
+
+    const router = useRouter();
+    const { token: token2 } = router.query;
+
+    console.log(token2)
 
     //@ts-ignore
     const handleSubmit = async (event) => {
@@ -25,7 +31,7 @@ export default function ResetPassword({ token }) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ password, token }),
+                body: JSON.stringify({ password, token2 }),
             });
 
             if (!response.ok) {

@@ -145,7 +145,7 @@ export async function getEstoquesWithSelect(
   res: NextApiResponse,
   session: Session
 ): Promise<void | NextApiResponse<Array<Estoque>>> {
-  const { orderBy } = req.query;
+  const { orderBy, siteId } = req.query;
 
   if ((orderBy !== 'asc' && orderBy !== 'desc') || !session.user.id) {
     return res
@@ -153,10 +153,14 @@ export async function getEstoquesWithSelect(
       .end('Bad request. Search query parameter is not valid.');
   }
 
+  if (Array.isArray(siteId) || !session.user.id)
+    return res.status(400).end('Bad request. Query parameters are not valid.');
+
   try {
     const estoques = await prisma.estoque.findMany({
       where: {
         site: {
+          id: siteId,
           user: {
             id: session.user.id,
           },

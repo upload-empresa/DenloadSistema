@@ -197,3 +197,16 @@ export function TitleFeedback({ title }: TitleFeedbackProps) {
     )
 }
 
+export function TitleAdmin() {
+    return (
+        <Heading
+            as="h1"
+            fontSize={{ lg: "48px", md: "36px", xxs: "28px" }}
+            fontWeight={"normal"}
+            color={"#171717"}
+            textAlign={"center"}
+        >
+            Escolha um administrador
+        </Heading>
+    )
+}

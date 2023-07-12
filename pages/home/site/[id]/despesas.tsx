@@ -153,7 +153,7 @@ export default function Despesas({ despesa, despesas }) {
 
     useEffect(() => {
         const searchApi = async () => {
-            const response = await fetch(`https://app.denload.com/api/despesa??siteId=${siteId}&search=${searchTerm}`);
+            const response = await fetch(`/api/despesa??siteId=${siteId}&search=${searchTerm}`);
             const data = await response.json();
             setSearchResults(data);
         }

@@ -76,7 +76,7 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
 
     useEffect(() => {
         const selectApi = async () => {
-            const response = await fetch(`https://app.denload.com/api/ganho?orderBy=${selectedOption}`);
+            const response = await fetch(`/api/ganho?orderBy=${selectedOption}`);
             const data = await response.json();
             setSelectResults(data);
         }
