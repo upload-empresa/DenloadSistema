@@ -155,7 +155,7 @@ export default function AppIndex() {
               ) : (
                 <>
                   <p className="text-2xl font-cal text-gray-600">
-                    Nenhum administrador cadastro. Clique em &quot;Novo Administrador&quot; para criar um.
+                    Nenhum administrador cadastrado.
                   </p>
 
                 </>
