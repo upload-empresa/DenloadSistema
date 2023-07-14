@@ -454,7 +454,7 @@ export function CardAdmin({ text, }: CardAdminProps) {
                 borderRadius={"18px"}
 
             >
-                <FigureImage w={{ lg: "100%", md: "80%", xxs: "55%" }} path={"/dente.png"} altText={""} tamH={82} tamW={82} />
+                <FigureImage w={{ lg: "100%", md: "80%", xxs: "55%" }} path={"/pastadente.png"} altText={""} tamH={82} tamW={82} />
             </Button>
             <Text
                 as="p"
