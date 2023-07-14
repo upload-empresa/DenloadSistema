@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
-
+import { signOut } from "next-auth/react";
 import { Site, User } from "@prisma/client";
 import { Button, HStack, Stack, useDisclosure, useToast } from "@chakra-ui/react";
 import { CardAdmin, CardAdminAdd } from "@/components/Cards";
@@ -200,7 +200,9 @@ export default function AppIndex() {
 
         )}
 
-      </Stack></>
+      </Stack>
+      <button onClick={() => signOut()}>Logout</button>
+    </>
 
 
   );

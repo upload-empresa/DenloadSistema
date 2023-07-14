@@ -31,7 +31,7 @@ export default async function handler(req, res) {
         const token = generatePasswordResetToken(user.id)
 
         // const resetLink = `https://app.denload.com/reset-password?token=${token}`;
-        const resetLink = `http://localhost:3000/reset-password?token=${token}`;
+        const resetLink = `https://app.denload.com/reset-password?token=${token}`;
 
         const mailOptions = {
             from: process.env.SMTP_FROM,
