@@ -13,6 +13,7 @@ import { ModalAdmin } from "@/components/Modais"
 import { Main } from "@/components/Main";
 import { MdAdd } from "react-icons/md";
 import { TitleAdmin } from "@/components/Title"
+import { Navbar } from "@/components/Navbar";
 
 export default function AppIndex() {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -130,6 +131,7 @@ export default function AppIndex() {
 
   return (
     <>
+      <Navbar />
       <Stack
         as="main"
         align={"center"}
@@ -201,7 +203,7 @@ export default function AppIndex() {
         )}
 
       </Stack>
-      <button onClick={() => signOut()}>Logout</button>
+
     </>
 
 
