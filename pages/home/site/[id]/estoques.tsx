@@ -199,8 +199,8 @@ export default function Estoques({ estoques, estoque }) {
                                         <Tr>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Ações</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Nome</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Validade</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Unidade</Th>
+                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Validade</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Valor</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th>
                                         </Tr>
