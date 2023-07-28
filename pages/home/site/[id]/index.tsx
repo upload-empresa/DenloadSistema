@@ -270,12 +270,13 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
                                                                     {item.email}
                                                                 </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
                                                                     {item.grupo}
-                                                                </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                </Td>
+                                                                {/* <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
                                                                     <CardPacientes
                                                                         text={item?.pago ? "Pago" : "Não Pago"}
                                                                         bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                                         color={item?.pago ? "#0BB7AF" : "#F64E60"} />
-                                                                </Td>
+                                                                </Td> */}
 
 
 
@@ -305,12 +306,13 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
                                                                             {item.email}
                                                                         </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
                                                                             {item.grupo}
-                                                                        </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                        </Td>
+                                                                        {/* <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
                                                                             <CardPacientes
                                                                                 text={item?.pago ? "Pago" : "Não Pago"}
                                                                                 bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                                                 color={item?.pago ? "#0BB7AF" : "#F64E60"} />
-                                                                        </Td>
+                                                                        </Td> */}
 
 
 
