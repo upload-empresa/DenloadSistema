@@ -100,7 +100,7 @@ export function CardDia({ w, path, altText, tamh, tamw, title, text, widthCard =
                     fontSize="14px"
                     fontWeight={500}
                 >
-                    R$ {text},00
+                    R$ {text}
                 </Text>
             </Stack>
         </HStack>
@@ -154,7 +154,7 @@ export function CardMainFinanceiro() {
                     as="p"
                     color={"#0BB7AF"}
                 >
-                    R$ 100,00
+                    R$ 100
                 </Text>
             </Stack>
         </HStack>
@@ -352,7 +352,7 @@ export function CardDashboardFinanceiro({ nome, procedimento, horario, title, co
                         fontSize={"12px"}
                         fontWeight={500}
                     >
-                        R${horario},00
+                        R${horario}
                     </Text>
                 </Stack>
             </HStack>
