@@ -330,7 +330,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
                                         <Th textAlign={"start"} isNumeric color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Horário</Th>
                                         <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Procedimento</Th>
                                         <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Dia</Th>
-                                        <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th>
+                                        {/* <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th> */}
                                     </Tr>
                                 </Thead>
                                 <Tbody>

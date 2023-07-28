@@ -90,7 +90,7 @@ export function FinanceiroEdit({ title, text, titlePage, children, onChange1, va
                     </HStack>
                     <HStack spacing={{ lg: 6, xxs: 0 }} flexDir={{ lg: "row", xxs: "column" }}>
                         <FormsValue label={"Valor"} type={"number"} placeholder={"Digite o valor da consulta"} onChange={onChange3} value={value3} />
-                        <SelectsFinanceiro label={"Status do Pagamento"} onInput1={onInput1} defaultValue1={defaultValue1} />
+                        {/* <SelectsFinanceiro label={"Status do Pagamento"} onInput1={onInput1} defaultValue1={defaultValue1} /> */}
 
 
                     </HStack>

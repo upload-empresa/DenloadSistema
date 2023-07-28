@@ -73,7 +73,7 @@ export function TableMain3({ title, name, phone, email, group, thead1, thead2, t
                             <Th textAlign={"start"} isNumeric color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>{thead1}</Th>
                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>{thead2}</Th>
                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>{thead3}</Th>
-                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th>
+                            {/* <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th> */}
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -101,13 +101,13 @@ export function TableMain3({ title, name, phone, email, group, thead1, thead2, t
                                         <Td color={"#474749"} fontSize={"14px"}>
                                             {ganho.name}
                                         </Td>
-                                        <Td color={"#474749"} fontSize={"14px"}>
+                                        {/* <Td color={"#474749"} fontSize={"14px"}>
                                             <CardPacientes
                                                 text={ganho?.pago ? "Pago" : "Não Pago"}
                                                 bgOne={ganho?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                 color={ganho?.pago ? "#0BB7AF" : "#F64E60"}
                                             />
-                                        </Td>
+                                        </Td> */}
                                     </Tr>
                                 ))
                             ) : (

@@ -307,9 +307,9 @@ export default function Paciente() {
                 <footer className="h-20 z-5 fixed bottom-0 inset-x-0 border-solid border-t border-gray-500 bg-white">
                     <div className="max-w-screen-xl mx-auto px-10 sm:px-20 h-full flex justify-between items-center">
                         <div className="text-sm">
-                            <strong>
+                            {/* <strong>
                                 <p>{paciente?.pago ? "Pago" : "Draft"}</p>
-                            </strong>
+                            </strong> */}
                             <p>{savedState}</p>
                         </div>
                         <button
@@ -322,9 +322,9 @@ export default function Paciente() {
 
                             <p>{publishing ? <LoadingDots /> : "Salvar alterações"}</p>
                         </button>
-                        <text>
+                        {/* <text>
                             {paciente?.pago ? "Pago" : "Não Pago"}
-                        </text>
+                        </text> */}
                     </div>
                 </footer>
             </Layout>

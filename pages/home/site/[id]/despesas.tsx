@@ -211,7 +211,7 @@ export default function Despesas({ despesa, despesas }) {
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Nome da Despesa</Th>
                                             <Th textAlign={"start"} isNumeric color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Vencimento</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Valor</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th>
+                                            {/* <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th> */}
                                         </Tr>
                                     </Thead>
                                     <Tbody>
@@ -239,14 +239,14 @@ export default function Despesas({ despesa, despesas }) {
                                                             <Td color={"#474749"} fontSize={"14px"}>
                                                                 {item.valor}
                                                             </Td>
-
+                                                            {/* 
                                                             <Td color={"#474749"} fontSize={"14px"}>
                                                                 <CardPacientes
                                                                     text={item?.pago ? "Pago" : "Não Pago"}
                                                                     bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                                     color={item?.pago ? "#0BB7AF" : "#F64E60"}
                                                                 />
-                                                            </Td>
+                                                            </Td> */}
                                                         </Tr>
                                                     ))
 
@@ -281,13 +281,13 @@ export default function Despesas({ despesa, despesas }) {
                                                                         {item.valor}
                                                                     </Td>
 
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                    {/* <Td color={"#474749"} fontSize={"14px"}>
                                                                         <CardPacientes
                                                                             text={item?.pago ? "Pago" : "Não Pago"}
                                                                             bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                                             color={item?.pago ? "#0BB7AF" : "#F64E60"}
                                                                         />
-                                                                    </Td>
+                                                                    </Td> */}
                                                                 </Tr>
                                                             </>
                                                         ))}
@@ -317,13 +317,13 @@ export default function Despesas({ despesa, despesas }) {
                                                                         {item.valor}
                                                                     </Td>
 
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                    {/* <Td color={"#474749"} fontSize={"14px"}>
                                                                         <CardPacientes
                                                                             text={item?.pago ? "Pago" : "Não Pago"}
                                                                             bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                                             color={item?.pago ? "#0BB7AF" : "#F64E60"}
                                                                         />
-                                                                    </Td>
+                                                                    </Td> */}
                                                                 </Tr>
                                                             </>
                                                         ))}

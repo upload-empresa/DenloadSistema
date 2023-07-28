@@ -53,7 +53,7 @@ export function FormsValue({ label, placeholder, type, w, name, value, onChange,
                     color='gray.300'
                     fontSize='0.9em'
                 >
-                    ,00
+                    {/* ,00 */}
                 </InputRightElement>
 
             </InputGroup>

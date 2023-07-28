@@ -197,7 +197,7 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Nome do Paciente</Th>
                                             <Th textAlign={"start"} isNumeric color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Data da Consulta</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Valor</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th>
+                                            {/* <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th> */}
                                         </Tr>
                                     </Thead>
                                     <Tbody>
@@ -264,13 +264,13 @@ export default function Ganhos({ ganhos, ganho, subscriptions }) {
                                                                     <Td color={"#474749"} fontSize={"14px"}>
                                                                         {item.valor}
                                                                     </Td>
-                                                                    <Td color={"#474749"} fontSize={"14px"}>
+                                                                    {/* <Td color={"#474749"} fontSize={"14px"}>
                                                                         <CardPacientes
                                                                             text={item?.pago ? "Pago" : "Não Pago"}
                                                                             bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                                             color={item?.pago ? "#0BB7AF" : "#F64E60"}
                                                                         />
-                                                                    </Td>
+                                                                    </Td> */}
                                                                 </Tr>
                                                             </>
                                                         ))}

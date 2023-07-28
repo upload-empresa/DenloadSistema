@@ -198,7 +198,7 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
                                         <Th textAlign={"start"} color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Telefone</Th>
                                         <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Email</Th>
                                         <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Grupo</Th>
-                                        <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Status</Th>
+                                        {/* <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Status</Th> */}
                                     </Tr>
                                 </Thead>
                                 <Tbody>
@@ -233,13 +233,13 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
                                                             {item.grupo}
                                                         </Td>
 
-                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                        {/* <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
                                                             <CardPacientes
                                                                 text={item?.pago ? "Pago" : "Não Pago"}
                                                                 bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                                 color={item?.pago ? "#0BB7AF" : "#F64E60"}
                                                             />
-                                                        </Td>
+                                                        </Td> */}
                                                     </Tr>
                                                 ))
 

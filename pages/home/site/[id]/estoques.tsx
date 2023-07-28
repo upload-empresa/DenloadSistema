@@ -202,7 +202,7 @@ export default function Estoques({ estoques, estoque }) {
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Unidade</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Validade</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Valor</Th>
-                                            <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th>
+                                            {/* <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th> */}
                                         </Tr>
                                     </Thead>
                                     <Tbody>
@@ -275,12 +275,13 @@ export default function Estoques({ estoques, estoque }) {
                                                                         {item.name}
                                                                     </Td><Td color={"#474749"} fontSize={"14px"}>
                                                                         {item.name}
-                                                                    </Td><Td color={"#474749"} fontSize={"14px"}>
+                                                                    </Td>
+                                                                    {/* <Td color={"#474749"} fontSize={"14px"}>
                                                                         <CardPacientes
                                                                             text={item?.pago ? "Pago" : "Não Pago"}
                                                                             bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                                             color={item?.pago ? "#0BB7AF" : "#F64E60"} />
-                                                                    </Td>
+                                                                    </Td> */}
                                                                 </Tr>
                                                             </>
                                                         ))}

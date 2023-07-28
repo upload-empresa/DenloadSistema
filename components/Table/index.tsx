@@ -78,7 +78,7 @@ export function TableMain({ title, thead1, thead2, thead3, data, onClick, select
                                 <Th textAlign={"start"} color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>{thead1}</Th>
                                 <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>{thead2}</Th>
                                 <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>{thead3}</Th>
-                                <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Status</Th>
+                                {/* <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Status</Th> */}
                             </Tr>
                         </Thead>
                         <Tbody>
@@ -109,13 +109,13 @@ export function TableMain({ title, thead1, thead2, thead3, data, onClick, select
                                                     {item.grupo}
                                                 </Td>
 
-                                                <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                {/* <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
                                                     <CardPacientes
                                                         text={item?.pago ? "Pago" : "Não Pago"}
                                                         bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                         color={item?.pago ? "#0BB7AF" : "#F64E60"}
                                                     />
-                                                </Td>
+                                                </Td> */}
                                             </Tr>
                                         ))
 
@@ -149,13 +149,13 @@ export function TableMain({ title, thead1, thead2, thead3, data, onClick, select
                                                 {item.grupo}
                                             </Td>
 
-                                            <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                            {/* <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
                                                 <CardPacientes
                                                     text={item?.pago ? "Pago" : "Não Pago"}
                                                     bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
                                                     color={item?.pago ? "#0BB7AF" : "#F64E60"}
                                                 />
-                                            </Td>
+                                            </Td> */}
                                         </Tr>
 
 
