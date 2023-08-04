@@ -251,21 +251,20 @@ export default function AddEstoque(req: NextApiRequest,
     return (
         <>
 
-            <EstoqueAttributes title={"Adicionar Produto"} text={"Adicione os dados desse produto"} name1="name" name2="validade" name4="unidade" name5="dataDaCompra" name6="valor"
+            <EstoqueAttributes title={"Adicionar Produto"} text={"Adicione os dados desse produto"} name1="name" name2="unidade" name3="validade" name4="dataDaCompra" name6="valor"
                 onChange1={(e: ChangeEvent<HTMLTextAreaElement>) => setData({
                     ...data,
                     name: (e.target as HTMLTextAreaElement).value,
                 })}
                 onChange2={(e: ChangeEvent<HTMLTextAreaElement>) => setData({
                     ...data,
-                    validade: (e.target as HTMLTextAreaElement).value,
-                })}
-
-                onChange4={(e: ChangeEvent<HTMLTextAreaElement>) => setData({
-                    ...data,
                     unidade: (e.target as HTMLTextAreaElement).value,
                 })}
-                onChange5={(e: ChangeEvent<HTMLTextAreaElement>) => setData({
+                onChange3={(e: ChangeEvent<HTMLTextAreaElement>) => setData({
+                    ...data,
+                    validade: (e.target as HTMLTextAreaElement).value,
+                })}
+                onChange4={(e: ChangeEvent<HTMLTextAreaElement>) => setData({
                     ...data,
                     dataDaCompra: (e.target as HTMLTextAreaElement).value,
                 })}

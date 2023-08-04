@@ -116,7 +116,7 @@ export function TitleDashboardGrafic({ title, value, onChange, flexDir }: TitleD
             >
                 {title}
             </Heading>
-            <Select
+            {/* <Select
                 w={{ lg: "40%", xxs: "100%" }}
                 fontSize="14px"
                 value={value}
@@ -125,7 +125,7 @@ export function TitleDashboardGrafic({ title, value, onChange, flexDir }: TitleD
                 <option>3 meses</option>
                 <option>6 meses</option>
                 <option>12 meses</option>
-            </Select>
+            </Select> */}
         </HStack>
     )
 }

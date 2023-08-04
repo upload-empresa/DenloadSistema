@@ -18,6 +18,9 @@ import { Pagination } from "@/components/Pagination"
 import { HStack, Input, InputGroup, InputLeftElement, Select, Text } from "@chakra-ui/react"
 import { MdSearch } from "react-icons/md"
 
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+
 interface SiteEstoqueData {
     estoques: Array<Estoque>;
     site: Site | null;
@@ -159,6 +162,23 @@ export default function Estoques({ estoques, estoque }) {
 
 
 
+    function formatarDataBrasileira(data: any) {
+        console.log('Data recebida:', data);
+        const partes = data.split('-');
+        if (partes.length !== 3) {
+            // Caso a data não esteja no formato correto (aaaa-mm-dd)
+            return 'Data inválida';
+        }
+
+        const dataObj = new Date(`${partes[0]}-${partes[1]}-${partes[2]}`);
+        if (isNaN(dataObj.getTime())) {
+            // Caso a data seja inválida
+            return 'Data inválida';
+        }
+
+        return format(dataObj, 'dd/MM/yyyy');
+    }
+
     return (
         <>
             < Main title={"Estoque"} button={< ButtonAdd mt={{ md: "0", xxs: "10%" }} text={"Novo Produto"} onClick={() => {
@@ -228,6 +248,7 @@ export default function Estoques({ estoques, estoque }) {
                                                                 fontSize={"14px"}
                                                             >
                                                                 {item.validade}
+
                                                             </Td>
                                                             <Td color={"#474749"} fontSize={"14px"}>
                                                                 {item.minimo}
@@ -305,10 +326,11 @@ export default function Estoques({ estoques, estoque }) {
                                                                                 color={"#474749"}
                                                                                 fontSize={"14px"}
                                                                             >
+
                                                                                 {item.validade}
                                                                             </Td>
                                                                             <Td color={"#474749"} fontSize={"14px"}>
-                                                                                {item.unidade}
+                                                                                {formatarDataBrasileira(item.unidade)}
                                                                             </Td>
 
                                                                             <Td color={"#474749"} fontSize={"14px"}>
