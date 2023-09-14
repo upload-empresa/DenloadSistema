@@ -217,7 +217,7 @@ export async function getPacientesWithSelect(
   res: NextApiResponse,
   session: Session
 ): Promise<void | NextApiResponse<Array<Paciente>>> {
-  const { orderBy, siteId } = req.query;
+  const { orderBy, search, siteId } = req.query;
 
   if ((orderBy !== 'asc' && orderBy !== 'desc') || !session.user.id) {
     return res
@@ -250,62 +250,6 @@ export async function getPacientesWithSelect(
   }
 }
 
-/**
- * Get Paciente
- *
- * Fetches & returns either a single or all pacientes available depending on
- * whether a `pacienteId` query parameter is provided. If not all pacientes are
- * returned in descending order.
- *
- * @param req - Next.js API Request
- * @param res - Next.js API Response
- */
-// export async function getPacientesWithSearch(
-//   req: NextApiRequest,
-//   res: NextApiResponse,
-//   session: Session
-// ): Promise<void | NextApiResponse<Array<Paciente>>> {
-//   const { orderBy } = req.query;
-
-//   if (typeof orderBy !== 'string' || !orderBy.trim() || !session?.user?.id) {
-//     return res
-//       .status(400)
-//       .end('Bad request. Search query parameter is not valid.');
-//   }
-
-//   try {
-//     const pacientes = await prisma.paciente.findMany({
-//       where: {
-//         site: {
-//           user: {
-//             id: session.user.id,
-//           },
-//         },
-//       },
-//       orderBy: {
-//         name: orderBy === 'asc' ? 'asc' : 'desc',
-//         // name: 'desc',
-//         // createdAt: 'desc',
-//       },
-//     });
-
-//     return res.status(200).json(pacientes);
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).end(error);
-//   }
-// }
-
-/**
- * Create Paciente
- *
- * Creates a new paciente from a provided `siteId` query parameter.
- *
- * Once created, the sites new `pacienteId` will be returned.
- *
- * @param req - Next.js API Request
- * @param res - Next.js API Response
- */
 export async function createPaciente(
   req: NextApiRequest,
   res: NextApiResponse,

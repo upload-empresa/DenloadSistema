@@ -19,7 +19,6 @@ import { MdSearch } from "react-icons/md"
 import { TitleCards } from "@/components/Title";
 import Cookies from 'js-cookie';
 
-
 interface SitePacienteData {
     pacientes: Array<Paciente>;
     subscriptions: Array<Subscription>
@@ -154,201 +153,184 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
 
 
     return (
-        < Main title={"Pacientes"} button={< ButtonAdd mt={{ md: "0", xxs: "10%" }} text={"Novo Paciente"} onClick={() => {
-            setCreatingPaciente(true);
-            createPaciente(siteId as string);
-        }}
-            creatingPaciente={creatingPaciente} />} w={"25%"} path={"/perfil.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
-            <CardMain radius={"18px"} spacing={5}>
-                <>
+        <>
+            <Main title={"Pacientes"} button={<ButtonAdd mt={{ md: "0", xxs: "10%" }} text={"Novo Paciente"} onClick={() => {
+                setCreatingPaciente(true);
+                createPaciente(siteId as string);
+            }}
+                creatingPaciente={creatingPaciente} />} w={"25%"} path={"/perfil.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
+                <CardMain radius={"18px"} spacing={5}>
+                    <>
 
-                    <TableContainer>
-                        <Stack spacing={6}>
 
-                            <HStack
-                                justify={"space-between"}
-                                align={{ lg: "none", xxs: "start" }}
-                                flexDir={{ lg: "row", xxs: "column" }}
-                                spacing={0}
-                            >
-                                <TitleCards title="Todos os Pacientes" />
-                                <HStack>
-                                    <InputGroup>
-                                        <InputLeftElement
-                                            // eslint-disable-next-line react/no-children-prop
-                                            children={<MdSearch size={"22px"} />}
-                                        />
-                                        <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                                    </InputGroup>
+                        <TableContainer>
+                            <Stack spacing={6}>
 
-                                    <Select value={selectedOption} onChange={handleOptionChange} variant='filled' placeholder='Ordenar por' >
-                                        <option value="asc">Ordem alfabética (A-Z)</option>
-                                        <option value="desc">Ordem alfabética (Z-A)</option>
-                                    </Select>
+                                <HStack
+                                    justify={"space-between"}
+                                    align={{ lg: "none", xxs: "start" }}
+                                    flexDir={{ lg: "row", xxs: "column" }}
+                                    spacing={0}
+                                >
+                                    <TitleCards title="Todos os Pacientes" />
+                                    <HStack>
+                                        <InputGroup>
+                                            <InputLeftElement
+                                                // eslint-disable-next-line react/no-children-prop
+                                                children={<MdSearch size={"22px"} />} />
+                                            <Input type='text' placeholder='Pesquisar' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                                        </InputGroup>
+
+                                        <Select value={selectedOption} onChange={handleOptionChange} variant='filled' placeholder='Ordenar por'>
+                                            <option value="asc">Ordem alfabética (A-Z)</option>
+                                            <option value="desc">Ordem alfabética (Z-A)</option>
+                                        </Select>
+                                    </HStack>
+
+
                                 </HStack>
 
-
-                            </HStack>
-
-                            <Table>
-                                <Thead>
-                                    <Tr>
-                                        <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Ações</Th>
-                                        <Th textAlign={"start"} color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Nome</Th>
-                                        <Th textAlign={"start"} color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Telefone</Th>
-                                        <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Email</Th>
-                                        <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Grupo</Th>
-                                        {/* <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Status</Th> */}
-                                    </Tr>
-                                </Thead>
-                                <Tbody>
+                                <Table>
+                                    <Thead>
+                                        <Tr>
+                                            <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Ações</Th>
+                                            <Th textAlign={"start"} color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Nome</Th>
+                                            <Th textAlign={"start"} color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Telefone</Th>
+                                            <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Email</Th>
+                                            <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Grupo</Th>
+                                            {/* <Th color={"#B5B7C0"} fontSize={{ '2xl': "18px", xl: "16px", lg: "14px", xxs: "14px" }} fontWeight={500}>Status</Th> */}
+                                        </Tr>
+                                    </Thead>
+                                    <Tbody>
 
 
-                                    {selectedOption ? (
-                                        <>
-                                            {selectResults ? (
-                                                selectResults.map((item: any) => (
-                                                    <Tr key={item.id}>
-                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                        {selectedOption ? (
+                                            <>
+                                                {selectResults ? (
+                                                    selectResults.map((item: any) => (
+                                                        <Tr key={item.id}>
+                                                            <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
 
-                                                            <ButtonPacientes
-                                                                //@ts-ignore
-                                                                href={`/paciente/${data.pacienteId}/dadospaciente`} />
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                            <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
-                                                        </Td>
-                                                        <Td
-                                                            textAlign={"start"}
-                                                            isNumeric
-                                                            color={"#474749"}
-                                                            fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}
-                                                        >
-                                                            {item.telefone}
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                            {item.email}
-                                                        </Td>
-                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                            {item.grupo}
-                                                        </Td>
-
-                                                        {/* <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                            <CardPacientes
-                                                                text={item?.pago ? "Pago" : "Não Pago"}
-                                                                bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                            />
-                                                        </Td> */}
-                                                    </Tr>
-                                                ))
+                                                                <ButtonPacientes
+                                                                    //@ts-ignore
+                                                                    href={`/paciente/${data.pacienteId}/dadospaciente`} />
+                                                            </Td>
+                                                            <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
+                                                            </Td>
+                                                            <Td
+                                                                textAlign={"start"}
+                                                                isNumeric
+                                                                color={"#474749"}
+                                                                fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}
+                                                            >
+                                                                {item.telefone}
+                                                            </Td>
+                                                            <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                {item.email}
+                                                            </Td>
+                                                            <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                {item.grupo}
+                                                            </Td>
 
 
-                                            ) : (
-                                                <p>Carregando...</p>
-                                            )}
-                                        </>
-                                    ) : (
-                                        <>
-                                            {searchTerm ? (
-                                                <>
-                                                    {searchResults?.map((item) => (
-                                                        <>
-                                                            < Tr key={item.id} >
-                                                                <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                                    <ButtonPacientes href={`/paciente/${item.id}/dadospaciente`} onClick={() => handleDeleteClick(item.id)} />
-                                                                </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                                    <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
-                                                                </Td><Td
-                                                                    textAlign={"start"}
-                                                                    isNumeric
-                                                                    color={"#474749"}
-                                                                    fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}
-                                                                >
-                                                                    {item.telefone}
-                                                                </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                                    {item.email}
-                                                                </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                                    {item.grupo}
-                                                                </Td>
-                                                                {/* <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                                    <CardPacientes
-                                                                        text={item?.pago ? "Pago" : "Não Pago"}
-                                                                        bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                        color={item?.pago ? "#0BB7AF" : "#F64E60"} />
-                                                                </Td> */}
+                                                        </Tr>
+                                                    ))
 
 
-
-                                                            </Tr>
-                                                        </>
-                                                    ))}
-                                                </>
-                                            ) : (
-                                                <>
-                                                    {items ? (
-                                                        items.length > 0 ? (
-                                                            items.map((item) => (
-                                                                <>
-                                                                    <Tr key={item.id}>
-                                                                        <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                                            <ButtonPacientes href={`/paciente/${item.id}/dadospaciente`} onClick={() => handleDeleteClick(item.id)} />
-                                                                        </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                                            <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
-                                                                        </Td><Td
-                                                                            textAlign={"start"}
-                                                                            isNumeric
-                                                                            color={"#474749"}
-                                                                            fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}
-                                                                        >
-                                                                            {item.telefone}
-                                                                        </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                                            {item.email}
-                                                                        </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                                            {item.grupo}
-                                                                        </Td>
-                                                                        {/* <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
-                                                                            <CardPacientes
-                                                                                text={item?.pago ? "Pago" : "Não Pago"}
-                                                                                bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                                color={item?.pago ? "#0BB7AF" : "#F64E60"} />
-                                                                        </Td> */}
-
-
-
-                                                                    </Tr>
-                                                                </>
-
-                                                            ))
-                                                        ) : (
+                                                ) : (
+                                                    <p>Carregando...</p>
+                                                )}
+                                            </>
+                                        ) : (
+                                            <>
+                                                {searchTerm ? (
+                                                    <>
+                                                        {searchResults?.map((item) => (
                                                             <>
-                                                                <Text
-                                                                    as="p"
-                                                                    mt={"10%"}
-                                                                >
-                                                                    Clique em Novo Paciente para criar um
-                                                                </Text>
-                                                            </>
-                                                        )
-                                                    ) : (
-                                                        <p>Carregando...</p>
-                                                    )}
-                                                </>
-                                            )}
-                                        </>
-                                    )}
+                                                                <Tr key={item.id}>
+                                                                    <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                        <ButtonPacientes href={`/paciente/${item.id}/dadospaciente`} onClick={() => handleDeleteClick(item.id)} />
+                                                                    </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                        <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
+                                                                    </Td><Td
+                                                                        textAlign={"start"}
+                                                                        isNumeric
+                                                                        color={"#474749"}
+                                                                        fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}
+                                                                    >
+                                                                        {item.telefone}
+                                                                    </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                        {item.email}
+                                                                    </Td><Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                        {item.grupo}
+                                                                    </Td>
 
-                                </Tbody>
-                                <Tfoot>
-                                    <Tr>
-                                    </Tr>
-                                </Tfoot>
-                            </Table>
-                        </Stack>
-                    </TableContainer>
-                    <Pagination pageCount={pageCount} handlePageClick={handlePageClick} /></>
-            </CardMain>
-        </Main >
+
+
+                                                                </Tr>
+                                                            </>
+                                                        ))}
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        {items ? (
+                                                            items.length > 0 ? (
+                                                                items.map((item) => (
+                                                                    <>
+                                                                        <Tr key={item.id}>
+                                                                            <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                                <ButtonPacientes href={`/paciente/${item.id}/dadospaciente`} onClick={() => handleDeleteClick(item.id)} />
+                                                                            </Td>
+                                                                            <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                                <Link href={`/paciente/${item.id}/dadospaciente`}>{item.name}</Link>
+                                                                            </Td>
+                                                                            <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                                {item.telefone}
+                                                                            </Td>
+                                                                            <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                                {item.email}
+                                                                            </Td>
+                                                                            <Td color={"#474749"} fontSize={{ '2xl': "20px", xl: "16px", lg: "14px", xxs: "14px" }}>
+                                                                                {item.grupo}
+                                                                            </Td>
+
+
+
+
+                                                                        </Tr>
+                                                                    </>
+
+                                                                ))
+                                                            ) : (
+                                                                <>
+                                                                    <Text
+                                                                        as="p"
+                                                                        mt={"10%"}
+                                                                    >
+                                                                        Clique em Novo Paciente para criar um
+                                                                    </Text>
+                                                                </>
+                                                            )
+                                                        ) : (
+                                                            <p>Carregando...</p>
+                                                        )}
+                                                    </>
+                                                )}
+                                            </>
+                                        )}
+
+                                    </Tbody>
+                                    <Tfoot>
+                                        <Tr>
+                                        </Tr>
+                                    </Tfoot>
+                                </Table>
+                            </Stack>
+                        </TableContainer>
+                        <Pagination pageCount={pageCount} handlePageClick={handlePageClick} /></>
+                </CardMain>
+            </Main></>
 
     )
 }

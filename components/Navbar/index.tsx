@@ -1,15 +1,15 @@
-import { HStack, Icon, Input, InputGroup, InputLeftElement, } from "@chakra-ui/react"
+import { HStack, } from "@chakra-ui/react"
 
-import { MdPerson, MdSearch } from "react-icons/md"
 
 import { FigureImage } from "../FigureImage"
 import { useRouter } from "next/router";
 import React from "react";
-import { signOut } from "next-auth/react";
 import Loader from "../app/Loader";
 import useRequireAuth from "../../lib/useRequireAuth";
 
 import type { WithChildren } from "@/types";
+
+
 
 interface LayoutProps extends WithChildren {
     siteId?: string;
@@ -26,6 +26,7 @@ export function Navbar({ siteId, children }: LayoutProps) {
 
     const session = useRequireAuth();
     if (!session) return <Loader />;
+
     return (
 
         <HStack
@@ -45,10 +46,6 @@ export function Navbar({ siteId, children }: LayoutProps) {
             >
                 <FigureImage w={"50%"} path={"/logodenload.png"} altText={"Logo do Denload"} tamH={1488} tamW={451} />
             </HStack>
-
-
-
-
 
 
         </HStack>

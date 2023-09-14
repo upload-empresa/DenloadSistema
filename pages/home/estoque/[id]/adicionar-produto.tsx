@@ -274,7 +274,7 @@ export default function AddEstoque(req: NextApiRequest,
                 })}
 
 
-                value1={data.name} value2={data.validade} value4={data.unidade} value5={data.dataDaCompra} value6={data.valor} onClick={async () => {
+                value1={data.name} value2={data.unidade} value3={data.validade} value4={data.dataDaCompra} value6={data.valor} onClick={async () => {
                     await publish();
                 }} /></>
     )

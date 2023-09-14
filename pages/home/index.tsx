@@ -5,15 +5,12 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
-import { signOut } from "next-auth/react";
-import { Site, User } from "@prisma/client";
-import { Button, HStack, Stack, useDisclosure, useToast } from "@chakra-ui/react";
+import { Site } from "@prisma/client";
+import { HStack, Stack, useDisclosure, useToast } from "@chakra-ui/react";
 import { CardAdmin, CardAdminAdd } from "@/components/Cards";
 import { ModalAdmin } from "@/components/Modais"
-import { Main } from "@/components/Main";
-import { MdAdd } from "react-icons/md";
 import { TitleAdmin } from "@/components/Title"
-import { Navbar } from "@/components/Navbar";
+
 
 export default function AppIndex() {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -46,6 +43,9 @@ export default function AppIndex() {
   let contador = 0;
 
   useEffect(() => {
+    if (!sites) {
+      router.push('/login')
+    }
     if (sites && sites.length > 0 && sites.length < 2) {
       contador = 1;
     } else if (sites && sites.length >= 2 && sites.length < 3) {
@@ -131,7 +131,7 @@ export default function AppIndex() {
 
   return (
     <>
-      <Navbar />
+
       <Stack
         as="main"
         align={"center"}

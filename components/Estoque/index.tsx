@@ -40,10 +40,12 @@ export function EstoqueAttributes({ title, text, name1, name2, name3, name4, nam
                 <TitleCards title={title} />
                 <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
                     <Forms label={"Nome"} type={"text"} placeholder={"Digite o nome do produto"} name={name1} onChange={onChange1} value={value1} mb={{ md: "0", xxs: "10%" }} />
+
                     <Forms label={"Unidade"} type={"text"} placeholder={"Digite a unidade do produto. Ex: un, mL"} name={name2} onChange={onChange2} value={value2} mb={{ md: "0", xxs: "10%" }} />
                 </HStack>
                 <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
                     <Forms label={"Validade"} type={"date"} placeholder={"Digite a sua validade"} name={name3} onChange={onChange3} value={value3} mb={{ md: "0", xxs: "10%" }} />
+
                     <Forms label={"Data da Compra"} type={"date"} placeholder={"Digite a data da compra"} name={name4} onChange={onChange4} value={value4} mb={{ md: "0", xxs: "10%" }} />
                 </HStack>
                 <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>

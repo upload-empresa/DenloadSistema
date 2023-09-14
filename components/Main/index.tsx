@@ -1,8 +1,7 @@
 import { Stack } from "@chakra-ui/react"
 import { ReactNode } from "react"
-
-import { Navbar } from "../Navbar"
-import { Sidebar } from "../Sidebar"
+// import Navbar from "../teste"
+import SidebarWithHeader from "../Sidebar"
 
 interface MainProps {
     children?: ReactNode
@@ -22,10 +21,12 @@ export function Main({ children, title, button, w, path, altText, tamh, tamw }: 
             as="main"
             spacing={0}
         >
-            <Navbar />
-            <Sidebar title={title} button={button} w={w} path={path} altText={altText} tamh={tamh} tamw={tamw}>
+            {/* <Navbar /> */}
+            <SidebarWithHeader title={title} button={button} w={w} path={path} altText={altText} tamh={tamh} tamw={tamw} onClose={function (): void {
+                throw new Error("Function not implemented.")
+            }}>
                 {children}
-            </Sidebar>
+            </SidebarWithHeader>
         </Stack>
     )
 }

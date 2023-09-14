@@ -170,7 +170,7 @@ export default function Estoques({ estoques, estoque }) {
             return 'Data inválida';
         }
 
-        const dataObj = new Date(`${partes[0]}-${partes[1]}-${partes[2]}`);
+        const dataObj = new Date(`${partes[0] + 1}-${partes[1]}-${partes[2]}`);
         if (isNaN(dataObj.getTime())) {
             // Caso a data seja inválida
             return 'Data inválida';
@@ -222,7 +222,7 @@ export default function Estoques({ estoques, estoque }) {
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Unidade</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Validade</Th>
                                             <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Valor</Th>
-                                            {/* <Th color={"#B5B7C0"} fontSize={"14px"} fontWeight={500}>Status</Th> */}
+
                                         </Tr>
                                     </Thead>
                                     <Tbody>
@@ -241,31 +241,17 @@ export default function Estoques({ estoques, estoque }) {
                                                             <Td color={"#474749"} fontSize={"14px"}>
                                                                 <Link href={`/estoque/${item.id}/adicionar-produto`}>{item.name}</Link>
                                                             </Td>
-                                                            <Td
-                                                                textAlign={"start"}
-                                                                isNumeric
-                                                                color={"#474749"}
-                                                                fontSize={"14px"}
-                                                            >
+                                                            <Td color={"#474749"} fontSize={"14px"}>
+                                                                {item.unidade}
+
+                                                            </Td>
+                                                            <Td color={"#474749"} fontSize={"14px"}>
                                                                 {item.validade}
-
                                                             </Td>
                                                             <Td color={"#474749"} fontSize={"14px"}>
-                                                                {item.minimo}
-                                                            </Td>
-                                                            <Td color={"#474749"} fontSize={"14px"}>
-                                                                {item.valor}
+                                                                R$ {item.valor}
                                                             </Td>
 
-
-
-                                                            {/* <Td color={"#474749"} fontSize={"14px"}>
-                                                                <CardPacientes
-                                                                    text={item?.pago ? "Pago" : "Não Pago"}
-                                                                    bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                    color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                                />
-                                                            </Td> */}
                                                         </Tr>
                                                     ))
 
@@ -297,12 +283,7 @@ export default function Estoques({ estoques, estoque }) {
                                                                     </Td><Td color={"#474749"} fontSize={"14px"}>
                                                                         {item.name}
                                                                     </Td>
-                                                                    {/* <Td color={"#474749"} fontSize={"14px"}>
-                                                                        <CardPacientes
-                                                                            text={item?.pago ? "Pago" : "Não Pago"}
-                                                                            bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                            color={item?.pago ? "#0BB7AF" : "#F64E60"} />
-                                                                    </Td> */}
+
                                                                 </Tr>
                                                             </>
                                                         ))}
@@ -320,34 +301,18 @@ export default function Estoques({ estoques, estoque }) {
                                                                             <Td color={"#474749"} fontSize={"14px"}>
                                                                                 <Link href={`/estoque/${item.id}/adicionar-produto`}>{item.name}</Link>
                                                                             </Td>
-                                                                            <Td
-                                                                                textAlign={"start"}
-                                                                                isNumeric
-                                                                                color={"#474749"}
-                                                                                fontSize={"14px"}
-                                                                            >
+                                                                            <Td color={"#474749"} fontSize={"14px"}>
 
-                                                                                {item.validade}
+                                                                                {item.unidade}
                                                                             </Td>
                                                                             <Td color={"#474749"} fontSize={"14px"}>
-                                                                                {formatarDataBrasileira(item.unidade)}
+                                                                                {formatarDataBrasileira(item.validade)}
                                                                             </Td>
 
                                                                             <Td color={"#474749"} fontSize={"14px"}>
-                                                                                {item.valor}
+                                                                                R$ {item.valor}
                                                                             </Td>
 
-
-                                                                            {/* <Td color={"#474749"} fontSize={"14px"}>
-                                                                                <CardPacientes
-                                                                                    //@ts-ignore
-                                                                                    text={item?.pago ? "Pago" : "Não Pago"}
-                                                                                    //@ts-ignore
-                                                                                    bgOne={item?.pago ? "#0BB7AF26" : "#F64E6026"}
-                                                                                    //@ts-ignore
-                                                                                    color={item?.pago ? "#0BB7AF" : "#F64E60"}
-                                                                                />
-                                                                            </Td> */}
                                                                         </Tr>
                                                                     </>
                                                                 ))

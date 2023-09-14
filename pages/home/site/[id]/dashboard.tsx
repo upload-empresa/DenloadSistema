@@ -14,6 +14,7 @@ import { Select } from "@chakra-ui/react"
 import { ReactNode } from "react"
 import { subMonths } from "date-fns";
 import { Line, Pie } from "react-chartjs-2"
+import { ExampleChart } from "@/components/Calendar";
 
 interface SiteDashboardData {
     ganhos: Array<Ganho>;
@@ -97,7 +98,7 @@ export default function Home({ agendas, data, pacientes, children, }: SiteDashbo
                             const totalPacientes = filteredPacientes.length;
 
                             const data = {
-                                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abrill', 'Maio', 'Junho', 'Julho', 'Agost', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agost', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                                 datasets: [
                                     {
                                         fill: false,
@@ -131,6 +132,7 @@ export default function Home({ agendas, data, pacientes, children, }: SiteDashbo
 
                             return (
                                 <div>
+                                    {/* @ts-ignore */}
                                     <Line
                                         data={data}
                                         width={400}
@@ -220,7 +222,7 @@ export default function Home({ agendas, data, pacientes, children, }: SiteDashbo
                     </HStack>
                 </CardMain>
             </Stack>
-
+            <ExampleChart />
         </Main >
     )
 }
