@@ -28,32 +28,31 @@ import {
 } from '@chakra-ui/react'
 import type { Meta, WithChildren } from "@/types"
 import {
-    FiHome,
-    FiTrendingUp,
-    FiCompass,
-    FiStar,
-    FiSettings,
     FiMenu,
     FiBell,
     FiChevronDown,
 } from 'react-icons/fi'
-import { MdHome, MdEvent, MdGroup, MdAssignment, MdAccountBalanceWallet, MdEditCalendar, MdQuestionAnswer, MdPerson, MdOutlineLogout, MdMenu, MdClose } from 'react-icons/md'
+import { MdHome, MdEvent, MdGroup, MdAssignment, MdAccountBalanceWallet, MdEditCalendar, MdQuestionAnswer } from 'react-icons/md'
 import { IconType } from 'react-icons'
 import { FigureImage } from '../FigureImage'
-import { AnyCnameRecord } from 'dns'
 import React from 'react'
+import Cookies from 'js-cookie'
+import { useState } from 'react'
+import useRequireAuth from "../../lib/useRequireAuth";
+import Loader from '../app/Loader';
 
 import {
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
-    PopoverHeader,
-    PopoverBody,
-    PopoverFooter,
-    PopoverArrow,
-    PopoverCloseButton,
     Button,
-    PopoverAnchor,
+} from '@chakra-ui/react'
+
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
 } from '@chakra-ui/react'
 
 interface LinkItemProps {
@@ -69,21 +68,24 @@ interface NavItemProps extends FlexProps {
 }
 
 interface MobileProps extends FlexProps {
-    onOpen: () => void
+    onOpen1: () => void
 }
 
 interface SidebarProps extends BoxProps {
     onClose: () => void
 }
+const siteId = Cookies.get('siteId')
+
+
 
 const LinkItems: Array<LinkItemProps> = [
-    { name: 'Dashboard', icon: MdHome, href: 'iba1' },
-    { name: 'Agenda', icon: MdEvent, href: 'iba2' },
-    { name: 'Pacientes', icon: MdGroup, href: 'iba3' },
-    { name: 'Estoque', icon: MdAssignment, href: 'iba' },
-    { name: 'Financeiro', icon: MdAccountBalanceWallet, href: 'iba' },
-    { name: 'Dia', icon: MdEditCalendar, href: 'iba' },
-    { name: 'Feedback', icon: MdQuestionAnswer, href: 'iba' },
+    { name: 'Dashboard', icon: MdHome, href: `/site/${siteId}/dashboard` },
+    { name: 'Agenda', icon: MdEvent, href: "https://calendar.google.com/" },
+    { name: 'Pacientes', icon: MdGroup, href: `/site/${siteId}/` },
+    { name: 'Estoque', icon: MdAssignment, href: `/site/${siteId}/estoques` },
+    { name: 'Financeiro', icon: MdAccountBalanceWallet, href: `/site/${siteId}/financeiro` },
+    { name: 'Dia', icon: MdEditCalendar, href: `/site/${siteId}/dia` },
+    { name: 'Feedback', icon: MdQuestionAnswer, href: `/site/${siteId}/feedback` },
 ]
 
 // const initialFocusRef = React.useRef()
@@ -101,7 +103,13 @@ interface SidebarProps extends WithChildren {
 }
 
 
+
+
+
+
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+    // const session = useRequireAuth()
+    // if (!session) return <Loader />
     return (
         <Box
             transition="3s ease"
@@ -161,7 +169,83 @@ const NavItem = ({ icon, href, children, ...rest }: NavItemProps) => {
     )
 }
 
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+const MobileNav = ({ onOpen1, ...rest }: MobileProps) => {
+    const session = useRequireAuth()
+    const [step, setStep] = useState(1);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    if (!session) return <Loader />
+
+    const handleNextStep = () => {
+        setStep(step + 1);
+    };
+
+    const renderModalContent = () => {
+        switch (step) {
+            case 1:
+                return (
+                    <div>
+                        <ModalHeader fontWeight='bold'>Passo 1 de 4</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            Passo 1: Aqui está a primeira etapa do tutorial.
+                        </ModalBody>
+                        <ModalFooter>
+                            <ButtonGroup>
+                                <Button colorScheme='gray' onClick={onClose}>
+                                    Fechar
+                                </Button>
+                                <Button colorScheme='blue' onClick={handleNextStep}>
+                                    Próximo
+                                </Button>
+                            </ButtonGroup>
+                        </ModalFooter>
+                    </div>
+                );
+
+            case 2:
+                return (
+                    <div>
+                        <ModalHeader fontWeight='bold'>Passo 2 de 4</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            Passo 2: Agora, siga estas instruções.
+                        </ModalBody>
+                        <ModalFooter>
+                            <ButtonGroup>
+                                <Button colorScheme='gray' onClick={onClose}>
+                                    Fechar
+                                </Button>
+                                <Button colorScheme='blue' onClick={handleNextStep}>
+                                    Próximo
+                                </Button>
+                            </ButtonGroup>
+                        </ModalFooter>
+                    </div>
+                );
+
+            default:
+                return (
+                    <div>
+                        <ModalHeader fontWeight='bold'>Passo {step} de 4</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            Passo {step}: Conteúdo do passo atual.
+                        </ModalBody>
+                        <ModalFooter>
+                            <ButtonGroup>
+                                <Button colorScheme='gray' onClick={onClose}>
+                                    Fechar
+                                </Button>
+                                <Button colorScheme='blue' onClick={handleNextStep}>
+                                    {step === 4 ? 'Concluir' : 'Próximo'}
+                                </Button>
+                            </ButtonGroup>
+                        </ModalFooter>
+                    </div>
+                );
+        }
+    };
+
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
@@ -175,7 +259,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             {...rest}>
             <IconButton
                 display={{ base: 'flex', md: 'none' }}
-                onClick={onOpen}
+                onClick={onOpen1}
                 variant="outline"
                 aria-label="open menu"
                 icon={<FiMenu />}
@@ -190,7 +274,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             </Text>
 
             <HStack spacing={{ base: '0', md: '6' }}>
-                <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
+                {/* <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} /> */}
                 <Flex alignItems={'center'}>
                     <Menu>
                         <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
@@ -203,24 +287,27 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                                 >
                                     <AvatarBadge boxSize='1.25em' bg='green.500' />
 
-
-
                                 </Avatar>
 
 
-                                <VStack
-                                    display={{ base: 'none', md: 'flex' }}
-                                    alignItems="flex-start"
-                                    spacing="1px"
-                                    ml="2">
-                                    <Text fontSize="sm">Justina Clark</Text>
-                                    <Text fontSize="xs" color="gray.600">
-                                        Admin
-                                    </Text>
-                                </VStack>
-                                <Box display={{ base: 'none', md: 'flex' }}>
-                                    <FiChevronDown />
-                                </Box>
+                                {session.user && (
+                                    <>
+                                        <VStack
+                                            display={{ base: 'none', md: 'flex' }}
+                                            alignItems="flex-start"
+                                            spacing="1px"
+                                            ml="2">
+                                            <Text fontSize="sm">{session.user.name}</Text>
+                                            <Text fontSize="xs" color="gray.600">
+                                                Admin
+                                            </Text>
+                                        </VStack>
+                                        <Box display={{ base: 'none', md: 'flex' }}>
+                                            <FiChevronDown />
+                                        </Box>
+                                    </>
+                                )}
+
                             </HStack>
                         </MenuButton>
                         <MenuList
@@ -229,46 +316,21 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                             <MenuItem>Perfil</MenuItem>
                             <MenuDivider />
                             <MenuItem>Sair</MenuItem>
-                            <Popover
-                                // initialFocusRef={initialFocusRef}
-                                placement='bottom'
-                                closeOnBlur={false}
-                            >
-                                <PopoverTrigger>
-                                    <Button backgroundColor="white">Tutorial</Button>
-                                </PopoverTrigger>
-                                <PopoverContent color='white' bg='#66686A' borderColor='#66686A'>
-                                    <PopoverHeader pt={4} fontWeight='bold' border='0'>
-                                        Veja seu perfil
-                                    </PopoverHeader>
-                                    <PopoverArrow bg='#66686A' />
-                                    <PopoverCloseButton />
-                                    <PopoverBody>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                        eiusmod tempor incididunt ut labore et dolore.
-                                    </PopoverBody>
-                                    <PopoverFooter
-                                        border='0'
-                                        display='flex'
-                                        alignItems='center'
-                                        justifyContent='space-between'
-                                        pb={4}
-                                    >
-                                        <Box fontSize='sm'>Passo 2 de 4</Box>
-                                        <ButtonGroup size='sm'>
-                                            <Button colorScheme='gray'>Já sei usar</Button>
-                                            <Button colorScheme='blue'>
-                                                Próximo
-                                            </Button>
-                                        </ButtonGroup>
-                                    </PopoverFooter>
-                                </PopoverContent>
-                            </Popover>
+
+                            <Button onClick={onOpen}>Open Modal</Button>
+
+                            <Modal isOpen={isOpen} onClose={onClose} size="sm">
+                                <ModalOverlay />
+                                <ModalContent>
+                                    {renderModalContent()}
+                                </ModalContent>
+                            </Modal>
+
                         </MenuList>
                     </Menu>
                 </Flex>
-            </HStack>
-        </Flex>
+            </HStack >
+        </Flex >
     )
 }
 
@@ -290,7 +352,7 @@ const SidebarWithHeader = ({ children, title, button, wi, path, altText, tamh, t
                 </DrawerContent>
             </Drawer>
             {/* mobilenav */}
-            <MobileNav onOpen={onOpen} />
+            <MobileNav onOpen1={onOpen} />
             <Box ml={{ base: 0, md: 60 }} p="4">
                 <HStack as="section" bg="#EDF1F2" pb={5} pt={10} spacing={0} px={7} align="start">
                     <Stack w={{ lg: "80vw", xxs: "90vw" }} spacing={6}>
