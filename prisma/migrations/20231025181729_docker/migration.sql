@@ -3,18 +3,18 @@ CREATE TYPE "GrupoType" AS ENUM ('Infantil', 'Jovem', 'Adulto', 'Idoso');
 
 -- CreateTable
 CREATE TABLE "User" (
-    "id" STRING NOT NULL,
-    "name" STRING,
-    "celular" STRING,
-    "endereco" STRING,
-    "password" STRING,
-    "token" STRING,
-    "username" STRING,
-    "gh_username" STRING,
-    "email" STRING,
+    "id" TEXT NOT NULL,
+    "name" TEXT,
+    "celular" TEXT,
+    "endereco" TEXT,
+    "password" TEXT,
+    "token" TEXT,
+    "username" TEXT,
+    "gh_username" TEXT,
+    "email" TEXT,
     "emailVerified" TIMESTAMP(3),
-    "image" STRING,
-    "userHasPaid" BOOL,
+    "image" TEXT,
+    "userHasPaid" BOOLEAN,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -23,30 +23,30 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Account" (
-    "id" STRING NOT NULL,
-    "userId" STRING NOT NULL,
-    "type" STRING NOT NULL,
-    "provider" STRING NOT NULL,
-    "providerAccountId" STRING NOT NULL,
-    "refresh_token" STRING,
-    "refresh_token_expires_in" INT4,
-    "access_token" STRING,
-    "expires_at" INT4,
-    "token_type" STRING,
-    "scope" STRING,
-    "id_token" STRING,
-    "session_state" STRING,
-    "oauth_token_secret" STRING,
-    "oauth_token" STRING,
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "provider" TEXT NOT NULL,
+    "providerAccountId" TEXT NOT NULL,
+    "refresh_token" TEXT,
+    "refresh_token_expires_in" INTEGER,
+    "access_token" TEXT,
+    "expires_at" INTEGER,
+    "token_type" TEXT,
+    "scope" TEXT,
+    "id_token" TEXT,
+    "session_state" TEXT,
+    "oauth_token_secret" TEXT,
+    "oauth_token" TEXT,
 
     CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Session" (
-    "id" STRING NOT NULL,
-    "sessionToken" STRING NOT NULL,
-    "userId" STRING NOT NULL,
+    "id" TEXT NOT NULL,
+    "sessionToken" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
@@ -54,246 +54,249 @@ CREATE TABLE "Session" (
 
 -- CreateTable
 CREATE TABLE "VerificationToken" (
-    "identifier" STRING NOT NULL,
-    "token" STRING NOT NULL,
+    "identifier" TEXT NOT NULL,
+    "token" TEXT NOT NULL,
     "expires" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateTable
 CREATE TABLE "Post" (
-    "id" STRING NOT NULL,
-    "title" STRING,
-    "description" STRING,
-    "content" STRING,
-    "slug" STRING NOT NULL,
-    "image" STRING,
-    "imageBlurhash" STRING,
+    "id" TEXT NOT NULL,
+    "title" TEXT,
+    "description" TEXT,
+    "content" TEXT,
+    "slug" TEXT NOT NULL,
+    "image" TEXT,
+    "imageBlurhash" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "published" BOOL NOT NULL DEFAULT false,
-    "siteId" STRING,
+    "published" BOOLEAN NOT NULL DEFAULT false,
+    "siteId" TEXT,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Estoque" (
-    "id" STRING NOT NULL,
-    "name" STRING,
-    "slug" STRING,
-    "validade" STRING,
-    "minimo" STRING,
-    "unidade" STRING,
-    "vencimento" STRING,
-    "dataDaCompra" STRING,
-    "valor" STRING,
-    "valorTotal" STRING,
-    "image" STRING,
-    "imageBlurhash" STRING,
-    "pago" BOOL NOT NULL DEFAULT false,
+    "id" TEXT NOT NULL,
+    "name" TEXT,
+    "slug" TEXT,
+    "validade" TEXT,
+    "minimo" TEXT,
+    "unidade" TEXT,
+    "vencimento" TEXT,
+    "dataDaCompra" TEXT,
+    "valor" TEXT,
+    "valorTotal" TEXT,
+    "image" TEXT,
+    "imageBlurhash" TEXT,
+    "pago" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "siteId" STRING,
+    "siteId" TEXT,
 
     CONSTRAINT "Estoque_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Feedback" (
-    "id" STRING NOT NULL,
+    "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "message" STRING,
-    "email" STRING,
-    "slug" STRING,
-    "name" STRING,
-    "nota" STRING,
-    "image" STRING,
-    "imageBlurhash" STRING,
-    "siteId" STRING,
+    "message" TEXT,
+    "email" TEXT,
+    "slug" TEXT,
+    "name" TEXT,
+    "nota" TEXT,
+    "image" TEXT,
+    "imageBlurhash" TEXT,
+    "siteId" TEXT,
 
     CONSTRAINT "Feedback_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Paciente" (
-    "id" STRING NOT NULL,
-    "name" STRING,
-    "telefone" STRING,
-    "sexo" STRING,
-    "observacoes" STRING,
-    "anotacoes" STRING,
-    "rg" STRING,
-    "cpf" STRING,
-    "endereco" STRING,
-    "cep" STRING,
-    "complemento" STRING,
-    "email" STRING,
-    "grupo" "GrupoType",
-    "image" STRING,
-    "imageBlurhash" STRING,
-    "pago" BOOL NOT NULL DEFAULT false,
-    "slug" STRING,
+    "id" TEXT NOT NULL,
+    "name" TEXT,
+    "telefone" TEXT,
+    "sexo" TEXT,
+    "observacoes" TEXT,
+    "anotacoes" TEXT,
+    "rg" TEXT,
+    "cpf" TEXT,
+    "endereco" TEXT,
+    "cep" TEXT,
+    "complemento" TEXT,
+    "email" TEXT,
+    "grupo" "GrupoType" DEFAULT 'Infantil',
+    "image" TEXT,
+    "imageBlurhash" TEXT,
+    "pago" BOOLEAN NOT NULL DEFAULT false,
+    "slug" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "siteId" STRING,
+    "siteId" TEXT,
 
     CONSTRAINT "Paciente_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Agenda" (
-    "id" STRING NOT NULL,
-    "slug" STRING,
+    "id" TEXT NOT NULL,
+    "slug" TEXT,
     "horario" TIMESTAMP(3),
-    "dia" STRING,
-    "valor" STRING,
-    "procedimento" STRING,
+    "dia" TEXT,
+    "valor" TEXT,
+    "procedimento" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "image" STRING,
-    "imageBlurhash" STRING,
-    "siteId" STRING,
-    "pacienteId" STRING,
+    "image" TEXT,
+    "imageBlurhash" TEXT,
+    "siteId" TEXT,
+    "pacienteId" TEXT,
 
     CONSTRAINT "Agenda_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Author" (
-    "id" STRING NOT NULL,
-    "firstName" STRING NOT NULL,
-    "lastName" STRING NOT NULL,
+    "id" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
 
     CONSTRAINT "Author_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Iba" (
-    "id" STRING NOT NULL,
-    "title" STRING NOT NULL,
-    "body" STRING NOT NULL,
-    "authorId" STRING,
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "body" TEXT NOT NULL,
+    "authorId" TEXT,
 
     CONSTRAINT "Iba_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Anamnese" (
-    "id" STRING NOT NULL,
-    "slug" STRING,
-    "pergunta" STRING,
-    "resposta" STRING,
+    "id" TEXT NOT NULL,
+    "slug" TEXT,
+    "pergunta" TEXT,
+    "resposta" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "image" STRING,
-    "imageBlurhash" STRING,
-    "published" BOOL NOT NULL DEFAULT false,
-    "pacienteId" STRING,
+    "image" TEXT,
+    "imageBlurhash" TEXT,
+    "published" BOOLEAN NOT NULL DEFAULT false,
+    "pacienteId" TEXT,
 
     CONSTRAINT "Anamnese_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Foto" (
-    "id" STRING NOT NULL,
-    "url" STRING,
-    "pacienteId" STRING,
+    "id" TEXT NOT NULL,
+    "url" TEXT,
+    "pacienteId" TEXT,
 
     CONSTRAINT "Foto_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Documento" (
-    "id" STRING NOT NULL,
-    "url" STRING,
-    "pacienteId" STRING,
+    "id" TEXT NOT NULL,
+    "url" TEXT,
+    "pacienteId" TEXT,
 
     CONSTRAINT "Documento_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Despesa" (
-    "id" STRING NOT NULL,
-    "name" STRING,
-    "slug" STRING,
-    "valor" STRING,
-    "vencimento" STRING,
-    "dataDaCompra" STRING,
-    "empresa" STRING,
-    "pago" BOOL NOT NULL DEFAULT false,
+    "id" TEXT NOT NULL,
+    "name" TEXT,
+    "slug" TEXT,
+    "valor" TEXT,
+    "vencimento" TEXT,
+    "dataDaCompra" TEXT,
+    "empresa" TEXT,
+    "pago" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "siteId" STRING,
+    "siteId" TEXT,
 
     CONSTRAINT "Despesa_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Ganho" (
-    "id" STRING NOT NULL,
-    "name" STRING,
-    "slug" STRING,
-    "empresa" STRING,
-    "valor" STRING,
-    "recebimento" STRING,
-    "pago" BOOL NOT NULL DEFAULT false,
+    "id" TEXT NOT NULL,
+    "name" TEXT,
+    "slug" TEXT,
+    "empresa" TEXT,
+    "valor" TEXT,
+    "recebimento" TEXT,
+    "pago" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "siteId" STRING,
+    "siteId" TEXT,
 
     CONSTRAINT "Ganho_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Site" (
-    "id" STRING NOT NULL,
-    "name" STRING,
-    "estado" STRING,
-    "cidade" STRING,
-    "email" STRING,
-    "celular" STRING,
-    "description" STRING,
-    "logo" STRING,
-    "font" STRING NOT NULL DEFAULT 'font-cal',
-    "image" STRING,
-    "imageBlurhash" STRING,
-    "subdomain" STRING,
-    "customDomain" STRING,
+    "id" TEXT NOT NULL,
+    "name" TEXT,
+    "estado" TEXT,
+    "cidade" TEXT,
+    "email" TEXT,
+    "celular" TEXT,
+    "description" TEXT,
+    "logo" TEXT,
+    "font" TEXT NOT NULL DEFAULT 'font-cal',
+    "image" TEXT,
+    "imageBlurhash" TEXT,
+    "subdomain" TEXT,
+    "customDomain" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "stripeCustomer" STRING,
-    "userId" STRING,
+    "stripeCustomer" TEXT,
+    "userId" TEXT,
 
     CONSTRAINT "Site_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Example" (
-    "id" INT4 NOT NULL DEFAULT unique_rowid(),
-    "name" STRING,
-    "description" STRING,
-    "domainCount" INT4,
-    "url" STRING,
-    "image" STRING,
-    "imageBlurhash" STRING,
+    "id" SERIAL NOT NULL,
+    "name" TEXT,
+    "description" TEXT,
+    "domainCount" INTEGER,
+    "url" TEXT,
+    "image" TEXT,
+    "imageBlurhash" TEXT,
 
     CONSTRAINT "Example_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Subscription" (
-    "id" STRING NOT NULL,
-    "stripeId" STRING,
+    "id" TEXT NOT NULL,
+    "stripeId" TEXT,
     "createdAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "currentPeriodStart" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "currentPeriodEnd" TIMESTAMP(3) NOT NULL,
-    "subscriptionStatus" BOOL NOT NULL,
-    "siteId" STRING,
+    "subscriptionStatus" BOOLEAN NOT NULL,
+    "siteId" TEXT,
 
     CONSTRAINT "Subscription_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_token_key" ON "User"("token");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

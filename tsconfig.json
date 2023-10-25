@@ -36,6 +36,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "pages/api/google.js"
-, "jest.config.js"  ],
+, "jest.config.js", "__tests__/login.test.tsx"  ],
   "exclude": ["node_modules"]
 }

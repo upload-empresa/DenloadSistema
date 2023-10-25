@@ -40,7 +40,7 @@ const Login: NextPageWithLayout<
     initialValues: {
       email: "",
       password: "",
-    },
+    },  
     validationSchema: Yup.object().shape({
       email: Yup.string().required().email(),
       password: Yup.string().required(),
