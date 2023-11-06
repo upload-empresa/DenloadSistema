@@ -45,7 +45,7 @@ export async function getPaciente(
           id: pacienteId,
           site: {
             user: {
-              id: '2e232hf298h3fecf',
+              id: 'clom02sp80000ufn8aqtah56e',
             },
           },
         },
@@ -61,7 +61,7 @@ export async function getPaciente(
       where: {
         id: siteId,
         user: {
-          id: '2e232hf298h3fecf',
+          id: 'clom02sp80000ufn8aqtah56e',
         },
       },
     });
@@ -119,7 +119,7 @@ export async function getPacienteDay(
           id: pacienteId,
           site: {
             user: {
-              id: '2e232hf298h3fecf',
+              id: 'clom02sp80000ufn8aqtah56e',
             },
           },
         },
@@ -135,7 +135,7 @@ export async function getPacienteDay(
       where: {
         id: siteId,
         user: {
-          id: '2e232hf298h3fecf',
+          id: 'clom02sp80000ufn8aqtah56e',
         },
       },
     });
@@ -198,7 +198,7 @@ export async function getPacientesWithSearch(
         site: {
           id: siteId,
           user: {
-            id: '2e232hf298h3fecf',
+            id: 'clom02sp80000ufn8aqtah56e',
           },
         },
         name: {
@@ -257,7 +257,7 @@ export async function getPacientesWithSelect(
         site: {
           id: siteId,
           user: {
-            id: '2e232hf298h3fecf',
+            id: 'clom02sp80000ufn8aqtah56e',
           },
         },
       },
@@ -298,7 +298,7 @@ export async function createPaciente(
     where: {
       id: siteId,
       user: {
-        id: '2e232hf298h3fecf',
+        id: 'clom02sp80000ufn8aqtah56e',
       },
     },
   });
@@ -361,7 +361,7 @@ export async function createPacienteAnamnese(
     where: {
       id: siteId,
       user: {
-        id: '2e232hf298h3fecf',
+        id: 'clom02sp80000ufn8aqtah56e',
       },
     },
   });
@@ -425,7 +425,7 @@ export async function deletePaciente(
         },
       },
       user: {
-        id: '2e232hf298h3fecf',
+        id: 'clom02sp80000ufn8aqtah56e',
       },
     },
   });
@@ -530,7 +530,7 @@ export async function updatePaciente(
         },
       },
       user: {
-        id: '2e232hf298h3fecf',
+        id: 'clom02sp80000ufn8aqtah56e',
       },
     },
   });
