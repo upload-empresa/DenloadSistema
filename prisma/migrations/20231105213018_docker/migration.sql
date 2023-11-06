@@ -129,7 +129,7 @@ CREATE TABLE "Paciente" (
     "cep" STRING,
     "complemento" STRING,
     "email" STRING,
-    "grupo" "GrupoType",
+    "grupo" "GrupoType" DEFAULT 'Infantil',
     "image" STRING,
     "imageBlurhash" STRING,
     "pago" BOOL NOT NULL DEFAULT false,
@@ -294,6 +294,9 @@ CREATE TABLE "Subscription" (
 
     CONSTRAINT "Subscription_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_token_key" ON "User"("token");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

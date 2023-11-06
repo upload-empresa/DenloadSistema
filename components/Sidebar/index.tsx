@@ -26,6 +26,7 @@ import {
     Heading,
     AvatarBadge
 } from '@chakra-ui/react'
+import { signOut } from 'next-auth/react';
 import type { Meta, WithChildren } from "@/types"
 import {
     FiMenu,
@@ -315,7 +316,7 @@ const MobileNav = ({ onOpen1, ...rest }: MobileProps) => {
                             borderColor={useColorModeValue('gray.200', 'gray.700')}>
                             <MenuItem>Perfil</MenuItem>
                             <MenuDivider />
-                            <MenuItem>Sair</MenuItem>
+                            <MenuItem onClick={() => signOut()}>Sair</MenuItem>
 
                             <Button onClick={onOpen}>Open Modal</Button>
 

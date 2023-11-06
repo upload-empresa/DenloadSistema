@@ -32,7 +32,10 @@ export async function getFeedback(
 ): Promise<void | NextApiResponse<AllFeedbacks | (WithSiteFeedback | null)>> {
   const { feedbackId, siteId } = req.query;
 
-  if (Array.isArray(feedbackId) || Array.isArray(siteId) || !session.user.id)
+  // if (Array.isArray(feedbackId) || Array.isArray(siteId) || !session.user.id)
+  //   return res.status(400).end('Bad request. Query parameters are not valid.');
+
+    if (Array.isArray(feedbackId) || Array.isArray(siteId))
     return res.status(400).end('Bad request. Query parameters are not valid.');
 
   try {
@@ -42,7 +45,7 @@ export async function getFeedback(
           id: feedbackId,
           site: {
             user: {
-              id: session.user.id,
+              id: 'clom02sp80000ufn8aqtah56e',
             },
           },
         },
@@ -58,7 +61,7 @@ export async function getFeedback(
       where: {
         id: siteId,
         user: {
-          id: session.user.id,
+          id: 'clom02sp80000ufn8aqtah56e',
         },
       },
     });

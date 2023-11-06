@@ -7,6 +7,8 @@ import prisma from '@/lib/prisma';
 import type { Site } from '.prisma/client';
 import type { Session } from 'next-auth';
 import { placeholderBlurhash } from '../utils';
+import { getSession } from 'next-auth/react';
+
 
 /**
  * Get Site
@@ -31,8 +33,22 @@ export async function getSite(
       .status(400)
       .end('Bad request. siteId parameter cannot be an array.');
 
-  if (!session.user.id)
-    return res.status(500).end('Server failed to get session user ID');
+  // if (!session.user.id)
+  //   return res.status(500).end('Server failed to get session user ID');
+
+  const email = session?.user.email;
+
+  if (typeof email !== 'string' || !email.trim()) {
+    return res.status(400).end('Bad request. email query parameter is not valid.');
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+
+  const userId = user?.id;
 
   try {
     if (siteId) {
@@ -40,18 +56,18 @@ export async function getSite(
         where: {
           id: siteId,
           user: {
-            id: session.user.id,
+            id: userId,
           },
         },
       });
 
       return res.status(200).json(settings);
     }
-
+console.log(userId)
     const sites = await prisma.site.findMany({
       where: {
         user: {
-          id: session.user.id,
+          id: userId,
         },
       },
     });
