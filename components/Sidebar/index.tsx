@@ -176,6 +176,9 @@ const MobileNav = ({ onOpen1, ...rest }: MobileProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     if (!session) return <Loader />
 
+    // const iconColor = useColorModeValue('white', 'gray.900');
+    // const borderColor = useColorModeValue('gray.200', 'gray.700');
+
     const handleNextStep = () => {
         setStep(step + 1);
     };
@@ -253,9 +256,9 @@ const MobileNav = ({ onOpen1, ...rest }: MobileProps) => {
             px={{ base: 4, md: 4 }}
             height="20"
             alignItems="center"
-            bg={useColorModeValue('white', 'gray.900')}
+            bg={('gray.900')}
             borderBottomWidth="1px"
-            borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+            borderBottomColor={('gray.700')}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
             {...rest}>
             <IconButton
@@ -312,8 +315,8 @@ const MobileNav = ({ onOpen1, ...rest }: MobileProps) => {
                             </HStack>
                         </MenuButton>
                         <MenuList
-                            bg={useColorModeValue('white', 'gray.900')}
-                            borderColor={useColorModeValue('gray.200', 'gray.700')}>
+                            bg={('gray.900')}
+                            borderColor={('gray.700')}>
                             <MenuItem>Perfil</MenuItem>
                             <MenuDivider />
                             <MenuItem onClick={() => signOut()}>Sair</MenuItem>

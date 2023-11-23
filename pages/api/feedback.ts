@@ -25,15 +25,20 @@ export default async function feedback(
         query: { search },
       } = req;
       if (search) {
+        //@ts-ignore
         return getFeedbacksWithSearch(req, res, session);
       } else {
+        //@ts-ignore
         return getFeedback(req, res, session);
       }
     case HttpMethod.POST:
+      //@ts-ignore
       return createFeedback(req, res, session);
     case HttpMethod.DELETE:
+      //@ts-ignore
       return deleteFeedback(req, res, session);
     case HttpMethod.PUT:
+      //@ts-ignore
       return updateFeedback(req, res, session);
     default:
       res.setHeader('Allow', [

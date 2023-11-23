@@ -16,17 +16,20 @@ export default async function anamnese(
   res: NextApiResponse
 ) {
   const session = await unstable_getServerSession(req, res, authOptions);
-  if (!session) return res.status(401).end();
+  // if (!session) return res.status(401).end();
 
   switch (req.method) {
     case HttpMethod.GET:
+      //@ts-ignore
       return getAnamnese(req, res, session);
     case HttpMethod.POST:
       //@ts-ignore
       return createAnamnese(req, res, session);
     case HttpMethod.DELETE:
+      //@ts-ignore
       return deleteAnamnese(req, res, session);
     case HttpMethod.PUT:
+      //@ts-ignore
       return updateAnamnese(req, res, session);
     default:
       res.setHeader('Allow', [

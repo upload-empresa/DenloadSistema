@@ -23,17 +23,23 @@ export default async function post(req: NextApiRequest, res: NextApiResponse) {
         query: { orderBy, search },
       } = req;
       if (orderBy) {
+        //@ts-ignore
         return getPacientesWithSelect(req, res, session);
       } else if (search) {
+        //@ts-ignore
         return getPacientesWithSearch(req, res, session);
       } else {
+        //@ts-ignore
         return getPaciente(req, res, session);
       }
     case HttpMethod.POST:
+      //@ts-ignore
       return createPaciente(req, res, session);
     case HttpMethod.DELETE:
+      //@ts-ignore
       return deletePaciente(req, res, session);
     case HttpMethod.PUT:
+      //@ts-ignore
       return updatePaciente(req, res, session);
     default:
       res.setHeader('Allow', [

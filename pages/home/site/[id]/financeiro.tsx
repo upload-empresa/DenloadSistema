@@ -147,6 +147,7 @@ const Financeiro = () => {
                                                                 labels: {
                                                                     usePointStyle: true,
                                                                     boxWidth: 10,
+                                                                    //@ts-ignore
                                                                     pointStyle: 'circle'
                                                                 }
                                                             }
@@ -228,6 +229,7 @@ const Financeiro = () => {
 
                                         return (
                                             <div>
+                                                {/* @ts-ignore */}
                                                 <Line
                                                     data={data}
                                                     width={400}

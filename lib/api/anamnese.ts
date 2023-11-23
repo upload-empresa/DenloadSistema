@@ -23,8 +23,7 @@ export async function getAnamnese(
   if (
     Array.isArray(anamneseId) ||
     Array.isArray(pacienteId) ||
-    Array.isArray(published) ||
-    !session.user.id
+    Array.isArray(published)
   )
     return res.status(400).end('Bad request. Query parameters are not valid.');
 

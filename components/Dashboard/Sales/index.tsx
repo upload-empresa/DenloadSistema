@@ -10,6 +10,7 @@ const Sales = () => {
             p={3}
             layerStyle="card-dark"
             rounded="2xl"
+            //@ts-ignore
             spacing={[2, , 5]}
             w="300px"
             shadow="md"

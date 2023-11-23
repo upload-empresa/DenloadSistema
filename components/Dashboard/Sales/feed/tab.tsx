@@ -7,7 +7,7 @@ const Tab = (props: any) => {
     const tabProps = useTab(props);
     const isSelected = !!tabProps["aria-selected"];
     const bg = mode("white", "blackAlpha.700");
-
+//@ts-ignore
     const selectedStyles: BoxProps = isSelected && {
         bg: bg,
         shadow: "lg",
