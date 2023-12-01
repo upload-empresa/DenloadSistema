@@ -11,6 +11,7 @@ import Layout from "@/components/app/Layout";
 import Loader from "@/components/app/Loader";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
+import Cookies from 'js-cookie'
 
 import type { ChangeEvent } from "react";
 
@@ -22,6 +23,8 @@ interface GanhoData {
     recebimento: string;
     pago: any;
 }
+
+const siteId = Cookies.get('siteId')
 
 export default function AddFinanceiroGanho() {
     const router = useRouter();
@@ -182,14 +185,14 @@ export default function AddFinanceiroGanho() {
             if (response.ok) {
                 setPago(true),
                     mutate(`/api/ganho?ganhoId=${ganhoId}`);
-                router.back();
+                router.push(`/site/${siteId}/ganhos`);
             }
         } catch (error) {
             console.error(error);
         } finally {
             setPublishing(false);
             setPago(false)
-            router.back();
+            router.push(`/site/${siteId}/ganhos`);
         }
     }
 

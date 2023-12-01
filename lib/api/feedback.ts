@@ -35,7 +35,7 @@ export async function getFeedback(
   // if (Array.isArray(feedbackId) || Array.isArray(siteId) || !session.user.id)
   //   return res.status(400).end('Bad request. Query parameters are not valid.');
 
-    if (Array.isArray(feedbackId) || Array.isArray(siteId))
+  if (Array.isArray(feedbackId) || Array.isArray(siteId) || !session.user.id)
     return res.status(400).end('Bad request. Query parameters are not valid.');
 
   try {
@@ -45,7 +45,7 @@ export async function getFeedback(
           id: feedbackId,
           site: {
             user: {
-              id: 'clom02sp80000ufn8aqtah56e',
+              id: session.user.id,
             },
           },
         },
@@ -61,7 +61,7 @@ export async function getFeedback(
       where: {
         id: siteId,
         user: {
-          id: 'clom02sp80000ufn8aqtah56e',
+          id: session.user.id,
         },
       },
     });

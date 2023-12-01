@@ -319,7 +319,7 @@ export default function DadosDoPaciente() {
                 <CardMainPlus>
                     <CardIconPacientes icon={IoPersonOutline} text={"Dados"} href={`/paciente/${pacienteId}/dadospaciente`} />
                     <CardIconPacientes icon={MdOutlineInsertDriveFile} text={"Documentos"} href={`/paciente/${pacienteId}/documentos-do-paciente`} />
-                    <CardIconPacientes icon={MdOutlineImageSearch} text={"Imagens"} href={`/paciente/${pacienteId}/fototeste`} />
+                    <CardIconPacientes icon={MdOutlineImageSearch} text={"Imagens"} href={`/paciente/${pacienteId}/fotos-do-paciente`} />
                     <CardIconPacientes icon={MdEditNote} text={"Anamneses"} href={`/paciente/${pacienteId}/anamnese`} />
                     <CardIconPacientes icon={SlNote} text={"Anotações"} href={`/paciente/${pacienteId}/anotacoes`} />
                 </CardMainPlus>

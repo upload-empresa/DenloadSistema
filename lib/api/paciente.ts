@@ -35,7 +35,7 @@ export async function getPaciente(
   // if (Array.isArray(pacienteId) || Array.isArray(siteId) || !session.user.id)
   //   return res.status(400).end('Bad request. Query parameters are not valid.');
 
-  if (Array.isArray(pacienteId) || Array.isArray(siteId))
+  if (Array.isArray(pacienteId) || Array.isArray(siteId) || !session.user.id)
     return res.status(400).end('Bad request. Query parameters are not valid.');
 
   try {
@@ -45,7 +45,7 @@ export async function getPaciente(
           id: pacienteId,
           site: {
             user: {
-              id: 'clom02sp80000ufn8aqtah56e',
+              id: session.user.id,
             },
           },
         },
@@ -61,7 +61,7 @@ export async function getPaciente(
       where: {
         id: siteId,
         user: {
-          id: 'clom02sp80000ufn8aqtah56e',
+          id: session.user.id,
         },
       },
     });
@@ -109,7 +109,7 @@ export async function getPacienteDay(
   // if (Array.isArray(pacienteId) || Array.isArray(siteId) || !session.user.id)
   //   return res.status(400).end('Bad request. Query parameters are not valid.');
 
-  if (Array.isArray(pacienteId) || Array.isArray(siteId))
+  if (Array.isArray(pacienteId) || Array.isArray(siteId) || !session.user.id)
     return res.status(400).end('Bad request. Query parameters are not valid.');
 
   try {
@@ -119,7 +119,7 @@ export async function getPacienteDay(
           id: pacienteId,
           site: {
             user: {
-              id: 'clom02sp80000ufn8aqtah56e',
+              id: session.user.id,
             },
           },
         },
@@ -135,7 +135,7 @@ export async function getPacienteDay(
       where: {
         id: siteId,
         user: {
-          id: 'clom02sp80000ufn8aqtah56e',
+          id: session.user.id,
         },
       },
     });
@@ -189,7 +189,7 @@ export async function getPacientesWithSearch(
   // if (Array.isArray(pacienteId) || Array.isArray(siteId) || !session.user.id)
   //   return res.status(400).end('Bad request. Query parameters are not valid.');
 
-  if (Array.isArray(pacienteId) || Array.isArray(siteId))
+  if (Array.isArray(pacienteId) || Array.isArray(siteId) || !session.user.id)
     return res.status(400).end('Bad request. Query parameters are not valid.');
 
   try {
@@ -198,7 +198,7 @@ export async function getPacientesWithSearch(
         site: {
           id: siteId,
           user: {
-            id: 'clom02sp80000ufn8aqtah56e',
+            id: session.user.id,
           },
         },
         name: {
@@ -239,7 +239,7 @@ export async function getPacientesWithSelect(
   //     .end('Bad request. Search query parameter is not valid.');
   // }
 
-  if ((orderBy !== 'asc' && orderBy !== 'desc')) {
+  if (orderBy !== 'asc' && orderBy !== 'desc') {
     return res
       .status(400)
       .end('Bad request. Search query parameter is not valid.');
@@ -257,7 +257,7 @@ export async function getPacientesWithSelect(
         site: {
           id: siteId,
           user: {
-            id: 'clom02sp80000ufn8aqtah56e',
+            id: session.user.id,
           },
         },
       },
@@ -282,11 +282,11 @@ export async function createPaciente(
 }>> {
   const { siteId } = req.query;
 
-  // if (!siteId || typeof siteId !== 'string' || !session?.user?.id) {
-  //   return res
-  //     .status(400)
-  //     .json({ error: 'Missing or misconfigured site ID or session ID' });
-  // }
+  if (!siteId || typeof siteId !== 'string' || !session?.user?.id) {
+    return res
+      .status(400)
+      .json({ error: 'Missing or misconfigured site ID or session ID' });
+  }
 
   if (!siteId || typeof siteId !== 'string') {
     return res
@@ -298,7 +298,7 @@ export async function createPaciente(
     where: {
       id: siteId,
       user: {
-        id: 'clom02sp80000ufn8aqtah56e',
+        id: session.user.id,
       },
     },
   });
@@ -351,7 +351,7 @@ export async function createPacienteAnamnese(
   //     .json({ error: 'Missing or misconfigured site ID or session ID' });
   // }
 
-  if (!siteId || typeof siteId !== 'string') {
+  if (!siteId || typeof siteId !== 'string' || !session.user.id) {
     return res
       .status(400)
       .json({ error: 'Missing or misconfigured site ID or session ID' });
@@ -361,7 +361,7 @@ export async function createPacienteAnamnese(
     where: {
       id: siteId,
       user: {
-        id: 'clom02sp80000ufn8aqtah56e',
+        id: session.user.id,
       },
     },
   });
@@ -411,7 +411,7 @@ export async function deletePaciente(
   //     .json({ error: 'Missing or misconfigured site ID or session ID' });
   // }
 
-  if (!pacienteId || typeof pacienteId !== 'string') {
+  if (!pacienteId || typeof pacienteId !== 'string' || !session.user.id) {
     return res
       .status(400)
       .json({ error: 'Missing or misconfigured site ID or session ID' });
@@ -425,7 +425,7 @@ export async function deletePaciente(
         },
       },
       user: {
-        id: 'clom02sp80000ufn8aqtah56e',
+        id: session.user.id,
       },
     },
   });
@@ -516,7 +516,7 @@ export async function updatePaciente(
   //     .json({ error: 'Missing or misconfigured site ID or session ID' });
   // }
 
-  if (!id || typeof id !== 'string') {
+  if (!id || typeof id !== 'string' || !session.user.id) {
     return res
       .status(400)
       .json({ error: 'Missing or misconfigured site ID or session ID' });
@@ -530,7 +530,7 @@ export async function updatePaciente(
         },
       },
       user: {
-        id: 'clom02sp80000ufn8aqtah56e',
+        id: session.user.id,
       },
     },
   });

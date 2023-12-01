@@ -1,30 +1,30 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @types/moxy
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @react-pdf-viewer
 
 PATH: 
-  c:\Users\helen\.vscode\extensions\stateful.runme-1.9.1-win32-x64\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Docker\Docker\resources\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\helen\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\helen\AppData\Local\Programs\Python\Python311\;C:\Users\helen\scoop\shims;C:\Users\helen\AppData\Local\Microsoft\WindowsApps;;C:\Users\helen\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\helen\AppData\Roaming\npm;C:\Users\helen\AppData\Local\Yarn\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
+  c:\Users\helen\.vscode\extensions\stateful.runme-2.1.1-win32-x64\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Docker\Docker\resources\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Users\helen\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\helen\AppData\Local\Programs\Python\Python311\;C:\Users\helen\AppData\Local\Programs\Python\Launcher\;C:\Users\helen\scoop\shims;C:\Users\helen\AppData\Local\Microsoft\WindowsApps;;C:\Users\helen\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\helen\AppData\Local\Yarn\bin;C:\Users\helen\AppData\Local\Microsoft\WindowsApps;C:\Users\helen\AppData\Roaming\npm
 
 Yarn version: 
   1.22.19
 
 Node version: 
-  16.17.0
+  21.1.0
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fmoxy: Not found
-      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66145:18)
-      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140890:22)
-      at Request.emit (node:events:513:28)
+  Error: https://registry.yarnpkg.com/@react-pdf-viewer: Request "https://registry.yarnpkg.com/@react-pdf-viewer" returned a 405
+      at params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66154:18)
+      at self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140890:22)
+      at Request.emit (node:events:515:28)
       at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141862:10)
-      at Request.emit (node:events:513:28)
+      at Request.emit (node:events:515:28)
       at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141784:12)
-      at Object.onceWrapper (node:events:627:28)
-      at IncomingMessage.emit (node:events:525:35)
-      at endReadableNT (node:internal/streams/readable:1358:12)
-      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+      at Object.onceWrapper (node:events:629:28)
+      at IncomingMessage.emit (node:events:527:35)
+      at endReadableNT (node:internal/streams/readable:1589:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 
 npm manifest: 
   {
@@ -64,6 +64,7 @@ npm manifest:
       "@types/micro-cors": "^0.1.3",
       "@types/passport-google-oauth20": "^2.0.11",
       "@vercel/analytics": "^0.1.6",
+      "apexcharts": "3.35.2",
       "axios": "0.27.2",
       "bcryptjs": "2.4.3",
       "chart.js": "2.9.4",
@@ -82,10 +83,12 @@ npm manifest:
       "http-proxy-middleware": "^2.0.6",
       "js-cookie": "^3.0.1",
       "jsonwebtoken": "^9.0.0",
+      "lucide-react": "^0.294.0",
       "moment": "2.29.3",
       "mongoose": "6.3.2",
       "next": "^13.1.1",
       "next-auth": "^4.18.7",
+      "next-cloudinary": "^5.8.0",
       "next-connect": "0.12.2",
       "next-i18next": "12.1.0",
       "next-mdx-remote": "^4.2.1",
@@ -97,6 +100,7 @@ npm manifest:
       "passport-google-oauth": "^2.0.0",
       "passport-google-oauth20": "2.0.0",
       "react": "^18.2.0",
+      "react-apexcharts": "1.4.0",
       "react-chartjs-2": "2.9.0",
       "react-confetti": "^6.1.0",
       "react-daisyui": "2.4.1",
@@ -1018,6 +1022,33 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@chakra-ui/visually-hidden/-/visually-hidden-2.0.15.tgz#60df64e0ab97d95fee4e6c61ccabd15fd5ace398"
     integrity sha512-WWULIiucYRBIewHKFA7BssQ2ABLHLVd9lrUo3N3SZgR0u4ZRDDVEUNOy+r+9ruDze8+36dGbN9wsN1IdELtdOw==
   
+  "@cloudinary-util/url-loader@^3.15.0":
+    version "3.16.0"
+    resolved "https://registry.yarnpkg.com/@cloudinary-util/url-loader/-/url-loader-3.16.0.tgz#e3a4c3ec74d344ecaeff35528be06795ce80cb52"
+    integrity sha512-KqZYuSkQg5FnlREecay5sJTXYdfg/3PaS9Az+XZbCcrdbQQJtWotyE4K3S3F7YBSqTdBItE/XqmgzmmcGLZ3Pw==
+    dependencies:
+      "@cloudinary-util/util" "2.3.0"
+      "@cloudinary/url-gen" "^1.10.2"
+  
+  "@cloudinary-util/util@2.3.0", "@cloudinary-util/util@^2.3.0":
+    version "2.3.0"
+    resolved "https://registry.yarnpkg.com/@cloudinary-util/util/-/util-2.3.0.tgz#8a2a7ad3d3f089c2fff08f53eaddd50e946048f1"
+    integrity sha512-0Gojd+ZRQjJQmlBEAa8Ua94amvx7uWHoUzVUEGi1S8bgF1wPcMqG07cSUGQfRwHsFQ/9XOesx76Df622E+CevA==
+  
+  "@cloudinary/transformation-builder-sdk@^1.7.0":
+    version "1.8.0"
+    resolved "https://registry.yarnpkg.com/@cloudinary/transformation-builder-sdk/-/transformation-builder-sdk-1.8.0.tgz#c5146a9b00da92c1fb7e42fda684987bb39bc5cb"
+    integrity sha512-/QLSDDI+rfYH3bFH+DpgEk8NgSoeqwiea9GW5VXplcpebQOOcFqOzNFM6Hlik3PDqq4JMP4s3E7BoPZ1Rdk/IQ==
+    dependencies:
+      "@cloudinary/url-gen" "^1.7.0"
+  
+  "@cloudinary/url-gen@^1.10.2", "@cloudinary/url-gen@^1.7.0":
+    version "1.13.0"
+    resolved "https://registry.yarnpkg.com/@cloudinary/url-gen/-/url-gen-1.13.0.tgz#31674b737b5176e8286c07b413b723c8ecf5b2b5"
+    integrity sha512-p7ASCX2fZw1JWtMG2ADd/Y0TfvE5SX9v0TDJDlzXX3OlNxLSuqzLWGgj5oJD4ZTo62FdxH24N8HPZ7NXEXtj5g==
+    dependencies:
+      "@cloudinary/transformation-builder-sdk" "^1.7.0"
+  
   "@emotion/babel-plugin@^11.11.0":
     version "11.11.0"
     resolved "https://registry.yarnpkg.com/@emotion/babel-plugin/-/babel-plugin-11.11.0.tgz#c2d872b6a7767a9d176d007f5b31f7d504bb5d6c"
@@ -1884,6 +1915,18 @@ Lockfile:
     dependencies:
       normalize-path "^3.0.0"
       picomatch "^2.0.4"
+  
+  apexcharts@3.35.2:
+    version "3.35.2"
+    resolved "https://registry.yarnpkg.com/apexcharts/-/apexcharts-3.35.2.tgz#90faafffa055ce502f73b11008ba77238e94228f"
+    integrity sha512-VOSb25mrcSv/JjaWKjnasL8277cqnA0Gp20uV1+rlgE4U6j44fdTYW850Powl+S8RkXd/lPwzBB2jvKkEOHl0Q==
+    dependencies:
+      svg.draggable.js "^2.2.2"
+      svg.easing.js "^2.0.0"
+      svg.filter.js "^2.0.2"
+      svg.pathmorphing.js "^0.1.3"
+      svg.resize.js "^1.4.3"
+      svg.select.js "^3.0.1"
   
   arg@^5.0.0, arg@^5.0.2:
     version "5.0.2"
@@ -4178,6 +4221,11 @@ Lockfile:
     dependencies:
       yallist "^4.0.0"
   
+  lucide-react@^0.294.0:
+    version "0.294.0"
+    resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.294.0.tgz#dc406e1e7e2f722cf93218fe5b31cf3c95778817"
+    integrity sha512-V7o0/VECSGbLHn3/1O67FUgBwWB+hmzshrgDVRJQhMh8uj5D3HBuIvhuAmQTtlupILSplwIZg5FTc4tTKMA2SA==
+  
   markdown-extensions@^1.0.0:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/markdown-extensions/-/markdown-extensions-1.1.1.tgz#fea03b539faeaee9b4ef02a3769b455b189f7fc3"
@@ -4781,6 +4829,14 @@ Lockfile:
       preact-render-to-string "^5.1.19"
       uuid "^8.3.2"
   
+  next-cloudinary@^5.8.0:
+    version "5.8.0"
+    resolved "https://registry.yarnpkg.com/next-cloudinary/-/next-cloudinary-5.8.0.tgz#d523587ff5fb0f13b58a0b0f51643d695f06cede"
+    integrity sha512-Dw9GMjKbCfwBRDTL154RiptcOH55qfImgsyJx0Xa/G1qSg2nH6wYk6E4LFlVyXnpzOgPIr9KIrCHJszIru8Rxg==
+    dependencies:
+      "@cloudinary-util/url-loader" "^3.15.0"
+      "@cloudinary-util/util" "^2.3.0"
+  
   next-connect@0.12.2:
     version "0.12.2"
     resolved "https://registry.yarnpkg.com/next-connect/-/next-connect-0.12.2.tgz#8191db0f03c80f8f4dbbe80e643a48cb3c9a20b9"
@@ -5356,7 +5412,7 @@ Lockfile:
     dependencies:
       "@prisma/engines" "4.5.0"
   
-  prop-types@^15, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
+  prop-types@^15, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
     version "15.8.1"
     resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
     integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -5409,6 +5465,13 @@ Lockfile:
       ini "~1.3.0"
       minimist "^1.2.0"
       strip-json-comments "~2.0.1"
+  
+  react-apexcharts@1.4.0:
+    version "1.4.0"
+    resolved "https://registry.yarnpkg.com/react-apexcharts/-/react-apexcharts-1.4.0.tgz#e3619104b34750da67a2ca80289dc87085c2aa27"
+    integrity sha512-DrcMV4aAMrUG+n6412yzyATWEyCDWlpPBBhVbpzBC4PDeuYU6iF84SmExbck+jx5MUm4U5PM3/T307Mc3kzc9Q==
+    dependencies:
+      prop-types "^15.5.7"
   
   react-chartjs-2@2.9.0:
     version "2.9.0"
@@ -6093,6 +6156,61 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
     integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+  
+  svg.draggable.js@^2.2.2:
+    version "2.2.2"
+    resolved "https://registry.yarnpkg.com/svg.draggable.js/-/svg.draggable.js-2.2.2.tgz#c514a2f1405efb6f0263e7958f5b68fce50603ba"
+    integrity sha512-JzNHBc2fLQMzYCZ90KZHN2ohXL0BQJGQimK1kGk6AvSeibuKcIdDX9Kr0dT9+UJ5O8nYA0RB839Lhvk4CY4MZw==
+    dependencies:
+      svg.js "^2.0.1"
+  
+  svg.easing.js@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/svg.easing.js/-/svg.easing.js-2.0.0.tgz#8aa9946b0a8e27857a5c40a10eba4091e5691f12"
+    integrity sha512-//ctPdJMGy22YoYGV+3HEfHbm6/69LJUTAqI2/5qBvaNHZ9uUFVC82B0Pl299HzgH13rKrBgi4+XyXXyVWWthA==
+    dependencies:
+      svg.js ">=2.3.x"
+  
+  svg.filter.js@^2.0.2:
+    version "2.0.2"
+    resolved "https://registry.yarnpkg.com/svg.filter.js/-/svg.filter.js-2.0.2.tgz#91008e151389dd9230779fcbe6e2c9a362d1c203"
+    integrity sha512-xkGBwU+dKBzqg5PtilaTb0EYPqPfJ9Q6saVldX+5vCRy31P6TlRCP3U9NxH3HEufkKkpNgdTLBJnmhDHeTqAkw==
+    dependencies:
+      svg.js "^2.2.5"
+  
+  svg.js@>=2.3.x, svg.js@^2.0.1, svg.js@^2.2.5, svg.js@^2.4.0, svg.js@^2.6.5:
+    version "2.7.1"
+    resolved "https://registry.yarnpkg.com/svg.js/-/svg.js-2.7.1.tgz#eb977ed4737001eab859949b4a398ee1bb79948d"
+    integrity sha512-ycbxpizEQktk3FYvn/8BH+6/EuWXg7ZpQREJvgacqn46gIddG24tNNe4Son6omdXCnSOaApnpZw6MPCBA1dODA==
+  
+  svg.pathmorphing.js@^0.1.3:
+    version "0.1.3"
+    resolved "https://registry.yarnpkg.com/svg.pathmorphing.js/-/svg.pathmorphing.js-0.1.3.tgz#c25718a1cc7c36e852ecabc380e758ac09bb2b65"
+    integrity sha512-49HWI9X4XQR/JG1qXkSDV8xViuTLIWm/B/7YuQELV5KMOPtXjiwH4XPJvr/ghEDibmLQ9Oc22dpWpG0vUDDNww==
+    dependencies:
+      svg.js "^2.4.0"
+  
+  svg.resize.js@^1.4.3:
+    version "1.4.3"
+    resolved "https://registry.yarnpkg.com/svg.resize.js/-/svg.resize.js-1.4.3.tgz#885abd248e0cd205b36b973c4b578b9a36f23332"
+    integrity sha512-9k5sXJuPKp+mVzXNvxz7U0uC9oVMQrrf7cFsETznzUDDm0x8+77dtZkWdMfRlmbkEEYvUn9btKuZ3n41oNA+uw==
+    dependencies:
+      svg.js "^2.6.5"
+      svg.select.js "^2.1.2"
+  
+  svg.select.js@^2.1.2:
+    version "2.1.2"
+    resolved "https://registry.yarnpkg.com/svg.select.js/-/svg.select.js-2.1.2.tgz#e41ce13b1acff43a7441f9f8be87a2319c87be73"
+    integrity sha512-tH6ABEyJsAOVAhwcCjF8mw4crjXSI1aa7j2VQR8ZuJ37H2MBUbyeqYr5nEO7sSN3cy9AR9DUwNg0t/962HlDbQ==
+    dependencies:
+      svg.js "^2.2.5"
+  
+  svg.select.js@^3.0.1:
+    version "3.0.1"
+    resolved "https://registry.yarnpkg.com/svg.select.js/-/svg.select.js-3.0.1.tgz#a4198e359f3825739226415f82176a90ea5cc917"
+    integrity sha512-h5IS/hKkuVCbKSieR9uQCj9w+zLHoPh+ce19bBYyqF53g6mnPB8sAtIbe1s9dh2S2fCmYX2xel1Ln3PJBbK4kw==
+    dependencies:
+      svg.js "^2.6.5"
   
   swr@^2.0.0:
     version "2.1.5"

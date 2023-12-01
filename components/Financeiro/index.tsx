@@ -37,12 +37,12 @@ export function FinanceiroAttributes({ title, text, titlePage, children, onChang
                 <CardMain radius={"0 18px 18px 0"} spacing={5} w={{ md: "90%", xxs: "70%" }} >
                     <TitleCards title={title} />
                     <HStack spacing={{ lg: 6, xxs: 0 }} flexDir={{ lg: "row", xxs: "column" }}>
-                        <Forms label={"Nome"} type={"text"} placeholder={"Digite o seu nome"} name="name" onChange={onChange1} value={value1} mb={{ lg: "0", xxs: "10%" }} />
+                        <Forms label={"Nome"} type={"text"} placeholder={"Digite o nome da despesa"} name="name" onChange={onChange1} value={value1} mb={{ lg: "0", xxs: "10%" }} />
                         <Forms label={"Data do Vencimento"} type={"date"} placeholder={"Digite a data do vencimento"} onChange={onChange2} value={value2} />
                     </HStack>
                     <HStack spacing={{ lg: 6, xxs: 0 }} flexDir={{ lg: "row", xxs: "column" }}>
                         <FormsValue label={"Valor"} type={"number"} placeholder={"Digite o valor total"} onChange={onChange3} value={value3} mb={{ lg: "0", xxs: "10%" }} />
-                        <Forms label={"Data da Compra"} type={"date"} placeholder={"Digite a data da compra"} onChange={onChange4} value={value4} />
+                        {/* <Forms label={"Data da Compra"} type={"date"} placeholder={"Digite a data da compra"} onChange={onChange4} value={value4} /> */}
                     </HStack>
                     {/* <Forms label={"Empresa"} type={"text"} placeholder={"Digite o nome da empresa"}
                         onChange={onChange5} value={value5} /> */}

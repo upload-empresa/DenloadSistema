@@ -23,6 +23,7 @@ import toast from "react-hot-toast";
 import useSWR, { mutate } from "swr";
 import Loader from "@/components/app/Loader";
 import CloudinaryUploadWidget from "@/components/Cloudinary";
+import Gallery from '@/components/Galery'
 
 interface SiteFotoData {
     fotos: Array<Foto>;
@@ -282,7 +283,8 @@ export default function DocPacientes() {
                         )}
 
                     </Stack>
-
+                    {/* @ts-ignore */}
+                    <Gallery photos={fotoMostrar?.fotos ?? []} />
 
 
 

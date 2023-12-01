@@ -42,6 +42,8 @@ import { useState } from 'react'
 import useRequireAuth from "../../lib/useRequireAuth";
 import Loader from '../app/Loader';
 
+import { useRouter } from "next/router";
+
 import {
     Button,
 } from '@chakra-ui/react'
@@ -75,9 +77,11 @@ interface MobileProps extends FlexProps {
 interface SidebarProps extends BoxProps {
     onClose: () => void
 }
+
+
 const siteId = Cookies.get('siteId')
 
-
+console.log(Cookies.get('siteId'))
 
 const LinkItems: Array<LinkItemProps> = [
     { name: 'Dashboard', icon: MdHome, href: `/site/${siteId}/dashboard` },
@@ -114,7 +118,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     return (
         <Box
             transition="3s ease"
-            bg={useColorModeValue('#01233C', 'gray.900')}
+            bg={useColorModeValue('#2FAFCA', 'gray.900')}
             borderRight="1px"
             borderRightColor={useColorModeValue('gray.200', 'gray.700')}
             w={{ base: 'full', md: 60 }}
@@ -256,9 +260,9 @@ const MobileNav = ({ onOpen1, ...rest }: MobileProps) => {
             px={{ base: 4, md: 4 }}
             height="20"
             alignItems="center"
-            bg={('gray.900')}
+            bg={('white')}
             borderBottomWidth="1px"
-            borderBottomColor={('gray.700')}
+            borderBottomColor={('white')}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
             {...rest}>
             <IconButton
@@ -285,9 +289,7 @@ const MobileNav = ({ onOpen1, ...rest }: MobileProps) => {
                             <HStack>
                                 <Avatar
                                     size={'sm'}
-                                    src={
-                                        'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                                    }
+                                    src={'/avatar'}
                                 >
                                     <AvatarBadge boxSize='1.25em' bg='green.500' />
 
@@ -315,13 +317,13 @@ const MobileNav = ({ onOpen1, ...rest }: MobileProps) => {
                             </HStack>
                         </MenuButton>
                         <MenuList
-                            bg={('gray.900')}
+                            bg={('white')}
                             borderColor={('gray.700')}>
-                            <MenuItem>Perfil</MenuItem>
-                            <MenuDivider />
+                            {/* <MenuItem>Perfil</MenuItem> */}
+                            {/* <MenuDivider /> */}
                             <MenuItem onClick={() => signOut()}>Sair</MenuItem>
 
-                            <Button onClick={onOpen}>Open Modal</Button>
+                            {/* <Button onClick={onOpen}>Open Modal</Button> */}
 
                             <Modal isOpen={isOpen} onClose={onClose} size="sm">
                                 <ModalOverlay />

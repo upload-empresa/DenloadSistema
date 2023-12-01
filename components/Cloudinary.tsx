@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 import Head from "next/head";
-
 import type { MouseEvent, ReactNode } from "react";
 import type {
   CloudinaryCallbackImage,
@@ -25,8 +24,8 @@ export default function CloudinaryUploadWidget({
   function showWidget() {
     const widget: CloudinaryWidget = window.cloudinary.createUploadWidget(
       {
-        cloudName: "vercel-platforms",
-        uploadPreset: "w0vnflc6",
+        cloudName: "dk2cds2bv",
+        uploadPreset: "zitejvkj",
         cropping: true,
       },
       (error: unknown | undefined, result: CloudinaryWidgetResult) => {
@@ -47,15 +46,32 @@ export default function CloudinaryUploadWidget({
   return (
     <>
       <Head>
-        // this is Next.js specific, but if you're using something like Create
-        // React App, you could download the script in componentDidMount using
-        // this method: https://stackoverflow.com/a/34425083/1424568
+        {/* Next.js specific, or download the script in componentDidMount */}
         <script
           src="https://widget.cloudinary.com/v2.0/global/all.js"
           type="text/javascript"
         />
       </Head>
       {children({ open })}
+      <style jsx>{`
+        /* Add your styles here */
+        button {
+          background-color: #4caf50; /* Green background */
+          color: white; /* White text */
+          border: none; /* No border */
+          padding: 10px 15px; /* Padding */
+          text-align: center; /* Center text */
+          text-decoration: none; /* Remove underline */
+          display: inline-block; /* Make it an inline block */
+          font-size: 14px; /* Increase font size */
+          cursor: pointer; /* Add cursor pointer */
+          border-radius: 4px; /* Add some border radius */
+        }
+
+        button:hover {
+          background-color: #45a049; /* Darker green on hover */
+        }
+      `}</style>
     </>
   );
 }

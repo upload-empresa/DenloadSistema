@@ -11,6 +11,11 @@ module.exports = {
       'avatars.githubusercontent.com',
     ],
   },
+  api: {
+    bodyParser: {
+      sizeLimit: '5mb', // ou o tamanho desejado
+    },
+  },
   reactStrictMode: true,
   swcMinify: false, // Required to fix: https://nextjs.org/docs/messages/failed-loading-swc
   async rewrites() {

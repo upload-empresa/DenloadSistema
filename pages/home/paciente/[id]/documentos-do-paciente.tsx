@@ -16,7 +16,7 @@ import Link from "next/link";
 
 import type { WithPacienteDocumento } from "@/types";
 
-import { HStack, Stack, Text, useToast } from "@chakra-ui/react"
+import { Button, HStack, Stack, Text, useToast } from "@chakra-ui/react"
 
 import { ButtonSave } from "@/components/Buttons"
 import { CardMain, CardsDocumentos } from "@/components/Cards"
@@ -24,6 +24,10 @@ import { Main } from "@/components/Main"
 import type { Documento, Paciente } from "@prisma/client";
 import { CardPacientesPlus } from "@/components/Cards/plus";
 import { TitleCardsPacientes, TitleCards } from "@/components/Title";
+import DocGallery from "@/components/DocGallery";
+import ImageUpload from "@/components/image-upload";
+import { ImagePlus } from "lucide-react";
+
 
 interface DocumentoData {
     url: string;
@@ -76,6 +80,8 @@ export default function Documento() {
 
     const { id: documentoId } = router.query;
 
+    const [isUploadWidgetVisible, setIsUploadWidgetVisible] = useState(false);
+
 
     const { data: documentodata } = useSWR<SiteDocumentoData>(
         pacienteId && `/api/documento?pacienteId=${pacienteId}&published=true`,
@@ -117,6 +123,7 @@ export default function Documento() {
     }, [documento]);
 
     const [debouncedData] = useDebounce(data, 1000);
+
 
     const saveChanges = useCallback(
         async (data: DocumentoData) => {
@@ -243,6 +250,8 @@ export default function Documento() {
             <Loader />
         );
 
+
+
     return (
         <>
 
@@ -260,94 +269,63 @@ export default function Documento() {
                         <Layout
                             //@ts-ignore 
                             pacienteId={documento?.paciente?.id}>
-                            <div className="max-w-screen-xl mx-auto px-10 sm:px-20 mt-10 mb-16">
 
 
-                                <div className="space-y-6">
-                                    <div
-                                        className={`${data.url ? "" : "animate-pulse bg-gray-300 h-150"
-                                            } relative mt-5 w-full border-2 border-gray-800 border-dashed rounded-md`}
+
+
+                            <CloudinaryUploadWidget
+                                callback={(e) =>
+                                    setData({
+                                        ...data,
+                                        url: e.secure_url,
+                                    })
+                                }
+                            >
+                                {({ open }) => (
+                                    <Button
+                                        colorScheme={'teal'}
+                                        w={{ '2xl': "18%", xl: "25%", lg: "35%", md: "35%", sm: "50%", xxs: "75%" }}
+                                        size={"sm"}
+                                        onClick={open}
+
                                     >
-                                        <CloudinaryUploadWidget
-                                            callback={(e) =>
-                                                setData({
-                                                    ...data,
-                                                    url: e.secure_url,
-                                                })
-                                            }
-                                        >
-                                            {({ open }) => (
-                                                <button
-                                                    onClick={open}
-                                                    className="absolute w-full h-full rounded-md bg-gray-200 z-10 flex flex-col justify-center items-center opacity-0 hover:opacity-100 transition-all ease-linear duration-200"
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width="100"
-                                                        height="100"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path d="M16 16h-3v5h-2v-5h-3l4-4 4 4zm3.479-5.908c-.212-3.951-3.473-7.092-7.479-7.092s-7.267 3.141-7.479 7.092c-2.57.463-4.521 2.706-4.521 5.408 0 3.037 2.463 5.5 5.5 5.5h3.5v-2h-3.5c-1.93 0-3.5-1.57-3.5-3.5 0-2.797 2.479-3.833 4.433-3.72-.167-4.218 2.208-6.78 5.567-6.78 3.453 0 5.891 2.797 5.567 6.78 1.745-.046 4.433.751 4.433 3.72 0 1.93-1.57 3.5-3.5 3.5h-3.5v2h3.5c3.037 0 5.5-2.463 5.5-5.5 0-2.702-1.951-4.945-4.521-5.408z" />
-                                                    </svg>
-                                                    <p>Upload another url</p>
-                                                </button>
-                                            )}
-                                        </CloudinaryUploadWidget>
+                                        Adicionar Documento
+                                    </Button>
+                                )}
+                            </CloudinaryUploadWidget>
 
-                                        {data?.url && (
-                                            <BlurImage
-                                                src={data.url}
-                                                alt="Cover Photo"
-                                                width={800}
-                                                height={500}
-                                                placeholder="blur"
-                                                className="rounded-md w-full h-full object-cover"
-                                                blurDataURL={data.url}
-                                            />
-                                        )}
-                                    </div>
 
-                                </div>
-                            </div >
+
+
+                            {data?.url && (
+                                <BlurImage
+                                    src={data.url}
+                                    alt="Cover Photo"
+                                    width={800}
+                                    height={500}
+                                    placeholder="blur"
+                                    className="rounded-md w-full h-full object-cover"
+                                    blurDataURL={data.url}
+                                />
+                            )}
+
+
+
+
+
                         </Layout >
                         <HStack
                             spacing={{ md: 6, xxs: 0 }}
                             flexDir={{ md: "row", xxs: "column" }}
                         >
-                            {documentodata ? (
-                                documentodata.documentos.length > 0 ? (
-                                    documentodata.documentos.map((documento) => (
-                                        <>
-
-
-                                            {documento.url ? (
-
-                                                <CardsDocumentos onClick={() => handleDeleteClick(documento.id)} alt={documento.url ?? "Unknown Thumbnail"} src={documento.url} width={30} height={22} />
-
-                                            ) : (
-                                                ''
-                                            )}
-                                        </>
-                                    ))
-                                ) : (
-                                    <>
-                                        <Text
-                                            as="p"
-                                            mt={"10%"}
-                                        >
-                                            Clique acima para adicionar um novo documento
-                                        </Text>
-                                    </>
-                                )
-                            ) : (
-                                <p>Carregando...</p>
-                            )}
+                            <DocGallery onClick={handleDeleteClick} photos={documentodata?.documentos ?? []} />
                         </HStack>
                         <Stack
                             align={"end"}
                         >
                             <ButtonSave />
                         </Stack>
+
                     </CardMain>
                 </HStack >
             </Main >

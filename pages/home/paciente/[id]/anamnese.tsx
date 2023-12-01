@@ -120,7 +120,7 @@ const AllAnamneses: NextPageWithLayout = () => {
 
 
                                         <p className="text-2xl font-cal text-gray-600">
-                                            Nenhuma anamneses ainda. Clique em &quot;Nova anamnese&quot; para criar uma.
+                                            Nenhuma anamneses ainda. Clique em &quot;Nova pergunta&quot; para criar uma.
                                         </p>
 
                                     </>

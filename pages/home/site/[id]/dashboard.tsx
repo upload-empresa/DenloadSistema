@@ -222,7 +222,7 @@ export default function Home({ agendas, data, pacientes, children, }: SiteDashbo
                     </HStack>
                 </CardMain>
             </Stack>
-            <ExampleChart />
+            {/* <ExampleChart /> */}
         </Main >
     )
 }

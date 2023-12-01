@@ -36,10 +36,16 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
 
     const router = useRouter();
     const { id: siteId } = router.query;
+
     const { id: pacienteId } = router.query;
 
     //@ts-ignore
-    Cookies.set('siteId', siteId);
+    Cookies.set('siteId', siteId)
+
+    console.log(siteId)
+
+    console.log(Cookies.get('siteId'))
+
 
     const { data } = useSWR<SitePacienteData>(
         siteId && `/api/paciente?siteId=${siteId}`,
