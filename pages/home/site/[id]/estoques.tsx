@@ -126,6 +126,7 @@ export default function Estoques({ estoques, estoque }) {
             console.error(error);
         } finally {
             setDeletingEstoque(false);
+            window.location.reload()
         }
     }
 
@@ -140,7 +141,7 @@ export default function Estoques({ estoques, estoque }) {
             status: 'success',
             isClosable: true,
         })
-        window.location.reload()
+
     };
 
     const [searchTerm, setSearchTerm] = useState("");

@@ -117,6 +117,7 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
             console.error(error);
         } finally {
             setDeletingPaciente(false);
+            window.location.reload()
         }
     }
 
@@ -131,7 +132,7 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
             status: 'success',
             isClosable: true,
         })
-        window.location.reload()
+
     };
 
     const [searchTerm, setSearchTerm] = useState("");
