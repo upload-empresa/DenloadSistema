@@ -39,12 +39,7 @@ export default function Pacientes({ pacientes, paciente, subscriptions }) {
 
     const { id: pacienteId } = router.query;
 
-    //@ts-ignore
-    Cookies.set('siteId', siteId)
-
-    console.log(siteId)
-
-    console.log(Cookies.get('siteId'))
+    const [currentSiteId, setCurrentSiteId] = useState<string | null>(null);
 
 
     const { data } = useSWR<SitePacienteData>(

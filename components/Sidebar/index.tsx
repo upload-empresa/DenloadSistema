@@ -36,7 +36,7 @@ import {
 import { MdHome, MdEvent, MdGroup, MdAssignment, MdAccountBalanceWallet, MdEditCalendar, MdQuestionAnswer } from 'react-icons/md'
 import { IconType } from 'react-icons'
 import { FigureImage } from '../FigureImage'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { useState } from 'react'
 import useRequireAuth from "../../lib/useRequireAuth";
@@ -57,6 +57,7 @@ import {
     ModalBody,
     ModalCloseButton,
 } from '@chakra-ui/react'
+
 
 interface LinkItemProps {
     name: string
@@ -79,19 +80,9 @@ interface SidebarProps extends BoxProps {
 }
 
 
-const siteId = Cookies.get('siteId')
 
-console.log(Cookies.get('siteId'))
 
-const LinkItems: Array<LinkItemProps> = [
-    { name: 'Dashboard', icon: MdHome, href: `/site/${siteId}/dashboard` },
-    { name: 'Agenda', icon: MdEvent, href: "https://calendar.google.com/" },
-    { name: 'Pacientes', icon: MdGroup, href: `/site/${siteId}/` },
-    { name: 'Estoque', icon: MdAssignment, href: `/site/${siteId}/estoques` },
-    { name: 'Financeiro', icon: MdAccountBalanceWallet, href: `/site/${siteId}/financeiro` },
-    { name: 'Dia', icon: MdEditCalendar, href: `/site/${siteId}/dia` },
-    { name: 'Feedback', icon: MdQuestionAnswer, href: `/site/${siteId}/feedback` },
-]
+
 
 // const initialFocusRef = React.useRef()
 
@@ -105,6 +96,7 @@ interface SidebarProps extends WithChildren {
     altText?: any
     tamh?: any
     tamw?: any
+    siteProps?: any
 }
 
 
@@ -115,6 +107,37 @@ interface SidebarProps extends WithChildren {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     // const session = useRequireAuth()
     // if (!session) return <Loader />
+    // const siteId = Cookies.get('siteId')
+
+
+    // console.log(Cookies.get('siteId'))
+
+    const [siteId, setSiteId] = useState(null);
+
+    const fetchSiteId = async () => {
+        try {
+            const response = await fetch('/api/getSiteFromUserId');
+            const data = await response.json();
+            setSiteId(data.siteId);
+        } catch (error) {
+            console.error('Error fetching site ID:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchSiteId();
+    }, []);
+
+
+    const LinkItems: Array<LinkItemProps> = [
+        { name: 'Dashboard', icon: MdHome, href: `/site/${siteId}/dashboard` },
+        { name: 'Agenda', icon: MdEvent, href: "https://calendar.google.com/" },
+        { name: 'Pacientes', icon: MdGroup, href: `/site/${siteId}/` },
+        { name: 'Estoque', icon: MdAssignment, href: `/site/${siteId}/estoques` },
+        { name: 'Financeiro', icon: MdAccountBalanceWallet, href: `/site/${siteId}/financeiro` },
+        { name: 'Dia', icon: MdEditCalendar, href: `/site/${siteId}/dia` },
+        { name: 'Feedback', icon: MdQuestionAnswer, href: `/site/${siteId}/feedback` },
+    ]
     return (
         <Box
             transition="3s ease"
@@ -383,5 +406,7 @@ const SidebarWithHeader = ({ children, title, button, wi, path, altText, tamh, t
         </Box>
     )
 }
+
+
 
 export default SidebarWithHeader

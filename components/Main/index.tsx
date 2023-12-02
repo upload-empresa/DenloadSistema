@@ -16,6 +16,7 @@ interface MainProps {
 }
 
 export function Main({ children, title, button, w, path, altText, tamh, tamw }: MainProps) {
+
     return (
         <Stack
             as="main"
