@@ -83,7 +83,7 @@ export function Selects({ label, onInput, defaultValue, mb }: SelectsProps) {
         const selectedValue = event.target.value;
 
         if (selectedValue === defaultValue) {
-            alert("Por favor, selecione uma opção válida.");
+            // alert("Por favor, selecione uma opção válida.");
         } else {
             onInput(event);
         }

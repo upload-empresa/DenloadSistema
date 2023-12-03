@@ -213,8 +213,11 @@ export default function Home({ agendas, data, pacientes, children, }: SiteDashbo
 
                                 return (
 
-                                    <><CardDashboardFinanceiro w={"50%"} nome={totalNames} procedimento={totalRecebimentos} horario={totalGanhos} title={"Receitas"} color={"#2FACFA"} />
-                                        <CardDashboardFinanceiro w={"50%"} nome={totalNamesDes} procedimento={totalDatadaCompra} horario={totalDespesas} title={"Despesas"} color={"#F64E60"} />
+                                    <>
+                                        {/* <CardDashboardFinanceiro w={"50%"} nome={totalNames} procedimento={totalRecebimentos} horario={totalGanhos} title={"Receitas"} color={"#2FACFA"} /> */}
+                                        <CardDashboardFinanceiro w={"50%"} nome={totalNames} title={"Receitas"} color={"#2FACFA"} />
+                                        {/* <CardDashboardFinanceiro w={"50%"} nome={totalNamesDes} procedimento={totalDatadaCompra} horario={totalDespesas} title={"Despesas"} color={"#F64E60"} /> */}
+                                        <CardDashboardFinanceiro w={"50%"} nome={totalNamesDes} title={"Despesas"} color={"#F64E60"} />
                                     </>
                                 );
                             })()}

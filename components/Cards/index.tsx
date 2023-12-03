@@ -308,8 +308,8 @@ export function CardDashboardHorarios({ nome, procedimento, horario }: CardDashb
 
 interface CardDashboardFinanceiroProps {
     nome: any
-    procedimento: any
-    horario: any
+    procedimento?: any
+    horario?: any
     title: string
     color: string
     w?: string
