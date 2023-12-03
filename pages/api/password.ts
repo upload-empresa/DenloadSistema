@@ -1,7 +1,9 @@
 import prisma from '@/lib/prisma';
+
 //@ts-ignore
 export default async function handler(req, res) {
-  const { id: userId } = req.query;
+  const { userId } = req.query; // Mudei para userId diretamente
+
   if (req.method !== 'PUT') {
     res.status(405).json({ message: 'Method not allowed' });
     return;
@@ -10,15 +12,18 @@ export default async function handler(req, res) {
   const { email, password, name, celular } = req.body;
 
   try {
-    const user = await prisma.user.findFirst({ where: { id: userId } });
+    const user = await prisma.user.findMany({ where: { id: userId } });
 
-    if (!user) {
+    console.log(userId);
+
+    if (!user || user.length === 0) {
+      // Modificado para verificar se user é um array vazio
       res.status(400).json({ message: 'Invalid id' });
       return;
     }
 
     await prisma.user.update({
-      where: { id: user.id },
+      where: { id: userId },
       data: {
         password: password,
         email: email,

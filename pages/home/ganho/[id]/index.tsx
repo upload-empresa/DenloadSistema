@@ -24,9 +24,24 @@ interface GanhoData {
     pago: any;
 }
 
-const siteId = Cookies.get('siteId')
+
 
 export default function AddFinanceiroGanho() {
+    const [siteId, setSiteId] = useState(null);
+
+    const fetchSiteId = async () => {
+        try {
+            const response = await fetch('/api/getSiteFromUserId');
+            const data = await response.json();
+            setSiteId(data.siteId);
+        } catch (error) {
+            console.error('Error fetching site ID:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchSiteId();
+    }, []);
     const router = useRouter();
 
     const { id: ganhoId } = router.query;
