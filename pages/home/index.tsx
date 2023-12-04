@@ -22,6 +22,8 @@ export default function AppIndex() {
   const siteDescriptionRef = useRef<HTMLTextAreaElement | null>(null);
 
 
+
+
   const router = useRouter();
 
   const toast = useToast()
@@ -35,6 +37,8 @@ export default function AppIndex() {
     fetcher
   );
 
+
+
   async function fetchUsers() {
     const res = await fetch("/api/list_cooper");
     const data = await res.json();
@@ -42,24 +46,65 @@ export default function AppIndex() {
   }
   let contador = 0;
 
+  async function NumberSite() {
+    try {
+      const users = await fetchUsers();
+      const hasCooper = users.some((user: any) => user.gh_username === "cooper");
+      const hasSilver = users.some((user: any) => user.gh_username === "silver");
+      const hasGold = users.some((user: any) => user.gh_username === "gold");
+      const hasDiamond = users.some((user: any) => user.gh_username === "diamond");
+
+      if (hasCooper) {
+        if (contador > 1) {
+          setShowBotao(false);
+        }
+      }
+      if (hasSilver) {
+        if (contador > 2) {
+          setShowBotao(false);
+        }
+      }
+      if (hasGold) {
+        if (contador > 3) {
+          setShowBotao(false);
+        }
+      }
+      if (hasDiamond) {
+        if (contador > 4) {
+          setShowBotao(false);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     if (!sites) {
       router.push('/login')
     }
     if (sites && sites.length > 0 && sites.length < 2) {
       contador = 1;
+      console.log('1')
+      NumberSite()
     } else if (sites && sites.length >= 2 && sites.length < 3) {
       contador = 2;
+      console.log('2')
+      NumberSite()
     } else if (sites && sites.length == 3) {
       contador = 3;
+      NumberSite()
       setShowBotao(false);
     } else if (sites && sites.length > 3) {
       contador = 4;
+      NumberSite()
       setShowBotao(false);
     }
   }, [sites]);
 
   console.log(contador)
+
+
 
   async function createSite() {
 
