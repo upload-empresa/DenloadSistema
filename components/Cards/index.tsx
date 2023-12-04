@@ -352,7 +352,8 @@ export function CardDashboardFinanceiro({ nome, procedimento, horario, title, co
                         fontSize={"12px"}
                         fontWeight={500}
                     >
-                        R${horario}
+                        {/* R${horario} */}
+                        {horario}
                     </Text>
                 </Stack>
             </HStack>

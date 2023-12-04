@@ -52,13 +52,17 @@ const AllAnamneses: NextPageWithLayout = () => {
     const { t } = useTranslation("common");
 
     async function deleteAnamnese(pacienteId: string, anamneseId: string) {
+
         try {
             const response = await fetch(`/api/anamnese?anamneseId=${anamneseId}&pacienteId=${pacienteId}`, {
                 method: HttpMethod.DELETE,
             });
+            window.location.reload()
 
         } catch (error) {
             console.error(error);
+        } finally {
+            window.location.reload()
         }
     }
 
@@ -68,7 +72,7 @@ const AllAnamneses: NextPageWithLayout = () => {
         }
         //@ts-ignore
         deleteAnamnese(pacienteId, iba);
-        window.location.reload()
+
     };
 
 
