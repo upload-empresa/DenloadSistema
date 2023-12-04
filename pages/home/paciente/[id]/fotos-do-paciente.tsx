@@ -75,6 +75,7 @@ export default function Foto() {
     const router = useRouter();
     const toast = useToast()
     const statuses = ['success', 'error', 'warning', 'info']
+    const [deletingFoto, setDeletingFoto] = useState(false);
 
     const { id: pacienteId } = router.query;
 
@@ -221,13 +222,18 @@ export default function Foto() {
     }
 
     async function deleteFoto(pacienteId: string, fotoId: string) {
+        setDeletingFoto(true)
         try {
             const response = await fetch(`/api/foto?pacienteId=${pacienteId}&fotoId=${fotoId}`, {
                 method: HttpMethod.DELETE,
             });
+            window.location.reload()
 
         } catch (error) {
             console.error(error);
+        } finally {
+            setDeletingFoto(false)
+            window.location.reload()
         }
     }
 
@@ -242,7 +248,6 @@ export default function Foto() {
             status: 'success',
             isClosable: true,
         })
-        window.location.reload()
     };
 
     if (isValidating)

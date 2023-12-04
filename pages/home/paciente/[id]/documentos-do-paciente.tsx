@@ -75,6 +75,7 @@ export default function Documento() {
     const router = useRouter();
     const toast = useToast()
     const statuses = ['success', 'error', 'warning', 'info']
+    const [deletingDocumento, setDeletingDocumento] = useState(false);
 
     const { id: pacienteId } = router.query;
 
@@ -221,13 +222,17 @@ export default function Documento() {
     }
 
     async function deleteDocumento(pacienteId: string, documentoId: string) {
+        setDeletingDocumento(true)
         try {
             const response = await fetch(`/api/documento?pacienteId=${pacienteId}&documentoId=${documentoId}`, {
                 method: HttpMethod.DELETE,
             });
-
+            window.location.reload()
         } catch (error) {
             console.error(error);
+        } finally {
+            setDeletingDocumento(false)
+            window.location.reload()
         }
     }
 
@@ -242,7 +247,7 @@ export default function Documento() {
             status: 'success',
             isClosable: true,
         })
-        window.location.reload()
+
     };
 
     if (isValidating)
