@@ -58,6 +58,8 @@ import {
     ModalCloseButton,
 } from '@chakra-ui/react'
 
+import { useSession } from "next-auth/react";
+
 
 interface LinkItemProps {
     name: string
@@ -105,29 +107,46 @@ interface SidebarProps extends WithChildren {
 
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
-    // const session = useRequireAuth()
-    // if (!session) return <Loader />
-    // const siteId = Cookies.get('siteId')
 
+    const router = useRouter()
 
-    // console.log(Cookies.get('siteId'))
+    const session = useRequireAuth()
+    const sessionEmail = session?.user.email;
+
+    console.log(session)
 
     const [siteId, setSiteId] = useState(null);
 
     const fetchSiteId = async () => {
         try {
-            const response = await fetch('/api/getSiteFromUserId');
+            const response = await fetch(`/api/getSiteFromUserId?sessionEmail=${sessionEmail}`);
             const data = await response.json();
-            setSiteId(data.siteId);
+
+            // Assuming that data contains a property like 'siteId'
+            const extractedSiteId = data.siteId;
+
+            if (typeof extractedSiteId === 'string' || typeof extractedSiteId === 'number') {
+                //@ts-ignore
+                setSiteId(extractedSiteId);
+            } else {
+                console.error('Invalid siteId:', extractedSiteId);
+            }
         } catch (error) {
             console.error('Error fetching site ID:', error);
         }
     };
 
     useEffect(() => {
-        fetchSiteId();
-    }, []);
+        const fetchData = async () => {
+            await fetchSiteId();
+        };
 
+        fetchData();
+    }, [session]);
+
+    console.log(session?.user.email)
+    console.log(siteId)
+    console.log(session)
 
     const LinkItems: Array<LinkItemProps> = [
         { name: 'Dashboard', icon: MdHome, href: `/site/${siteId}/dashboard` },

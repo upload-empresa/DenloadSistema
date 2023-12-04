@@ -16,6 +16,7 @@ import Cookies from 'js-cookie'
 import type { ChangeEvent } from "react";
 
 import type { WithSiteGanho } from "@/types";
+import useRequireAuth from "@/lib/useRequireAuth";
 
 interface GanhoData {
     name: string;
@@ -27,22 +28,39 @@ interface GanhoData {
 
 
 export default function AddFinanceiroGanho() {
+    const router = useRouter()
+    const session = useRequireAuth()
+    const sessionEmail = session?.user.email;
+
+    console.log(session)
     const [siteId, setSiteId] = useState(null);
 
     const fetchSiteId = async () => {
         try {
-            const response = await fetch('/api/getSiteFromUserId');
+            const response = await fetch(`/api/getSiteFromUserId?sessionEmail=${sessionEmail}`);
             const data = await response.json();
-            setSiteId(data.siteId);
+
+            // Assuming that data contains a property like 'siteId'
+            const extractedSiteId = data.siteId;
+
+            if (typeof extractedSiteId === 'string' || typeof extractedSiteId === 'number') {
+                //@ts-ignore
+                setSiteId(extractedSiteId);
+            } else {
+                console.error('Invalid siteId:', extractedSiteId);
+            }
         } catch (error) {
             console.error('Error fetching site ID:', error);
         }
     };
 
     useEffect(() => {
-        fetchSiteId();
-    }, []);
-    const router = useRouter();
+        const fetchData = async () => {
+            await fetchSiteId();
+        };
+
+        fetchData();
+    }, [session]);
 
     const { id: ganhoId } = router.query;
 
