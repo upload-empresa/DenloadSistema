@@ -220,7 +220,30 @@ export default function AppIndex() {
         >
 
 
+          {
+            sites ? (
+              sites.length > 0 ? (
+                sites.map((site) => (
+                  <Link href={`/site/${site.id}`} key={site.id}>
+                    <CardAdmin text={site.name} />
+                  </Link>
+                ))
+              ) : (
+                <>
+                  <p className="text-2xl font-cal text-gray-600">
+                    Nenhum administrador cadastrado.
+                  </p>
 
+                </>
+              )
+            ) : (
+              <p>Carregando...</p>
+            )
+          }
+          {showBotao ? (
+            <CardAdminAdd
+              onClick={handleButtonClick} />
+          ) : null}
 
 
 
