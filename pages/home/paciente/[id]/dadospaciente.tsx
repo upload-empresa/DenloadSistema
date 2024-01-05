@@ -4,7 +4,7 @@ import { MdEditNote, MdOutlineImageSearch, MdOutlineInsertDriveFile } from 'reac
 import { SlNote } from 'react-icons/sl'
 
 import { CardIconPacientes, CardMain, CardMainPlus } from "../../../../components/Cards"
-import { Forms, Selects, TextAreas } from "../../../../components/Forms"
+import { Forms, FormsSelect, Selects, TextAreas } from "../../../../components/Forms"
 import { Main } from "../../../../components/Main"
 
 import useSWR, { mutate } from "swr";
@@ -332,7 +332,9 @@ export default function DadosDoPaciente() {
                                     name: e.target.value,
                                 })
                             }
-                            type={"text"} placeholder={"Nome do paciente"} mb={{ md: "0", xxs: "10%" }} />
+                            type={"text"} placeholder={"Nome do paciente"} mb={{ md: "0", xxs: "10%" }}
+                            isRequired={true}
+                        />
 
                         <Forms label={"RG"} name={"rg"} value={data.rg}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -341,7 +343,9 @@ export default function DadosDoPaciente() {
                                     rg: e.target.value,
                                 })
                             }
-                            type={"text"} placeholder={"RG do paciente"} />
+                            type={"text"} placeholder={"RG do paciente"}
+                            isRequired={false}
+                        />
                     </HStack>
                     <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
                         <Forms label={"Telefone"} name={"telefone"} value={data.telefone}
@@ -351,7 +355,9 @@ export default function DadosDoPaciente() {
                                     telefone: e.target.value,
                                 })
                             }
-                            type={"text"} placeholder={"Telefone do paciente"} />
+                            type={"text"} placeholder={"Telefone do paciente"}
+                            isRequired={true}
+                        />
 
                         <Forms label={"CPF"} name={"cpf"} value={data.cpf}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -360,17 +366,20 @@ export default function DadosDoPaciente() {
                                     cpf: e.target.value,
                                 })
                             }
-                            type={"text"} placeholder={"CPF do paciente"} />
+                            type={"text"} placeholder={"CPF do paciente"}
+                            isRequired={false}
+                        />
 
                     </HStack>
                     <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
-                        <Forms label={"Sexo"} name={"sexo"} value={data.sexo}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                setData({
-                                    ...data,
-                                    sexo: e.target.value,
-                                })
-                            } type={"text"} placeholder={"Sexo do paciente"} mb={{ md: "0", xxs: "10%" }} />
+                        <FormsSelect label={"Sexo"} name={"sexo"} value={data.sexo} onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                            setData({
+                                ...data,
+                                sexo: e.target.value,
+                            })
+                        }
+                            isRequired={false} />
+
 
                         <Forms label={"Endereço"} name={"endereco"} value={data.endereco}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -378,7 +387,8 @@ export default function DadosDoPaciente() {
                                     ...data,
                                     endereco: e.target.value,
                                 })
-                            } type={"text"} placeholder={"Endereço do paciente"} />
+                            } type={"text"} placeholder={"Endereço do paciente"}
+                            isRequired={false} />
 
                     </HStack>
                     <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
@@ -389,7 +399,9 @@ export default function DadosDoPaciente() {
                                 ...data,
                                 grupo: (e.target as HTMLTextAreaElement).value,
                             })}
-                            defaultValue={data.grupo} onInput1={undefined} defaultValue1={undefined} mb={{ md: "0", xxs: "10%" }} />
+                            defaultValue={data.grupo} onInput1={undefined} defaultValue1={undefined} mb={{ md: "0", xxs: "10%" }}
+
+                        />
 
                         <Forms label={"CEP"} name={"cep"} value={data.cep}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -397,7 +409,9 @@ export default function DadosDoPaciente() {
                                     ...data,
                                     cep: e.target.value,
                                 })
-                            } type={"number"} placeholder={"Digite o RG do paciente"} mb={{ md: "0", xxs: "10%" }} />
+                            } type={"number"} placeholder={"Digite o RG do paciente"} mb={{ md: "0", xxs: "10%" }}
+                            isRequired={false}
+                        />
 
                     </HStack>
                     <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
@@ -407,7 +421,9 @@ export default function DadosDoPaciente() {
                                     ...data,
                                     email: e.target.value,
                                 })
-                            } type={"text"} placeholder={"Email do paciente"} mb={{ md: "0", xxs: "10%" }} />
+                            } type={"text"} placeholder={"Email do paciente"} mb={{ md: "0", xxs: "10%" }}
+                            isRequired={true}
+                        />
 
                         <Forms label={"Complemento"} name={"complemento"} value={data.complemento}
                             onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -415,7 +431,8 @@ export default function DadosDoPaciente() {
                                     ...data,
                                     complemento: e.target.value,
                                 })
-                            } type={"text"} placeholder={"Complemento do paciente"} />
+                            } type={"text"} placeholder={"Complemento do paciente"}
+                            isRequired={false} />
                     </HStack>
 
                     <TextAreas name={"observacoes"}
@@ -426,7 +443,8 @@ export default function DadosDoPaciente() {
                             })
                         }
                         label={"Observações"}
-                        value={data.observacoes} />
+                        value={data.observacoes}
+                    />
 
                     <Stack
                         align={"end"}

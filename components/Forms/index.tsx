@@ -5,7 +5,7 @@ interface FormsProps {
     label: any
     label2?: any
     type?: string
-    placeholder: any
+    placeholder?: any
     w?: string
     name?: any
     value?: any
@@ -13,14 +13,35 @@ interface FormsProps {
     onInput?: any
     ref?: any
     mb?: any
+    isRequired?: any
 }
 
-export function Forms({ label, placeholder, type, w, name, value, onChange, ref, onInput, mb }: FormsProps) {
+export function Forms({ label, placeholder, type, w, name, value, onChange, ref, onInput, mb, isRequired }: FormsProps) {
 
     return (
-        <FormControl isRequired w={w} mb={mb}>
+        <FormControl isRequired={isRequired} w={w} mb={mb}>
             <FormLabel color={"#828282"} fontSize={{ '2xl': "18px", lg: "14px", md: "14px", xxs: "14px" }}>{label}</FormLabel>
             <Input type={type} ref={ref} name={name} value={value} onChange={onChange} onInput={onInput} placeholder={placeholder} _placeholder={{ color: "#A1A1A1", fontSize: "14px" }} required />
+        </FormControl>
+    )
+}
+
+export function FormsSelect({ label, w, name, value, onChange, ref, onInput, mb }: FormsProps) {
+
+    return (
+        <FormControl w={w} mb={mb}>
+            <FormLabel color={"#828282"} fontSize={{ '2xl': "18px", lg: "14px", md: "14px", xxs: "14px" }}>{label}</FormLabel>
+            <Select
+                name={name}
+                value={value}
+                onChange={onChange}
+            >
+                <option value="">Selecione o sexo</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="outro">Outro</option>
+            </Select>
+
         </FormControl>
     )
 }
