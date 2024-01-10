@@ -22,7 +22,7 @@ export default async function handler(
                 mode: 'subscription',
                 line_items: [
                     {
-                        price: 'price_1NBeC9DDlFjzihqgxvyzAmdN',
+                        price: 'price_1OW9ILDWKeQFhtzlaId9xTQe',
                         quantity: 1,
                     },
                 ],

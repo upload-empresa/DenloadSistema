@@ -83,7 +83,7 @@ export default async function handler(
                 mode: 'subscription',
                 line_items: [
                     {
-                        price: 'price_1NBe5CDDlFjzihqgJspWXCDi',
+                        price: 'price_1OW9GbDWKeQFhtzl8nhosH34',
                         quantity: 1,
                     },
                 ],
