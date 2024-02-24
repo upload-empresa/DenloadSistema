@@ -1,4 +1,5 @@
 import { getToken } from 'next-auth/jwt';
+import { useSession } from 'next-auth/react';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const config = {

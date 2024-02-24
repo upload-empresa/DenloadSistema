@@ -17,7 +17,6 @@ import { Stack, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr, useToast
 import { HStack, Input, InputGroup, InputLeftElement, Select, Text } from "@chakra-ui/react"
 import { MdSearch } from "react-icons/md"
 import { TitleCards } from "@/components/Title";
-import Cookies from 'js-cookie';
 
 interface SitePacienteData {
     pacientes: Array<Paciente>;

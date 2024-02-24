@@ -20,6 +20,8 @@ import React from "react";
 import { subMonths } from "date-fns";
 import { Line, Pie } from "react-chartjs-2"
 
+import useCurrentUser from "hooks/useCurrentUser";
+
 interface SiteGanhoData {
     ganhos: Array<Ganho>;
     pacientes: Array<Paciente>;
@@ -32,9 +34,14 @@ interface SiteGanhoData {
 const Financeiro = () => {
     const [creatingGanho, setCreatingGanho] = useState(false);
     const [selectedPeriod, setSelectedPeriod] = useState("3 meses");
+    const { data: currentUser } = useCurrentUser();
 
     const router = useRouter();
     const { id: siteId } = router.query;
+
+    if (currentUser?.name === 'helena') {
+        router.push('/login')
+    }
 
     const { data: ganhosData } = useSWR<SiteGanhoData>(
         siteId && `/api/ganho?siteId=${siteId}`,

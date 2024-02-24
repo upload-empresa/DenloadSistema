@@ -1,4 +1,3 @@
-import toast from "react-hot-toast";
 import useSWR, { mutate } from "swr";
 import { useDebounce } from "use-debounce";
 import { useRouter } from "next/router";
@@ -11,22 +10,19 @@ import Layout from "@/components/app/Layout";
 import Loader from "@/components/app/Loader";
 import { fetcher } from "@/lib/fetcher";
 import { HttpMethod } from "@/types";
-import Link from "next/link";
 
 
 import type { WithPacienteDocumento } from "@/types";
 
-import { Button, HStack, Stack, Text, useToast } from "@chakra-ui/react"
+import { Button, HStack, Stack, useToast } from "@chakra-ui/react"
 
 import { ButtonSave } from "@/components/Buttons"
-import { CardMain, CardsDocumentos } from "@/components/Cards"
+import { CardMain } from "@/components/Cards"
 import { Main } from "@/components/Main"
 import type { Documento, Paciente } from "@prisma/client";
 import { CardPacientesPlus } from "@/components/Cards/plus";
-import { TitleCardsPacientes, TitleCards } from "@/components/Title";
+import { TitleCards } from "@/components/Title";
 import DocGallery from "@/components/DocGallery";
-import ImageUpload from "@/components/image-upload";
-import { ImagePlus } from "lucide-react";
 
 
 interface DocumentoData {
