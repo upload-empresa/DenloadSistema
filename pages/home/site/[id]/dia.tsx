@@ -26,6 +26,9 @@ import { MdSearch } from "react-icons/md"
 import { MdArrowForward } from "react-icons/md"
 import { format, subMonths, subDays } from "date-fns";
 import { Line, Pie } from "react-chartjs-2"
+import useCurrentUser from "hooks/useCurrentUser"
+import { useToast } from '@chakra-ui/react'
+import { UnlockIcon } from "@chakra-ui/icons"
 
 interface SiteAgendaData {
     ganhos: Array<Ganho>;
@@ -46,6 +49,9 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
 
 
     const [currentPage, setCurrentPage] = useState<number>(0);
+    const { data: currentUser } = useCurrentUser();
+    const toast = useToast()
+
 
     const handlePageClick = (data: any) => {
         setCurrentPage(data.selected);
@@ -62,6 +68,22 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     const { id: pacienteId } = router.query;
     const { id: siteId } = router.query;
     const { id: agendaId } = router.query;
+
+    console.log(currentUser?.isAdmin);
+    if (currentUser?.isAdmin === false) {
+        // {
+        //     toast({
+        //             title: `Acesso bloqueado`,
+        //             status: 'error',
+        //             icon: <UnlockIcon/>,
+        //             isClosable: true,
+    
+        //         })
+
+        // }
+        router.push('/')
+
+    }
 
 
     const { data: agendasData } = useSWR<SiteAgendaData>(

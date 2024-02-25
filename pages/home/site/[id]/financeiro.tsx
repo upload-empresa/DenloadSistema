@@ -1,4 +1,4 @@
-import { HStack } from "@chakra-ui/react"
+import { HStack, useToast } from "@chakra-ui/react"
 
 import { CardMain } from "../../../../components/Cards"
 import { Main } from "../../../../components/Main"
@@ -19,6 +19,7 @@ import { TitleCards, TitleDashboardGrafic } from "@/components/Title"
 import React from "react";
 import { subMonths } from "date-fns";
 import { Line, Pie } from "react-chartjs-2"
+import useCurrentUser from "hooks/useCurrentUser";
 
 
 interface SiteGanhoData {
@@ -33,12 +34,23 @@ interface SiteGanhoData {
 const Financeiro = () => {
     const [creatingGanho, setCreatingGanho] = useState(false);
     const [selectedPeriod, setSelectedPeriod] = useState("3 meses");
+    const { data: currentUser } = useCurrentUser();
 
     const router = useRouter();
     const { id: siteId } = router.query;
+    const toast = useToast()
 
 
+    console.log(currentUser?.isAdmin);
+    if (currentUser?.isAdmin === false) {
+        // toast({
+        //     title: `Acesso bloqueado`,
+        //     status: 'error',
+        //     isClosable: true,
+        // })
+        router.push('/');
 
+    }
     const { data: ganhosData } = useSWR<SiteGanhoData>(
         siteId && `/api/ganho?siteId=${siteId}`,
         fetcher,
@@ -266,5 +278,6 @@ const Financeiro = () => {
         </>
     );
 };
+
 
 export default Financeiro

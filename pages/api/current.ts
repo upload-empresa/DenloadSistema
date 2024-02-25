@@ -12,6 +12,8 @@ export default async function handler(
 
     const { currentUser } = await serverAuth(req, res);
 
+    console.log(currentUser?.isAdmin)
+
     return res.status(200).json(currentUser);
   } catch (error) {
     console.log(error);

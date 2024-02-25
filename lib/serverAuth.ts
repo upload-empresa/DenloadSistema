@@ -8,20 +8,20 @@ const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);
 
   if (!session?.user?.email) {
-    throw new Error('Not signed in');
+    throw new Error('Not signed in 1');
   }
 
-  const currentUser = await prisma.user.findUnique({
-    where: {
-      email: session.user.email,
-    },
-  });
+  try {
+    const currentUser = await prisma.user.findFirst({
+      where: {
+        email: session.user.email,
+      },
+    });
 
-  if (!currentUser) {
+    return { currentUser };
+  } catch (error) {
     throw new Error('Not signed in');
   }
-
-  return { currentUser };
 };
 
 export default serverAuth;
