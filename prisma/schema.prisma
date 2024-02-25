@@ -15,7 +15,7 @@ model User {
   endereco      String?
   password      String?
   token         String?   @unique
-  isAdmin       Boolean?
+  isAdmin       Boolean
   username      String?
   gh_username   String?
   email         String?   @unique

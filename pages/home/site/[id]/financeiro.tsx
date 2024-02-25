@@ -21,6 +21,7 @@ import { subMonths } from "date-fns";
 import { Line, Pie } from "react-chartjs-2"
 
 import useCurrentUser from "hooks/useCurrentUser";
+import { useToast } from '@chakra-ui/react'
 
 interface SiteGanhoData {
     ganhos: Array<Ganho>;
@@ -38,9 +39,18 @@ const Financeiro = () => {
 
     const router = useRouter();
     const { id: siteId } = router.query;
+    const toast = useToast()
 
-    if (currentUser?.name === 'helena') {
-        router.push('/login')
+
+    console.log(currentUser?.isAdmin);
+    if (currentUser?.isAdmin === false) {
+        // toast({
+        //     title: `Acesso bloqueado`,
+        //     status: 'error',
+        //     isClosable: true,
+        // })
+        router.push('/');
+
     }
 
     const { data: ganhosData } = useSWR<SiteGanhoData>(
