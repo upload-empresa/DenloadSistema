@@ -4,7 +4,7 @@ import { CardMain } from "../../../../components/Cards"
 import { Main } from "../../../../components/Main"
 
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 import { fetcher } from "@/lib/fetcher";
@@ -34,28 +34,35 @@ interface SiteGanhoData {
 const Financeiro = () => {
     const [creatingGanho, setCreatingGanho] = useState(false);
     const [selectedPeriod, setSelectedPeriod] = useState("3 meses");
-    const { data: currentUser } = useCurrentUser();
 
     const router = useRouter();
     const { id: siteId } = router.query;
+    const { data: currentSite } = useCurrentUser(siteId);
     const toast = useToast()
 
+    const showNotification = () => {
+        toast({
+            title: 'Acesso negado!',
+            description: 'Você precisa ser um administrador para acessar essa página.',
+            status: 'error',
+            duration: 1000,
+            isClosable: true,
+        });
+    };
 
-    console.log(currentUser?.isAdmin);
-    if (currentUser?.isAdmin === false) {
-        // toast({
-        //     title: `Acesso bloqueado`,
-        //     status: 'error',
-        //     isClosable: true,
-        // })
-        router.push('/');
 
-    }
     const { data: ganhosData } = useSWR<SiteGanhoData>(
         siteId && `/api/ganho?siteId=${siteId}`,
         fetcher,
 
     );
+
+    useEffect(() => {
+        // if (currentSite?.isAdmin === false) {
+        showNotification();
+        // router.push('/');
+        // }
+    }, [ganhosData])
 
     const { data: despesasData } = useSWR<SiteGanhoData>(
         siteId && `/api/despesa?siteId=${siteId}`,

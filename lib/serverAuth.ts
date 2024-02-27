@@ -4,7 +4,11 @@ import { getServerSession } from 'next-auth';
 import prisma from '@/lib/prisma';
 import { authOptions } from '../pages/api/auth/[...nextauth]';
 
-const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
+const serverAuth = async (
+  req: NextApiRequest,
+  res: NextApiResponse,
+  siteId: any
+) => {
   const session = await getServerSession(req, res, authOptions);
 
   if (!session?.user?.email) {
@@ -12,13 +16,13 @@ const serverAuth = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const currentUser = await prisma.user.findFirst({
+    const currentSite = await prisma.site.findUnique({
       where: {
-        email: session.user.email,
+        id: siteId,
       },
     });
 
-    return { currentUser };
+    return { currentSite };
   } catch (error) {
     throw new Error('Not signed in');
   }
