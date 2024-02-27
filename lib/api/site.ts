@@ -63,7 +63,7 @@ export async function getSite(
 
       return res.status(200).json(settings);
     }
-console.log(userId)
+// console.log(userId)
     const sites = await prisma.site.findMany({
       where: {
         user: {

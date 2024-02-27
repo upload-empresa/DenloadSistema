@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 function useRequireAuth() {
   const { data: session } = useSession();
 
+  
   const router = useRouter();
 
   useEffect(() => {

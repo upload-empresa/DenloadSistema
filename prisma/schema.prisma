@@ -15,7 +15,6 @@ model User {
   endereco      String?
   password      String?
   token         String?   @unique
-  isAdmin       Boolean
   username      String?
   gh_username   String?
   email         String?   @unique
@@ -272,6 +271,7 @@ model Site {
   cidade         String?
   email          String?
   celular        String?
+  isAdmin       Boolean
   description    String?        @db.Text
   logo           String?
   font           String         @default("font-cal")

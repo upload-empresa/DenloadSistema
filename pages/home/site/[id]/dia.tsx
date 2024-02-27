@@ -46,10 +46,14 @@ interface DiaProps {
 }
 //@ts-ignore
 export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, children, }: SiteAgendaData) {
-
+    
+    const router = useRouter();
+    const { id: pacienteId } = router.query;
+    const { id: siteId } = router.query;
+    const { id: agendaId } = router.query;
 
     const [currentPage, setCurrentPage] = useState<number>(0);
-    const { data: currentUser } = useCurrentUser();
+    const { data: currentSite } = useCurrentUser(siteId);
     const toast = useToast()
 
 
@@ -63,28 +67,23 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
 
     const items = data?.pacientes?.slice(offset, offset + PER_PAGE);
 
-
-    const router = useRouter();
-    const { id: pacienteId } = router.query;
-    const { id: siteId } = router.query;
-    const { id: agendaId } = router.query;
-
-    console.log(currentUser?.isAdmin);
-    if (currentUser?.isAdmin === false) {
-        // {
-        //     toast({
-        //             title: `Acesso bloqueado`,
-        //             status: 'error',
-        //             icon: <UnlockIcon/>,
-        //             isClosable: true,
+    const showNotification = () => {
+        toast({
+          title: 'Acesso negado!',
+          description: 'Você precisa ser um administrador para acessar essa página.',
+          status: 'error',
+          duration: 1000,
+          isClosable: true,
+        });
+      };
     
-        //         })
-
-        // }
-        router.push('/')
-
-    }
-
+    useEffect(() => {
+        if (currentSite?.isAdmin === false) {
+            showNotification();
+            router.push('/');
+        }
+    })
+    
 
     const { data: agendasData } = useSWR<SiteAgendaData>(
         pacienteId && `/api/agenda?siteId=${siteId}`,

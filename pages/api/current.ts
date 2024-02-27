@@ -10,11 +10,11 @@ export default async function handler(
       return res.status(405).end();
     }
 
-    const { currentUser } = await serverAuth(req, res);
+    const { siteId } = req.query;
 
-    console.log(currentUser?.isAdmin)
+    const { currentSite } = await serverAuth(req, res, siteId);
 
-    return res.status(200).json(currentUser);
+    return res.status(200).json(currentSite);
   } catch (error) {
     console.log(error);
     return res.status(500).end();
