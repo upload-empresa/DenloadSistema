@@ -7,7 +7,6 @@ import { authOptions } from '../pages/api/auth/[...nextauth]';
 const serverAuth = async (req: NextApiRequest, res: NextApiResponse, siteId: any) => {
   const session = await getServerSession(req, res, authOptions);
 
-
   if (!session?.user?.email) {
     throw new Error('Not signed in 2');
   }
@@ -21,14 +20,10 @@ const serverAuth = async (req: NextApiRequest, res: NextApiResponse, siteId: any
       },
     });
 
-    console.log(currentSite);
-
-  return { currentSite };
-
+    return { currentSite };
   } catch (error) {
     throw new Error('Not signed in');
   }
-
 };
 
 export default serverAuth;

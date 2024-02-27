@@ -1,4 +1,4 @@
-import { HStack } from "@chakra-ui/react"
+import { HStack, useToast } from "@chakra-ui/react"
 
 import { CardMain } from "../../../../components/Cards"
 import { Main } from "../../../../components/Main"
@@ -19,9 +19,8 @@ import { TitleCards, TitleDashboardGrafic } from "@/components/Title"
 import React from "react";
 import { subMonths } from "date-fns";
 import { Line, Pie } from "react-chartjs-2"
-
 import useCurrentUser from "hooks/useCurrentUser";
-import { useToast } from '@chakra-ui/react'
+
 
 interface SiteGanhoData {
     ganhos: Array<Ganho>;
@@ -65,7 +64,6 @@ const Financeiro = () => {
         }
     }, [siteId]);
     
-
 
 
     const { data: ganhosData } = useSWR<SiteGanhoData>(
@@ -295,5 +293,6 @@ const Financeiro = () => {
         </>
     );
 };
+
 
 export default Financeiro
