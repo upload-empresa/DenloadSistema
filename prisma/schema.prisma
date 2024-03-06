@@ -21,6 +21,7 @@ model User {
   emailVerified DateTime?
   image         String?
   userHasPaid   Boolean?
+  passwordFinance String? 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
@@ -273,6 +274,7 @@ model Site {
   celular        String?
   description    String?        @db.Text
   logo           String?
+  isAdmin        Boolean?
   font           String         @default("font-cal")
   image          String?        @db.Text
   imageBlurhash  String?        @db.Text

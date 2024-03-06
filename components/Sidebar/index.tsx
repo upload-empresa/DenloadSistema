@@ -120,6 +120,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         const fetchSiteId = async () => {
             try {
                 const extractedSiteId = id;
+                console.log(extractedSiteId);
                 if (typeof extractedSiteId === 'string' || typeof extractedSiteId === 'number') {
                     setSiteId(extractedSiteId);
                     localStorage.setItem('siteId', extractedSiteId);
@@ -148,9 +149,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         }
     }, [id]);
 
-    console.log(session?.user.email)
-    console.log(siteId)
-    console.log(session)
+    // console.log(session?.user.email)
+    // console.log(id);
+    // console.log(session)
 
 
 
@@ -159,10 +160,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         { name: 'Agenda', icon: MdEvent, href: "https://calendar.google.com/" },
         { name: 'Pacientes', icon: MdGroup, href: `/site/${siteId}/` },
         { name: 'Estoque', icon: MdAssignment, href: `/site/${siteId}/estoques` },
-        { name: 'Financeiro', icon: MdAccountBalanceWallet, href: `/site/${siteId}/financeiro` },
+        { name: 'Financeiro', icon: MdAccountBalanceWallet, href: `/site/1/login-Finance` },
         { name: 'Dia', icon: MdEditCalendar, href: `/site/${siteId}/dia` },
         { name: 'Feedback', icon: MdQuestionAnswer, href: `/site/${siteId}/feedback` },
     ]
+
+    // console.log(LinkItems);
     return (
         <Box
             transition="3s ease"

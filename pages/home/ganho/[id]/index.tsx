@@ -32,7 +32,6 @@ export default function AddFinanceiroGanho() {
     const session = useRequireAuth()
     const sessionEmail = session?.user.email;
 
-    console.log(session)
     const [siteId, setSiteId] = useState(null);
 
     const fetchSiteId = async () => {

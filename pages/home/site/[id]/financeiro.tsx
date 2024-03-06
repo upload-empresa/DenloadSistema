@@ -40,29 +40,11 @@ const Financeiro = () => {
     const { data: currentSite } = useCurrentUser(siteId);
     const toast = useToast()
 
-    const showNotification = () => {
-        toast({
-            title: 'Acesso negado!',
-            description: 'Você precisa ser um administrador para acessar essa página.',
-            status: 'error',
-            duration: 1000,
-            isClosable: true,
-        });
-    };
-
-
     const { data: ganhosData } = useSWR<SiteGanhoData>(
         siteId && `/api/ganho?siteId=${siteId}`,
         fetcher,
 
     );
-
-    useEffect(() => {
-        // if (currentSite?.isAdmin === false) {
-        showNotification();
-        // router.push('/');
-        // }
-    }, [ganhosData])
 
     const { data: despesasData } = useSWR<SiteGanhoData>(
         siteId && `/api/despesa?siteId=${siteId}`,
