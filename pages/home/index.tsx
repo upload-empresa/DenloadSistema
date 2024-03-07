@@ -21,8 +21,12 @@ export default function AppIndex() {
   const siteNameRef = useRef<HTMLInputElement | null>(null);
   const siteDescriptionRef = useRef<HTMLTextAreaElement | null>(null);
 
+  const [siteId, setSiteId] = useState(null);
 
-
+  useEffect(() => {
+    // Apaga o cookie "siteId" a cada renderização
+    localStorage.removeItem("siteId");
+  }, []);
 
   const router = useRouter();
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HStack, Stack, Text } from "@chakra-ui/react";
 import { ButtonLogin } from "@/components/Buttons";
 import { FormLogin } from "@/components/Forms";
@@ -10,7 +10,42 @@ export default function Password({ token }) {
     const [message, setMessage] = useState(null);
 
     const router = useRouter();
-    const { siteId } = router.query;
+    
+    const [siteId, setSiteId] = useState<string | null>(null);
+    const { id } = router.query;
+
+    useEffect(() => {
+        const fetchSiteId = async () => {
+            try {
+                const extractedSiteId = id;
+                console.log(extractedSiteId);
+                if (typeof extractedSiteId === 'string' || typeof extractedSiteId === 'number') {
+                    setSiteId(extractedSiteId);
+                    localStorage.setItem('siteId', extractedSiteId);
+                } else {
+                    console.error('Invalid siteId:', extractedSiteId);
+                }
+            } catch (error) {
+                console.error('Error fetching site ID:', error);
+            }
+        };
+
+        if (siteId === null) {
+            const storedSiteId = localStorage.getItem('siteId');
+            if (storedSiteId !== null) {
+                setSiteId(storedSiteId);
+            } else {
+                fetchSiteId();
+            }
+        }
+    }, [id]);
+
+    useEffect(() => {
+        if (siteId !== null) {
+            //@ts-ignore
+            localStorage.setItem('siteId', id);
+        }
+    }, [id]);
 
     //SITEID ESTÁ VINDO COMO UNDEFINED
 
@@ -39,8 +74,8 @@ export default function Password({ token }) {
             //@ts-ignore
             setMessage('Acesso liberado!');
 
-            router.push(`/site/1/financeiro` ) //AQUI ESTÁ O UNDEFINED -> Aqui está o problema, eu preciso arrumar o siteId correto.
-            console.log("Passamo po")
+            console.log(siteId)
+            router.push(`/site/${siteId}/financeiro` ) //AQUI ESTÁ O UNDEFINED -> Aqui está o problema, eu preciso arrumar o siteId correto.
         } catch (error) {
             //@ts-ignore
             setError(error.message);

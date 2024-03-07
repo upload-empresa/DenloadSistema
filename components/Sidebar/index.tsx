@@ -150,8 +150,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     }, [id]);
 
     // console.log(session?.user.email)
-    // console.log(id);
-    // console.log(session)
+    console.log(siteId)
 
 
 
@@ -160,8 +159,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         { name: 'Agenda', icon: MdEvent, href: "https://calendar.google.com/" },
         { name: 'Pacientes', icon: MdGroup, href: `/site/${siteId}/` },
         { name: 'Estoque', icon: MdAssignment, href: `/site/${siteId}/estoques` },
-        { name: 'Financeiro', icon: MdAccountBalanceWallet, href: `/site/1/login-Finance` },
-        { name: 'Dia', icon: MdEditCalendar, href: `/site/${siteId}/dia` },
+        { name: 'Financeiro', icon: MdAccountBalanceWallet, href: `/site/${siteId}/login-Finance` },
+        { name: 'Dia', icon: MdEditCalendar, href: `/site/${siteId}/login-Finance` },
         { name: 'Feedback', icon: MdQuestionAnswer, href: `/site/${siteId}/feedback` },
     ]
 

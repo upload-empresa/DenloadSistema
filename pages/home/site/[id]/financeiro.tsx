@@ -40,6 +40,7 @@ const Financeiro = () => {
     const { data: currentSite } = useCurrentUser(siteId);
     const toast = useToast()
 
+    console.log(siteId);
     const { data: ganhosData } = useSWR<SiteGanhoData>(
         siteId && `/api/ganho?siteId=${siteId}`,
         fetcher,
