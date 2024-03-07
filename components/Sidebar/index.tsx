@@ -160,7 +160,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         { name: 'Pacientes', icon: MdGroup, href: `/site/${siteId}/` },
         { name: 'Estoque', icon: MdAssignment, href: `/site/${siteId}/estoques` },
         { name: 'Financeiro', icon: MdAccountBalanceWallet, href: `/site/${siteId}/login-Finance` },
-        { name: 'Dia', icon: MdEditCalendar, href: `/site/${siteId}/login-Finance` },
+        { name: 'Dia', icon: MdEditCalendar, href: `/site/${siteId}/dia` },
         { name: 'Feedback', icon: MdQuestionAnswer, href: `/site/${siteId}/feedback` },
     ]
 

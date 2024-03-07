@@ -32,34 +32,41 @@ export default function AddFinanceiroGanho() {
     const session = useRequireAuth()
     const sessionEmail = session?.user.email;
 
-    const [siteId, setSiteId] = useState(null);
-
-    const fetchSiteId = async () => {
-        try {
-            const response = await fetch(`/api/getSiteFromUserId?sessionEmail=${sessionEmail}`);
-            const data = await response.json();
-
-            // Assuming that data contains a property like 'siteId'
-            const extractedSiteId = data.siteId;
-
-            if (typeof extractedSiteId === 'string' || typeof extractedSiteId === 'number') {
-                //@ts-ignore
-                setSiteId(extractedSiteId);
-            } else {
-                console.error('Invalid siteId:', extractedSiteId);
-            }
-        } catch (error) {
-            console.error('Error fetching site ID:', error);
-        }
-    };
+    const [siteId, setSiteId] = useState<string | null>(null);
+    const { id } = router.query;
 
     useEffect(() => {
-        const fetchData = async () => {
-            await fetchSiteId();
+        const fetchSiteId = async () => {
+            try {
+                const extractedSiteId = id;
+                console.log(extractedSiteId);
+                if (typeof extractedSiteId === 'string' || typeof extractedSiteId === 'number') {
+                    setSiteId(extractedSiteId);
+                    localStorage.setItem('siteId', extractedSiteId);
+                } else {
+                    console.error('Invalid siteId:', extractedSiteId);
+                }
+            } catch (error) {
+                console.error('Error fetching site ID:', error);
+            }
         };
 
-        fetchData();
-    }, [session]);
+        if (siteId === null) {
+            const storedSiteId = localStorage.getItem('siteId');
+            if (storedSiteId !== null) {
+                setSiteId(storedSiteId);
+            } else {
+                fetchSiteId();
+            }
+        }
+    }, [id]);
+
+    useEffect(() => {
+        if (siteId !== null) {
+            //@ts-ignore
+            localStorage.setItem('siteId', id);
+        }
+    }, [id]);
 
     const { id: ganhoId } = router.query;
 
