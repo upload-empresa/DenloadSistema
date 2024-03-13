@@ -7,3 +7,4 @@ export async function hashPassword(password: string) {
 export async function verifyPassword(password: any, hashedPassword: any) {
   return await compare(password, hashedPassword);
 }
+

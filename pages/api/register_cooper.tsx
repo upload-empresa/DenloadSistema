@@ -8,6 +8,7 @@ export default async function handler(req, res) {
 
     const { email, password, name, celular } = req.body
 
+    
     try {
         const user = await prisma.user.create({
             data: {
@@ -18,7 +19,8 @@ export default async function handler(req, res) {
                 gh_username: 'cooper'
             },
         })
-
+        
+        console.log(user);
         res.status(201).json(user)
     } catch (error) {
         console.error(error)

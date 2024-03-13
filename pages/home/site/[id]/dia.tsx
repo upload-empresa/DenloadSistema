@@ -49,7 +49,7 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
 
 
     const [currentPage, setCurrentPage] = useState<number>(0);
-    const { data: currentUser } = useCurrentUser();
+    // const { data: currentUser } = useCurrentUser();
     const toast = useToast()
 
 
@@ -68,22 +68,6 @@ export default function Dia({ data }: DiaProps, { agendas, agenda, pacientes, ch
     const { id: pacienteId } = router.query;
     const { id: siteId } = router.query;
     const { id: agendaId } = router.query;
-
-    console.log(currentUser?.isAdmin);
-    if (currentUser?.isAdmin === false) {
-        // {
-        //     toast({
-        //             title: `Acesso bloqueado`,
-        //             status: 'error',
-        //             icon: <UnlockIcon/>,
-        //             isClosable: true,
-    
-        //         })
-
-        // }
-        router.push('/')
-
-    }
 
 
     const { data: agendasData } = useSWR<SiteAgendaData>(

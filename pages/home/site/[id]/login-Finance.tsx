@@ -47,10 +47,6 @@ export default function Password({ token }) {
         }
     }, [id]);
 
-    //SITEID ESTÁ VINDO COMO UNDEFINED
-
-    // console.log(token2)
-
     //@ts-ignore
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -75,10 +71,10 @@ export default function Password({ token }) {
             setMessage('Acesso liberado!');
 
             console.log(siteId)
-            router.push(`/site/${siteId}/financeiro` ) //AQUI ESTÁ O UNDEFINED -> Aqui está o problema, eu preciso arrumar o siteId correto.
+            router.push(`/site/${siteId}/financeiro` )
         } catch (error) {
             //@ts-ignore
-            setError(error.message);
+            setMessage('Senha incorreta!');
         }
     };
 
@@ -110,7 +106,7 @@ export default function Password({ token }) {
                         </Text>
                         <FormLogin
                             placeholder={"Senha"}
-                            type={password}
+                            type= "password"
                             onChange={(e: any) => setPassword(e.target.value)}
                         />
                     </Stack>
