@@ -72,6 +72,7 @@ interface LinkItemProps {
 interface NavItemProps extends FlexProps {
     icon: IconType
     href: any
+    onClick: any
     children: React.ReactNode
 }
 
@@ -148,10 +149,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             localStorage.setItem('siteId', id);
         }
     }, [id]);
+    
 
-    // console.log(session?.user.email)
-    console.log(siteId)
-
+    const handlerClick = (link:any) => {
+        localStorage.setItem('linkSidebar', link);
+    }
 
 
     const LinkItems: Array<LinkItemProps> = [
@@ -160,7 +162,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         { name: 'Pacientes', icon: MdGroup, href: `/site/${siteId}/` },
         { name: 'Estoque', icon: MdAssignment, href: `/site/${siteId}/estoques` },
         { name: 'Financeiro', icon: MdAccountBalanceWallet, href: `/site/${siteId}/login-Finance` },
-        { name: 'Dia', icon: MdEditCalendar, href: `/site/${siteId}/dia` },
+        { name: 'Dia', icon: MdEditCalendar, href: `/site/${siteId}/login-Finance` },
         { name: 'Feedback', icon: MdQuestionAnswer, href: `/site/${siteId}/feedback` },
     ]
 
@@ -180,7 +182,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {LinkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon} href={link.href}>
+                <NavItem key={link.name} icon={link.icon} href={link.href} onClick={() => handlerClick(link.name)}>
                     {link.name}
                 </NavItem>
             ))}
@@ -188,10 +190,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     )
 }
 
-const NavItem = ({ icon, href, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, onClick, href, children, ...rest }: NavItemProps) => {
     return (
         <Box
             as="a"
+            onClick={onClick}
             href={href}
             color="white"
             style={{ textDecoration: 'none' }}

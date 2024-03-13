@@ -3,8 +3,9 @@ import { HStack, Stack, Text } from "@chakra-ui/react";
 import { ButtonLogin } from "@/components/Buttons";
 import { FormLogin } from "@/components/Forms";
 import { useRouter } from 'next/router';
+import { NextRequest, NextResponse } from 'next/server';
 //@ts-ignore
-export default function Password({ token }) {
+export default function Password(req: NextRequest, res: NextResponse) {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
@@ -52,6 +53,9 @@ export default function Password({ token }) {
         event.preventDefault();
 
         try {
+
+            const linkSidebar = localStorage.getItem('linkSidebar')
+
             const response = await fetch('/api/finance-password', {
                 method: 'POST',
                 headers: {
@@ -60,8 +64,6 @@ export default function Password({ token }) {
                 body: JSON.stringify({ password }),
             });
 
-            console.log(response.ok); //true
-            console.log(siteId); //Undefined
 
             if (!response.ok) {
                 const error = await response.text();
@@ -70,8 +72,11 @@ export default function Password({ token }) {
             //@ts-ignore
             setMessage('Acesso liberado!');
 
-            console.log(siteId)
-            router.push(`/site/${siteId}/financeiro` )
+            if(linkSidebar === 'Financeiro') {
+                router.push(`/site/${siteId}/financeiro` )
+            } else {
+                router.push(`/site/${siteId}/dia`)
+            }
         } catch (error) {
             //@ts-ignore
             setMessage('Senha incorreta!');
