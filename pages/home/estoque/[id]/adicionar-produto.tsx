@@ -193,6 +193,7 @@ export default function AddEstoque(req: NextApiRequest,
 
 
 
+    //AQUI QUE EU VOU MEXER NO ESTOQUE
     async function publish() {
         setPublishing(true);
 
