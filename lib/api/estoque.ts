@@ -203,6 +203,7 @@ export async function createEstoque(
       .json({ error: 'Missing or misconfigured site ID or session ID' });
   }
 
+  
   const site = await prisma.site.findFirst({
     where: {
       id: siteId,
