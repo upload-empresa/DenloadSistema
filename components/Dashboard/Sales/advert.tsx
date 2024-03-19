@@ -57,7 +57,7 @@ const Advert = () => {
                 pos="relative"
                 overflowY="clip"
             >
-                <Icon as={GiCutDiamond} />
+                {/* <Icon as={GiCutDiamond} /> */}
                 <Flex direction="column" lineHeight="1" mt={1}>
                     <Text>Sales</Text>
                     <Text>Shine</Text>
