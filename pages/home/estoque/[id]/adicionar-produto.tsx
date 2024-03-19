@@ -24,6 +24,9 @@ interface EstoqueData {
     valor: string;
     unidade: string;
     dataDaCompra: string;
+    demandaDiaria: string;
+    tempRessuprimento: string;
+    estoqueDeSeg: string;
 }
 
 
@@ -67,6 +70,9 @@ export default function AddEstoque(req: NextApiRequest,
         valorTotal: "",
         valor: "",
         unidade: "",
+        demandaDiaria: "",
+        tempRessuprimento: "",
+        estoqueDeSeg: "",
 
     });
 
@@ -82,6 +88,9 @@ export default function AddEstoque(req: NextApiRequest,
                 valorTotal: estoque.valorTotal ?? "",
                 valor: estoque.valor ?? "",
                 unidade: estoque.unidade ?? "",
+                demandaDiaria: estoque.
+                tempRessuprimento: "",
+                estoqueDeSeg: "",
             });
     }, [estoque]);
 
@@ -252,7 +261,7 @@ export default function AddEstoque(req: NextApiRequest,
     return (
         <>
 
-            <EstoqueAttributes title={"Adicionar Produto"} text={"Adicione os dados desse produto"} name1="name" name2="unidade" name3="validade" name4="dataDaCompra" name6="valor"
+            <EstoqueAttributes title={"Adicionar Produto"} text={"Adicione os dados desse produto"} name1="name" name2="unidade" name3="validade" name4="dataDaCompra" name5="demandaDiaria" name6="tempRessuprimento" name7="estoqueDeSeg" name8="valor"
                 onChange1={(e: ChangeEvent<HTMLTextAreaElement>) => setData({
                     ...data,
                     name: (e.target as HTMLTextAreaElement).value,
@@ -269,13 +278,25 @@ export default function AddEstoque(req: NextApiRequest,
                     ...data,
                     dataDaCompra: (e.target as HTMLTextAreaElement).value,
                 })}
+                onChange5={(e: ChangeEvent<HTMLTextAreaElement>) => setData({
+                    ...data,
+                    demandaDiaria: (e.target as HTMLTextAreaElement).value,
+                })}
                 onChange6={(e: ChangeEvent<HTMLTextAreaElement>) => setData({
+                    ...data,
+                    tempRessuprimento: (e.target as HTMLTextAreaElement).value,
+                })}
+                onChange7={(e: ChangeEvent<HTMLTextAreaElement>) => setData({
+                    ...data,
+                    estoqueDeSeg: (e.target as HTMLTextAreaElement).value,
+                })}
+                onChange8={(e: ChangeEvent<HTMLTextAreaElement>) => setData({
                     ...data,
                     valor: (e.target as HTMLTextAreaElement).value,
                 })}
 
 
-                value1={data.name} value2={data.unidade} value3={data.validade} value4={data.dataDaCompra} value6={data.valor} onClick={async () => {
+                value1={data.name} value2={data.unidade} value3={data.validade} value4={data.dataDaCompra} value5={data.demandaDiaria} value6={data.tempRessuprimento} value7={data.estoqueDeSeg} value8={data.valor} onClick={async () => {
                     await publish();
                 }} /></>
     )

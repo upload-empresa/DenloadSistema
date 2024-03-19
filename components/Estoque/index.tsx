@@ -16,6 +16,7 @@ interface EstoqueAttributesProps {
     name5?: any
     name6?: any
     name7?: any
+    name8?: any
     onChange1?: any
     onChange2?: any
     onChange3?: any
@@ -23,6 +24,7 @@ interface EstoqueAttributesProps {
     onChange5?: any
     onChange6?: any
     onChange7?: any
+    onChange8?: any
     value1?: any
     value2?: any
     value3?: any
@@ -30,10 +32,11 @@ interface EstoqueAttributesProps {
     value5?: any
     value6?: any
     value7?: any
+    value8?: any
     onClick?: any
 }
 
-export function EstoqueAttributes({ title, text, name1, name2, name3, name4, name5, name6, name7, onChange1, onChange2, onChange3, onChange5, onChange4, onChange6, onChange7, value1, value2, value3, value4, value5, value6, value7, onClick }: EstoqueAttributesProps) {
+export function EstoqueAttributes({ title, text, name1, name2, name3, name4, name5, name6, name7, name8, onChange1, onChange2, onChange3, onChange5, onChange4, onChange6, onChange7, onChange8, value1, value2, value3, value4, value5, value6, value7, value8, onClick }: EstoqueAttributesProps) {
     return (
         <Main title={"Estoque"} w={"25%"} path={"/perfil.png"} altText={"Ícone do Denload"} tamh={51} tamw={56}>
             <CardMain radius={"18px"} spacing={5}>
@@ -49,8 +52,14 @@ export function EstoqueAttributes({ title, text, name1, name2, name3, name4, nam
                     <Forms label={"Data da Compra"} type={"date"} placeholder={"Digite a data da compra"} name={name4} onChange={onChange4} value={value4} mb={{ md: "0", xxs: "10%" }} />
                 </HStack>
                 <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
-                    <FormsValue label={"Valor do Produto"} type={"number"} placeholder={"Digite o valor do produto"} name={name6} onChange={onChange6} value={value6} mb={{ md: "0", xxs: "10%" }} />
+                    <Forms label={"Demanda diária"} type={"text"} placeholder={"Digite a demanda diária do produto"} name={name5} onChange={onChange5} value={value5} mb={{ md: "0", xxs: "10%" }} />
 
+                    <Forms label={"Tempo de ressuprimento"} type={"text"} placeholder={"Digite o tempo de ressuprimento do produto"} name={name6} onChange={onChange6} value={value6} mb={{ md: "0", xxs: "10%" }} />
+                </HStack>
+                <HStack spacing={{ md: 6, xxs: 0 }} flexDir={{ md: "row", xxs: "column" }}>
+                    <Forms label={"Estoque de segurança"} type={"text"} placeholder={"Digite o estoque de segurança"} name={name7} onChange={onChange7} value={value7} mb={{ md: "0", xxs: "10%" }} />
+                    
+                    <FormsValue label={"Valor do Produto"} type={"number"} placeholder={"Digite o valor do produto"} name={name8} onChange={onChange8} value={value8} mb={{ md: "0", xxs: "10%" }} />
                 </HStack>
                 <ButtonSave align="end" onClick={onClick} />
             </CardMain>

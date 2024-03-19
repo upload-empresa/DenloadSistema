@@ -9,24 +9,24 @@ generator client {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  celular       String?
-  endereco      String?
-  password      String?
-  token         String?   @unique
-  username      String?
-  gh_username   String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  userHasPaid   Boolean?
-  passwordFinance String? 
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  accounts      Account[]
-  sessions      Session[]
-  sites         Site[]
+  id              String    @id @default(cuid())
+  name            String?
+  celular         String?
+  endereco        String?
+  password        String?
+  token           String?   @unique
+  username        String?
+  gh_username     String?
+  email           String?   @unique
+  emailVerified   DateTime?
+  image           String?
+  userHasPaid     Boolean?
+  passwordFinance String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  accounts        Account[]
+  sessions        Session[]
+  sites           Site[]
 }
 
 model Account {
@@ -89,23 +89,26 @@ model Post {
 }
 
 model Estoque {
-  id            String   @id @default(cuid())
-  name          String?  @db.Text
-  slug          String?  @default(cuid())
-  validade      String?  @db.Text
-  minimo        String?  @db.Text
-  unidade       String?  @db.Text
-  vencimento    String?  @db.Text
-  dataDaCompra  String?  @db.Text
-  valor         String?  @db.Text
-  valorTotal    String?  @db.Text
-  image         String?  @db.Text
-  imageBlurhash String?  @db.Text
-  pago          Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  site          Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  siteId        String?
+  id                String   @id @default(cuid())
+  name              String?  @db.Text
+  slug              String?  @default(cuid())
+  validade          String?  @db.Text
+  minimo            String?  @db.Text
+  unidade           String?  @db.Text
+  vencimento        String?  @db.Text
+  dataDaCompra      String?  @db.Text
+  demandaDiaria     String?  @db.Text
+  tempRessuprimento String?  @db.Text
+  estoqueDeSeg      String?  @db.Text
+  valor             String?  @db.Text
+  valorTotal        String?  @db.Text
+  image             String?  @db.Text
+  imageBlurhash     String?  @db.Text
+  pago              Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  site              Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  siteId            String?
 
   @@unique([id, siteId], name: "estoque_site_constraint")
   @@index([siteId])
