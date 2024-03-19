@@ -39,7 +39,7 @@ const Advert = () => {
                     fontWeight="semibold"
                     w="120px"
                     fontSize="sm"
-                    leftIcon={<Icon as={AiOutlineCloudDownload} color="red" />}
+                    leftIcon={<><Icon as={AiOutlineCloudDownload} color="red" /></>}
                 >
                     Download
                 </Button>
