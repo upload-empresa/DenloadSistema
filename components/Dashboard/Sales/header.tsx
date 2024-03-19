@@ -16,11 +16,11 @@ const Header = () => {
                 <Stack direction="row">
                     <Stack direction="row" alignItems="center">
                         <Text>This week</Text>
-                        <Icon as={IoIosArrowDown} />
+                        {/* <Icon as={IoIosArrowDown} /> */}
                     </Stack>
                     <Stack direction="row" alignItems="center">
                         <Text>Change view</Text>
-                        <Icon as={RiDashboardLine} fontSize="2xl" />
+                        {/* <Icon as={RiDashboardLine} fontSize="2xl" /> */}
                     </Stack>
                 </Stack>
             </PageHeader.Actions>

@@ -8,19 +8,19 @@ const Item = (props: any) => {
     const { item } = props;
     return (
         <Stack direction="row" alignItems="center" spacing={4}>
-            <Icon as={item.icon} color="brand.400" />
+            {/* <Icon as={item.icon} color="brand.400" /> */}
             <Flex direction="column">
                 <Text textStyle="default">{item.title}</Text>
                 <Text fontSize="xs">{item.description}</Text>
             </Flex>
             <Spacer />
-            <IconButton
+            {/* <IconButton
                 aria-label={item.title}
                 variant="ghost"
                 size="sm"
                 fontSize="lg"
                 icon={<Icon as={RiArrowDropRightLine} />}
-            />
+            /> */}
         </Stack>
     );
 };

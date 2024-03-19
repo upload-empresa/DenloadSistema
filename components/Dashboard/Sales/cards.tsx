@@ -59,16 +59,16 @@ const Cards = () => {
     } = useCarousel({
         slides: cards,
     });
-    const arrowStyles: IconButtonProps | any = {
-        pos: "absolute",
-        zIndex: 10,
-        size: "xs",
-        fontSize: "lg",
-        isRound: true,
-        _focus: {
-            shadow: "none",
-        },
-    };
+    // const arrowStyles: IconButtonProps | any = {
+    //     pos: "absolute",
+    //     zIndex: 10,
+    //     size: "xs",
+    //     fontSize: "lg",
+    //     isRound: true,
+    //     _focus: {
+    //         shadow: "none",
+    //     },
+    // };
     return (
         <>
             <CardsHeader />
@@ -78,7 +78,7 @@ const Cards = () => {
                         <Card key={`card-${cid}`} data={card} />
                     ))}
                 </Flex>
-                <IconButton
+                {/* <IconButton
                     aria-label="Previous Card"
                     icon={<IoMdArrowDropleft />}
                     left={-2}
@@ -93,7 +93,7 @@ const Cards = () => {
                     onClick={nextSlide}
                     {...arrowStyles}
                     display={isLastSlide ? "none" : "flex"}
-                />
+                /> */}
             </Flex>
         </>
     );
@@ -104,7 +104,7 @@ export default Cards;
 const CardsHeader = (props: FlexProps) => {
     return (
         <Flex w="full" alignItems="center" {...props}>
-            <IconButton
+            {/* <IconButton
                 aria-label="Add Card"
                 icon={<FiPlus />}
                 isRound
@@ -115,17 +115,17 @@ const CardsHeader = (props: FlexProps) => {
                 colorScheme="brand"
                 fontSize="lg"
                 mr="auto"
-            />
+            /> */}
             <Text textStyle="default" fontWeight="semibold">
                 Your Cards
             </Text>
-            <IconButton
+            {/* <IconButton
                 aria-label="Card Options"
                 icon={<CgOptions />}
                 variant="ghost"
                 fontSize="lg"
                 ml="auto"
-            />
+            /> */}
         </Flex>
     );
 };
