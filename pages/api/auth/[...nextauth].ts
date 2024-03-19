@@ -130,6 +130,7 @@ export const authOptions: NextAuthOptions = {
 export default NextAuth(authOptions);
 
 const linkAccount = async (user: User, account: Account) => {
+  //@ts-ignore
   return await adapter.linkAccount({
     providerAccountId: account.providerAccountId,
     userId: user.id,
