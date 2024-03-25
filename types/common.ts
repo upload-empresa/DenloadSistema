@@ -45,6 +45,9 @@ export interface WithSiteGanho extends Ganho {
   site: Site | null;
 }
 export interface WithSiteEstoque extends Estoque {
+  estoqueDeSeg: string;
+  demandaDiaria: string;
+  tempRessuprimento: string;
   updatedAt: string | number | Date;
   name: string;
   dataDaCompra: string;

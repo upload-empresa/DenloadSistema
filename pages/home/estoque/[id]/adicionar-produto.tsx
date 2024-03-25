@@ -21,12 +21,12 @@ interface EstoqueData {
     pago: boolean;
     minimo: string;
     valorTotal: string;
-    valor: string;
     unidade: string;
     dataDaCompra: string;
     demandaDiaria: string;
     tempRessuprimento: string;
     estoqueDeSeg: string;
+    valor: string;
 }
 
 
@@ -63,16 +63,16 @@ export default function AddEstoque(req: NextApiRequest,
 
     const [data, setData] = useState<EstoqueData>({
         name: "",
-        validade: "",
-        pago: true,
         dataDaCompra: "",
+        pago: true,
+        validade: "",
         minimo: "",
         valorTotal: "",
-        valor: "",
         unidade: "",
         demandaDiaria: "",
         tempRessuprimento: "",
         estoqueDeSeg: "",
+        valor: "",
 
     });
 
@@ -81,16 +81,15 @@ export default function AddEstoque(req: NextApiRequest,
             setData({
                 name: estoque.name ?? "",
                 dataDaCompra: estoque.dataDaCompra ?? "",
-                //@ts-ignore
                 pago: estoque.pago ?? true,
                 validade: estoque.validade ?? "",
                 minimo: estoque.minimo ?? "",
                 valorTotal: estoque.valorTotal ?? "",
-                valor: estoque.valor ?? "",
                 unidade: estoque.unidade ?? "",
-                demandaDiaria: estoque.
-                tempRessuprimento: "",
-                estoqueDeSeg: "",
+                demandaDiaria: estoque.demandaDiaria ?? "",
+                tempRessuprimento: estoque.tempRessuprimento ?? "",
+                estoqueDeSeg: estoque.estoqueDeSeg ?? "",
+                valor: estoque.valor ?? "",
             });
     }, [estoque]);
 
@@ -112,6 +111,9 @@ export default function AddEstoque(req: NextApiRequest,
                         pago: pago,
                         validade: data.validade,
                         minimo: data.minimo,
+                        tempRessuprimento: data.tempRessuprimento,
+                        demandaDiaria: data.demandaDiaria,
+                        estoqueDeSeg: data.estoqueDeSeg,
                         valorTotal: data.valorTotal,
                         valor: data.valor,
                         unidade: data.unidade,
@@ -164,6 +166,17 @@ export default function AddEstoque(req: NextApiRequest,
         if (debouncedData.valorTotal) saveChanges(debouncedData);
     }, [debouncedData, saveChanges]);
 
+    useEffect(() => {
+        if (debouncedData.demandaDiaria) saveChanges(debouncedData);
+    }, [debouncedData, saveChanges]);
+
+    useEffect(() => {
+        if (debouncedData.tempRessuprimento) saveChanges(debouncedData);
+    }, [debouncedData, saveChanges]);
+
+    useEffect(() => {
+        if (debouncedData.estoqueDeSeg) saveChanges(debouncedData);
+    }, [debouncedData, saveChanges]);
 
     useEffect(() => {
         if (debouncedData.valor) saveChanges(debouncedData);
